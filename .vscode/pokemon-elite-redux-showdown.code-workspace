@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../pokemon-showdown-client-ER"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"typescript.tsdk": "node_modules/typescript/lib"
+	}
+}
