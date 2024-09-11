@@ -9,5 +9,25 @@
 	],
 	"settings": {
 		"typescript.tsdk": "node_modules/typescript/lib"
-	}
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [],
+		"compounds": [
+			{
+				"name": "[DEBUG] Elite Redux Showdown Server/Client",
+				"configurations": [
+					"[SERVER] Start Test Server",
+					"[BROWSER] Player 1 Session",
+					"[BROWSER] Player 2 Session"
+				],
+				"stopAll": true,
+				"presentation": {
+					"hidden": false,
+					"group": "",
+					"order": 1
+				}
+			}
+		]
+	},
 }

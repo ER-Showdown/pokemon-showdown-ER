@@ -5,27 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "node",
+            "name": "[SERVER] Start Test Server",
             "request": "launch",
-            "name": "Run Mocha Tests",
-            "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
-            "args": [
-                "--timeout",
-                "999999",
-                "--colors",
-                "-g",
-                // Make this string non-empty to run only tests whose names match it
-                ""
+            "runtimeArgs": [
+                "run-script",
+                "start"
             ],
-            "internalConsoleOptions": "openOnSessionStart"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Parse input log (paste in terminal)",
-            "program": "${workspaceRoot}/pokemon-showdown",
-            "args": ["simulate-battle", "-R"],
-            "console": "integratedTerminal"
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
         },
     ]
 }
