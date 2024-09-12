@@ -15,7 +15,7 @@
 		"configurations": [],
 		"compounds": [
 			{
-				"name": "[DEBUG][TWOPLAYER] Elite Redux Showdown Battle Testing",
+				"name": "[TWOPLAYER] Elite Redux Showdown Battle Testing",
 				"configurations": [
 					"[SERVER] Start Test Server",
 					"[BROWSER] Player 1 Session",
@@ -29,7 +29,7 @@
 				}
 			},
 			{
-				"name": "[DEBUG][SINGLEPLAYER] Elite Redux Showdown",
+				"name": "[SINGLEPLAYER] Elite Redux Showdown",
 				"configurations": [
 					"[SERVER] Start Test Server",
 					"[BROWSER] Player 1 Session",
