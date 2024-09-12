@@ -38,14 +38,17 @@ Pokémon Showdown is many things:
 
 Pokémon Showdown simulates singles, doubles and triples battles in all the games out so far (Generations 1 through 8).
 
-# Developing
+## Developing
 
 The Editor/IDE of choice for working with the elite redux showdown codebase is VSCode.
 We utilize launch configurations tailored to VSCode's environment to facilitate developing and testing the server and client architecture.
 Other editors will work, but you will need to configure running the client and server on your own.
 If working within VSCode on both the client and server, we recommend using the workspace configuration following these steps:
 
-1. Clone both the client and server architecture
+1. Clone both the client and server architecture. The repos should exist next to each other in a folder:
+    - parent_folder
+        - pokemon-showdown-client-ER
+        - pokemon-showdown-ER
 2. "Open Workspace from File" in VSCode, and point to the file in your server repo `pokemon-showdown-ER/.vscode/pokemon-elite-redux-showdown.code-workspace`
 3. Point to this file anytime you want to edit the repositories in the future.
 
