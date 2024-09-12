@@ -1,4 +1,4 @@
-Pokémon Showdown
+# Pokémon Showdown
 ========================================================================
 
 Navigation: [Website][1] | **Server repository** | [Client repository][2] | [Dex repository][3]
@@ -11,7 +11,7 @@ Navigation: [Website][1] | **Server repository** | [Client repository][2] | [Dex
 [![Dependency Status](https://img.shields.io/librariesio/github/smogon/pokemon-showdown)](https://libraries.io/github/smogon/pokemon-showdown)
 
 
-Introduction
+# Introduction
 ------------------------------------------------------------------------
 
 Pokémon Showdown is many things:
@@ -38,8 +38,43 @@ Pokémon Showdown is many things:
 
 Pokémon Showdown simulates singles, doubles and triples battles in all the games out so far (Generations 1 through 8).
 
+# Developing
 
-Documentation quick links
+The Editor/IDE of choice for working with the elite redux showdown codebase is VSCode.
+We utilize launch configurations tailored to VSCode's environment to facilitate developing and testing the server and client architecture.
+Other editors will work, but you will need to configure running the client and server on your own.
+If working within VSCode on both the client and server, we recommend using the workspace configuration following these steps:
+
+1. Clone both the client and server architecture
+2. "Open Workspace from File" in VSCode, and point to the file in your server repo `pokemon-showdown-ER/.vscode/pokemon-elite-redux-showdown.code-workspace`
+3. Point to this file anytime you want to edit the repositories in the future.
+
+# Testing
+
+Because elite redux uses it's own custom showdown server, it is not sufficient to run just the client alone and you will need the server as well.
+
+Doing this in VSCode is very easy with workspace configurations.
+There are two launch options to choose from that will handle both the server and client:
+
+-   `[TWOPLAYER] Elite Redux Showdown Battle Testing` This configuration will start the frontend and backend servers, and open two chrome tabs with separate usernames which is ideal for battle testing.
+-   `[SINGLEPLAYER] Elite Redux Showdown` This configuration will start the frontend and backend servers, and open one chrome tab with a predefined username. Ideal for testing non-battle related features.
+
+These configurations should also handle hot reloading when code changes, though you may need to refresh the browser.
+
+Outside of VSCode, you will need to handle starting and stopping the server/client yourself.
+This is still not too difficult, and can be easily automated with a script or different IDE configurations.
+
+For the backend, run `npm run start`. This will start the backend webserver that listens on `localhost:8000`.
+For the frontend, run `npm run serve`. This will start the frontend webserver that listens on `http://localhost:8080`.
+
+Now that both web servers are running, open your browser to `http://localhost:8080/testclient.html?~~localhost:8000`.
+This will load pokemon showdown and configure it to connect to your local backend server instance.
+If you would like to have it preload a username for you so you don't have to choose one everytime, you can add a query parameter to your url.
+For instance: `http://localhost:8080/testclient.html?~~localhost:8000&username=player11112222`.
+
+
+
+# Documentation quick links
 ------------------------------------------------------------------------
 
 * [PROTOCOL.md][4] - How the client and server communicate with each other.
@@ -55,7 +90,7 @@ Documentation quick links
   [8]: https://gist.github.com/Kaiepi/becc5d0ecd576f5e7733b57b4e3fa97e
 
 
-Community
+# Community
 ------------------------------------------------------------------------
 
 PS has a built-in chat service. Join our main server to talk to us!
@@ -69,7 +104,7 @@ If you'd like to contribute to programming and don't know where to start, feel f
   [10]: https://github.com/smogon/pokemon-showdown/issues/2444
 
 
-License
+# License
 ------------------------------------------------------------------------
 
 Pokémon Showdown's server is distributed under the terms of the [MIT License][11].
@@ -77,7 +112,7 @@ Pokémon Showdown's server is distributed under the terms of the [MIT License][1
   [11]: ./LICENSE
 
 
-Credits
+# Credits
 ------------------------------------------------------------------------
 
 Owner
