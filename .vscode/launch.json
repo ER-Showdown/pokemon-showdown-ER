@@ -15,7 +15,12 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "type": "node"
+            "type": "node",
+            "presentation": {
+                "hidden": false,
+                "group": "",
+                "order": 3
+            }
         },
     ]
 }
