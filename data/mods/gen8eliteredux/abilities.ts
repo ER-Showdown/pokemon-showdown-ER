@@ -1027,11 +1027,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			return null;
 		},
 		name: "Evaporate",
-		shortDesc: "Takes no damage and sets Mist if hit by water"
+		shortDesc: "Takes no damage and sets Mist if hit by water."
 	},
 	lumberjack: {
 		name: "Lumberjack",
-		shortDesc: "1.5x damage to Grass types",
+		shortDesc: "1.5x damage to Grass types.",
 		onModifyAtk(atk, attacker, defender, move) {
 			if (defender.types.find((type) => type.toLowerCase().includes("grass")) == null) return;
 			this.debug("lumberjack boost");
@@ -1045,5 +1045,22 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (!damage || !move.type.toLowerCase().includes("rock")) return;
 			this.boost({spe: 2}, target, target, this.dex.abilities.get("furnace"));
 		}
+	},
+	ragingmoth: {
+		name: "Raging Moth",
+		shortDesc: "Fire moves hit twice, both hits at 75% power.",
+		onPrepareHit(source, target, move) {
+			if (move.category === 'Status' || move.multihit || move.flags['noparentalbond'] || move.flags['charge'] ||
+			move.flags['futuremove'] || move.spreadHit || move.isZ || move.isMax) return;
+			move.multihit = 2;
+			move.multihitType = 'ragingmoth';
+		},
+		// Damage modifier implemented in BattleActions#modifyDamage()
+		onSourceModifySecondaries(secondaries, target, source, move) {
+			if (move.multihitType === 'dual' && move.id === 'secretpower' && move.hit < 2) {
+				// hack to prevent accidentally suppressing King's Rock/Razor Fang
+				return secondaries.filter(effect => effect.volatileStatus === 'flinch');
+			}
+		},
 	}
 };

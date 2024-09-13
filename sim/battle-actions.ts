@@ -1735,6 +1735,9 @@ export class BattleActions {
 		} else if (move.multihitType === 'dual') {
 			const bondModifier = 0.75
 			baseDamage = this.battle.modify(baseDamage, bondModifier);
+		} else if (move.multihitType == "ragingmoth") {
+			const bondModifier = 0.75;
+			baseDamage = this.battle.modify(baseDamage, bondModifier);
 		}
 
 
