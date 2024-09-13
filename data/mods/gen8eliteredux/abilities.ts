@@ -1018,4 +1018,10 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 	},
+	/**
+	 * NOTE: Brand new abilities cannot be defined here and function properly (specifically, naming has been shown to be inconsistent on screen).
+	 * To avoid this, all new abilities MUST be defined in the base data/abilities.ts instead of here.
+	 * Because of this shortcoming, and the fact that the repository is forked for elite redux specifically,
+	 * all ability changes going forward should be made in the data/abilities.ts to prevent any of these issues in the future.
+	 */
 };
