@@ -1024,5 +1024,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			if (!move.type.includes("water")) return;
 			this.add("-immune", target, "[from] ability: Evaporate");
 		},
+		name: "Evaporate",
+		shortDesc: "Takes no damage and sets Mist if hit by water"
 	}
 };
