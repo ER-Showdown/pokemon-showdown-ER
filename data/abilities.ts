@@ -8530,4 +8530,58 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 3,
 		num: -4,
 	},
+	evaporate: {
+		onTryHit(target, source, move) {
+			if (!move.type.toLowerCase().includes("water")) return;
+			this.add("-immune", target, "[from] ability: Evaporate");
+			this.add('-activate', target, 'move: Mist');
+			target.side.addSideCondition("mist")
+			return null;
+		},
+		name: "Evaporate",
+		shortDesc: "Takes no damage and sets Mist if hit by water."
+	},
+	lumberjack: {
+		name: "Lumberjack",
+		shortDesc: "1.5x damage to Grass types.",
+		onModifyAtk(atk, attacker, defender, move) {
+			if (defender.types.find((type) => type.toLowerCase().includes("grass")) == null) return;
+			this.debug("lumberjack boost");
+			return this.chainModify(1.5);
+		}
+	},
+	furnace: {
+		name: "Furnace",
+		shortDesc: "User gains +2 speed when hit by rocks",
+		onDamagingHit(damage, target, source, move) {
+			if (!damage || !move.type.toLowerCase().includes("rock")) return;
+			this.boost({spe: 2}, target, target, this.dex.abilities.get("furnace"));
+		}
+	},
+	ragingmoth: {
+		name: "Raging Moth",
+		shortDesc: "Fire moves hit twice, both hits at 75% power.",
+		onPrepareHit(source, target, move) {
+			if (move.category === 'Status' || move.multihit || move.flags['noparentalbond'] || move.flags['charge'] ||
+			move.flags['futuremove'] || move.spreadHit || move.isZ || move.isMax) return;
+			move.multihit = 2;
+			move.multihitType = 'ragingmoth';
+		},
+		// Damage modifier implemented in BattleActions#modifyDamage()
+		onSourceModifySecondaries(secondaries, target, source, move) {
+			if (move.multihitType === 'dual' && move.id === 'secretpower' && move.hit < 2) {
+				// hack to prevent accidentally suppressing King's Rock/Razor Fang
+				return secondaries.filter(effect => effect.volatileStatus === 'flinch');
+			}
+		},
+	},
+	adrenalinerush: {
+		name: "Adrenaline Rush",
+		shortDesc: "KOs raise speed by +1.",
+		onSourceAfterFaint(length, target, source, effect) {
+			if (effect && effect.effectType === 'Move') {
+				this.boost({spe: 1}, source, source, this.dex.abilities.get("adrenalinerush"));
+			}
+		},
+	}
 };
