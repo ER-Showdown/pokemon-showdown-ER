@@ -1028,5 +1028,14 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 		name: "Evaporate",
 		shortDesc: "Takes no damage and sets Mist if hit by water"
+	},
+	lumberjack: {
+		name: "Lumberjack",
+		shortDesc: "1.5x damage to Grass types",
+		onModifyAtk(atk, attacker, defender, move) {
+			if (defender.types.find((type) => type.toLowerCase().includes("grass")) == null) return;
+			this.debug("lumberjack boost");
+			return this.chainModify(1.5);
+		}
 	}
 };

@@ -147,7 +147,7 @@ export const Formats: FormatList = [
 		ruleset: ['Standard'],
 		banlist: 
 		['Uber', 'AG', 'King\'s Rock', 'Baton Pass', 'Shadow Tag', 'Arena Trap', 'Aeroblast', 'Alakazite', 'Blastoisinite', 'Moody', 'Power Construct'],
-
+		debug: true,
 
 
 		//ER Scripts
