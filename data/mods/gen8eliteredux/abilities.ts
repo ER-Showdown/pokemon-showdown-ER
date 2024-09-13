@@ -1020,8 +1020,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	},
 	evaporate: {
 		onTryHit(target, source, move) {
-			if (!move.type.includes("water")) return;
+			if (!move.type.toLowerCase().includes("water")) return;
 			this.add("-immune", target, "[from] ability: Evaporate");
+			this.add('-activate', target, 'move: Mist');
+			target.side.addSideCondition("mist")
+			return null;
 		},
 		name: "Evaporate",
 		shortDesc: "Takes no damage and sets Mist if hit by water"
