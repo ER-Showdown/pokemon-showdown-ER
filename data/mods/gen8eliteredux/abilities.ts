@@ -1019,6 +1019,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 	evaporate: {
+		inherit: true,
 		onTryHit(target, source, move) {
 			if (!move.type.toLowerCase().includes("water")) return;
 			this.add("-immune", target, "[from] ability: Evaporate");
@@ -1030,6 +1031,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "Takes no damage and sets Mist if hit by water."
 	},
 	lumberjack: {
+		inherit: true,
 		name: "Lumberjack",
 		shortDesc: "1.5x damage to Grass types.",
 		onModifyAtk(atk, attacker, defender, move) {
@@ -1039,6 +1041,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		}
 	},
 	furnace: {
+		inherit: true,
 		name: "Furnace",
 		shortDesc: "User gains +2 speed when hit by rocks",
 		onDamagingHit(damage, target, source, move) {
@@ -1047,6 +1050,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		}
 	},
 	ragingmoth: {
+		inherit: true,
 		name: "Raging Moth",
 		shortDesc: "Fire moves hit twice, both hits at 75% power.",
 		onPrepareHit(source, target, move) {
@@ -1064,6 +1068,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 	adrenalinerush: {
+		inherit: true,
 		name: "Adrenaline Rush",
 		shortDesc: "KOs raise speed by +1.",
 		onSourceAfterFaint(length, target, source, effect) {
