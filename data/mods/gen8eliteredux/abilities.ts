@@ -1037,5 +1037,13 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			this.debug("lumberjack boost");
 			return this.chainModify(1.5);
 		}
+	},
+	furnace: {
+		name: "Furnace",
+		shortDesc: "User gains +2 speed when hit by rocks",
+		onDamagingHit(damage, target, source, move) {
+			if (!damage || !move.type.toLowerCase().includes("rock")) return;
+			this.boost({spe: 2}, target, target, this.dex.abilities.get("furnace"));
+		}
 	}
 };
