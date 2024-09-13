@@ -1018,4 +1018,11 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			}
 		},
 	},
+	evaporate: {
+		inherit: true,
+		onTryHit(target, source, move) {
+			if (!move.type.includes("water")) return;
+			this.add("-immune", target, "[from] ability: Evaporate");
+		},
+	}
 };
