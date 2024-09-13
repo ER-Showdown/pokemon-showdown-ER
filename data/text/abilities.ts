@@ -2950,4 +2950,9 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 
 		activate: "  [POKEMON] extends [MOVE] by 2 turns!",
 	},
+	adrenalinerush: {
+		name: "Adrenaline Rush",
+		shortDesc: "KOs raise speed by +1.",
+		desc: "When this Pokemon directly knocks out an opponent, its speed raises by one stage.",
+	}
 };
