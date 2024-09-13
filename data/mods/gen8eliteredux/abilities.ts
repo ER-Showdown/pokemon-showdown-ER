@@ -1073,7 +1073,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		shortDesc: "KOs raise speed by +1.",
 		onSourceAfterFaint(length, target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
-				this.boost({spe: 1}, source, source, this.dex.abilities.get("Adrenaline Rush"));
+				this.boost({spe: 1}, source, source, this.dex.abilities.get("adrenalinerush"));
 			}
 		},
 	}
