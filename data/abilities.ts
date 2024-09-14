@@ -8583,5 +8583,16 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 				this.boost({spe: 1}, source, source, this.dex.abilities.get("adrenalinerush"));
 			}
 		},
+	},
+	cryoproficiency: {
+		name: "Cryo Proficiency",
+		shortDesc: "Triggers hail when hit. 30% chance to frostbite on contact.",
+		onDamagingHit(damage, target, source, move) {
+			if (this.randomChance(3, 10)) {
+				source.trySetStatus('frz', target);
+			}
+			
+			this.add('-weather', 'Hail', `[from] ability: ${source.getAbility().name}, [of] ${source}`);
+		}
 	}
 };

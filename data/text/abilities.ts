@@ -2954,5 +2954,9 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 		name: "Adrenaline Rush",
 		shortDesc: "KOs raise speed by +1.",
 		desc: "When this Pokemon directly knocks out an opponent, its speed raises by one stage.",
+	},
+	cryoproficiency: {
+		name: "Cryo Proficiency",
+		shortDesc: "Triggers hail when hit. 30% chance to frostbite on contact.",
 	}
 };
