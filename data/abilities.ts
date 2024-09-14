@@ -8615,14 +8615,14 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			if (!this.dex.getImmunity("bleed", source)) return;
 			if (move.category != "Special") return;
 			/**
-			 * This ability has a 30% chance to activate, here we short circuit if that random chance fails.
-			 */
-			if (!this.randomChance(3, 10)) return;
-			/**
 			 * This check prevents additional ability activation messages and failure messages 
 			 * from trying to activate bleed on a pokemon who is already bleeding.
 			 */
 			if (source.status == "bleed") return;
+			/**
+			 * This ability has a 30% chance to activate, here we short circuit if that random chance fails.
+			 */
+			if (!this.randomChance(3, 10)) return;
 			/**
 			 * Popup an ability activation message before we bleed the move's source,
 			 * which indicates why the user bleed.

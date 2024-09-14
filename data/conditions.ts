@@ -112,7 +112,7 @@ export const Conditions: {[k: string]: ConditionData} = {
 				delete boost[i];
 			}
 
-			this.add('-fail', target, 'unboost', '[from] status: bleed', '[of] ' + target);
+			this.add('-fail', target, 'boost', '[from] status: bleed', '[of] ' + target);
 		},
 		/** 
 		 * This is (believed) to be used as an order in which status/item/weather residual effects resolve at the end of the battle.
