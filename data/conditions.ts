@@ -60,8 +60,8 @@ export const Conditions: {[k: string]: ConditionData} = {
 	 * - frontend/src/battle-animations.ts:updateStatBar():line 2727, where the status bar is rendered/updated on the client during battle.
 	 * - frontend/style/client.css:line 2070, where the status bar indicators are styled with colors in css.
 	 */
-	bleed: {
-		name: "bleed",
+	bld: {
+		name: "bld",
 		effectType: "Status",
 		/**
 		 * This is called when the status starts and is responsible for populating status activation messages on screen.
