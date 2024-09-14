@@ -17,6 +17,47 @@ export const Conditions: {[k: string]: ConditionData} = {
 			this.damage(pokemon.baseMaxhp / 16);
 		},
 	},
+	frz: {
+		name: "frostbite",
+		effectType: "Status",
+		onStart(target, source, sourceEffect) {
+			if (sourceEffect && sourceEffect.effectType == "Ability") {
+				this.add("-status", target, "frz", `[from] ability: ${sourceEffect.name} [of] ${source}`);
+			} else if (sourceEffect && sourceEffect.effectType === 'Move') {
+				this.add('-status', target, 'frz', '[from] move: ' + sourceEffect.name);
+			}
+		},
+		onModifySpA(spa, source, target, move) {
+			if (move.id === 'facade') return
+			if (source.hasAbility('determination')) return
+			return this.modify(spa, 0.5)
+		},
+		onResidualOrder: 10,
+		onResidual(pokemon) {
+			this.damage(pokemon.baseMaxhp / 16);
+		},
+	},
+	bleed: {
+		name: "bleed",
+		effectType: "Status",
+		onStart(target, source, sourceEffect) {
+			if (sourceEffect && sourceEffect.effectType == "Ability") {
+				this.add("-status", target, "bleed", `[from] ability: ${sourceEffect.name} [of] ${source}`);
+			} else if (sourceEffect && sourceEffect.effectType === 'Move') {
+				this.add('-status', target, 'bleed', '[from] move: ' + sourceEffect.name);
+			}
+		},
+		onAfterMove(source, target, move) {
+			if (source != target) return;
+			if (move.heal == null) return;
+			if (move.category != "Status") return;
+			source.cureStatus();
+		},
+		onResidualOrder: 10,
+		onResidual(pokemon) {
+			this.damage(pokemon.baseMaxhp / 16);
+		},
+	},
 	par: {
 		name: 'par',
 		effectType: 'Status',
@@ -77,46 +118,6 @@ export const Conditions: {[k: string]: ConditionData} = {
 				return;
 			}
 			return false;
-		},
-	},
-	frz: {
-		name: 'frz',
-		effectType: 'Status',
-		onStart(target, source, sourceEffect) {
-			if (sourceEffect && sourceEffect.effectType === 'Ability') {
-				this.add('-status', target, 'frz', '[from] ability: ' + sourceEffect.name, '[of] ' + source);
-			} else {
-				this.add('-status', target, 'frz');
-			}
-			if (target.species.name === 'Shaymin-Sky' && target.baseSpecies.baseSpecies === 'Shaymin') {
-				target.formeChange('Shaymin', this.effect, true);
-			}
-		},
-		onBeforeMovePriority: 10,
-		onBeforeMove(pokemon, target, move) {
-			if (move.flags['defrost']) return;
-			if (this.randomChance(1, 5)) {
-				pokemon.cureStatus();
-				return;
-			}
-			this.add('cant', pokemon, 'frz');
-			return false;
-		},
-		onModifyMove(move, pokemon) {
-			if (move.flags['defrost']) {
-				this.add('-curestatus', pokemon, 'frz', '[from] move: ' + move);
-				pokemon.clearStatus();
-			}
-		},
-		onAfterMoveSecondary(target, source, move) {
-			if (move.thawsTarget) {
-				target.cureStatus();
-			}
-		},
-		onDamagingHit(damage, target, source, move) {
-			if (move.type === 'Fire' && move.category !== 'Status') {
-				target.cureStatus();
-			}
 		},
 	},
 	psn: {
