@@ -8637,5 +8637,17 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			 */
 			source.trySetStatus('bleed', target, this.dex.abilities.get("voodoopower"));
 		}
+	},
+	spikearmor: {
+		name: "Spike Armor",
+		shortDesc: "30% chance to bleed on contact.",
+		onDamagingHit(damage, target, source, move) {
+			if (!this.dex.getImmunity("bleed", source)) return;
+			if (move.flags["contact"] == null) return;
+			if (!this.randomChance(3, 10)) return;
+			if (source.status == "bleed") return;
+			this.add("-activate", target, "ability: Spike Armor");
+			source.trySetStatus('bleed', target, this.dex.abilities.get("spikearmor"));
+		}
 	}
 };

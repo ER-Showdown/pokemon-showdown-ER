@@ -55,6 +55,7 @@ export const Conditions: {[k: string]: ConditionData} = {
 	 * - data/conditions.ts < --- [you are here], where the main business logic of how the condition behaves in battle takes place.
 	 * - data/abilities.ts:line 8598, where the voodoo power ability is defined which adds this status condition when hit (30% chance).
 	 * - data/typechart.ts, this controls the type chart and what weaknessess, immunities etc are active for each pokemon type.
+	 * - data/mods/gen8eliteredux/pokedex.ts, contains the pokedex definitions for all elite redux formats. Use this for testing to give pokemon new abilities prior to them being implemented fully.
 	 * - data/text/default.ts, where status text messages are defined.
 	 * - frontend/src/battle-animations.ts:updateStatBar():line 2727, where the status bar is rendered/updated on the client during battle.
 	 * - frontend/style/client.css:line 2070, where the status bar indicators are styled with colors in css.

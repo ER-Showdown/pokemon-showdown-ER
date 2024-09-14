@@ -2963,5 +2963,10 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 		name: "Voodoo Power",
 		shortDesc: "30% chance to bleed when hit by special attacks.",
 		activate: "  [POKEMON] caused a bleed!"
+	},
+	spikearmor: {
+		name: "Spike Armor",
+		shortDesc: "30% chance to bleed on contact.",
+		activate: "  [POKEMON] caused a bleed!"
 	}
 };
