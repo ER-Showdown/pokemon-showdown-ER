@@ -98,14 +98,20 @@ export const Conditions: {[k: string]: ConditionData} = {
 		 * The expected behavior is more nuanced.
 		 * It's possible that some conditional messages may be desired here, but more work is needed to iron out all those details.
 		 */
-		onTryHeal(damage, target, source, effect) {
-			if (effect.effectType != "Move") return 0;
+		onTryHeal(amount, target, source, effect) {
+			if (effect.effectType == "Condition" && effect.id == "wish") {
+				this.add("-message", `${target.name}'s wish cured it's bleed!`);
+				target.cureStatus(true);
+			}
 
-			const move = effect as Move;
-			if (move.category != "Status") return 0;
+			if (effect.effectType == "Move") {
+				const move = effect as Move;
 
-			target.cureStatus();
-			return 0;
+				if (move.basePower < 0) target.cureStatus();
+				if (move.category == "Status") target.cureStatus();
+			}
+			
+			return this.chainModify(0);
 		},
 		/**
 		 * This is called right before the statused target receives any kind of stat boosts. 

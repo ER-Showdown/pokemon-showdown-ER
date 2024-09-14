@@ -30,7 +30,7 @@
     "node": ">=14.0.0"
   },
   "scripts": {
-    "start": "node pokemon-showdown start",
+    "start": "nodemon ./pokemon-showdown start",
     "build": "node build",
     "tsc": "tsc",
     "fast-lint": "eslint . --config .eslintrc-no-types.json --cache --cache-location .eslintcache-no-types --ext .js,.ts,.tsx",
@@ -80,6 +80,7 @@
     "@typescript-eslint/parser": "^5.8.0",
     "eslint": "^8.5.0",
     "mocha": "^8.2.0",
+    "nodemon": "^3.1.4",
     "smogon": "^2.2.1",
     "typescript": "^5.0.4"
   }

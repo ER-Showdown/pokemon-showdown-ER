@@ -1,0 +1,18 @@
+{
+  "watch": ["data/", "sim/", "server/"],
+  "ext": "js,ts,css,html,json,tsx,jsx",
+  "verbose": true,
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules",
+    "js/lib/**",
+    "js/server/**",
+    "js/battle*.js",
+    "js/client-co*.js",
+    "js/client-main.js",
+    "js/client-main.js.map",
+    "js/panel*.js",
+    "js/replay-embed.js",
+    "config/config.js"
+  ]
+}
