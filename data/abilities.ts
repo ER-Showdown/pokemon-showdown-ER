@@ -8591,8 +8591,8 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			if (this.randomChance(3, 10)) {
 				source.trySetStatus('frz', target);
 			}
-			
-			this.add('-weather', 'Hail', `[from] ability: ${source.getAbility().name}, [of] ${source}`);
+
+			this.field.setWeather("hail");
 		}
 	}
 };
