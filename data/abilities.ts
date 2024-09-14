@@ -8600,7 +8600,11 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		shortDesc: "30% chance to bleed when hit by special attacks.",
 		onDamagingHit(damage, target, source, move) {
 			// if (this.randomChance(3, 10)) {
-			source.trySetStatus('bleed', target, this.dex.abilities.get("voodoopower"));
+			this.add('-activate', target, 'ability: Voodoo Power');
+			// Hack to make status-prevention abilities think voodoo power is a status move
+			// and show messages when activating against it.
+			source.trySetStatus("bleed", target, {status: this.dex.conditions.get("bleed").id, id: 'voodoopower'} as Effect);
+			// source.trySetStatus('bleed', target, this.dex.abilities.get("voodoopower"));
 			// }
 		}
 	}
