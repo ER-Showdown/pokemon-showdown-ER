@@ -183,6 +183,13 @@ export const DefaultText: {[k: string]: DefaultText} = {
 		endFromItem: "  [POKEMON]'s [ITEM] cured its frostbite!",
 		damage: "  [POKEMON] was hurt by frostbite!",
 	},
+	bleed: {
+		start: "  [POKEMON] started bleeding!",
+		alreadyStarted: "  [POKEMON] is already bleeding!",
+		end: "  [POKEMON] was cured of its bleed!",
+		endFromItem: "  [POKEMON]'s [ITEM] cured its bleed!",
+		damage: "  [POKEMON] was hurt by bleed!",
+	},
 	par: {
 		start: "  [POKEMON] is paralyzed! It may be unable to move!",
 		alreadyStarted: "  [POKEMON] is already paralyzed!",

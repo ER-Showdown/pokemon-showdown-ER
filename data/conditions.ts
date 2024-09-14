@@ -53,6 +53,24 @@ export const Conditions: {[k: string]: ConditionData} = {
 			if (move.category != "Status") return;
 			source.cureStatus();
 		},
+		onBeforeMove(pokemon, target, move) {
+			if (move.flags['heal']) {
+				this.add('cant', pokemon, 'status: Bleed', move);
+				return false;
+			}
+		},
+		onTryHeal(damage, pokemon, source, effect) {
+			return false;
+		},
+		onTryBoost(boost, target, source, effect) {
+			let i: BoostID;
+
+			for (i in boost) {
+				delete boost[i];
+			}
+
+			this.add('-fail', target, 'unboost', '[from] status: bleed', '[of] ' + target);
+		},
 		onResidualOrder: 10,
 		onResidual(pokemon) {
 			this.damage(pokemon.baseMaxhp * .06);
