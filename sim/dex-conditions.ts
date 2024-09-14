@@ -106,6 +106,10 @@ export interface EventMethods {
 	) => boolean | null | void;
 	onTryEatItem?: boolean | ((this: Battle, item: Item, pokemon: Pokemon) => boolean | void);
 	/* FIXME: onTryHeal() is run with two different sets of arguments */
+	/**
+	 * This is called just before a pokemon is about to be healed by any source.
+	 * Can return a modified amount of healing, false to "fail" the healing, or void to not modify the healing.
+	 */
 	onTryHeal?: (
 		((this: Battle, relayVar: number, target: Pokemon, source: Pokemon, effect: Effect) => number | boolean | void) |
 		((this: Battle, pokemon: Pokemon) => boolean | void) | boolean

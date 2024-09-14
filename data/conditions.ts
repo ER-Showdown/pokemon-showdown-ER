@@ -82,14 +82,14 @@ export const Conditions: {[k: string]: ConditionData} = {
 		 * If so, we block the heal but cure the bleed.
 		 * NOTE: This should cover non-self healing moves i.e. enemy or partner healing moves used on the bleeding pokemon 
 		 */
-		onBeforeMove(source, target, move) {
-			if (move.flags['heal'] && move.category == "Status") {
-				/// Outright block status healing moves.
-				this.add('cant', target, 'status: bleed', move);
-				target.cureStatus();
-				return false;
-			}
-		},
+		// onBeforeMove(source, target, move) {
+		// 	if (move.flags['heal'] && move.category == "Status") {
+		// 		/// Outright block status healing moves.
+		// 		this.add('cant', target, 'status: bleed', move);
+		// 		target.cureStatus();
+		// 		return false;
+		// 	}
+		// },
 		/**
 		 * This is called right before a pokemon is healed by any source.
 		 * In this case, we just prevent the healing.
@@ -98,8 +98,14 @@ export const Conditions: {[k: string]: ConditionData} = {
 		 * The expected behavior is more nuanced.
 		 * It's possible that some conditional messages may be desired here, but more work is needed to iron out all those details.
 		 */
-		onTryHeal(damage, pokemon, source, effect) {
-			return false;
+		onTryHeal(damage, target, source, effect) {
+			if (effect.effectType != "Move") return 0;
+
+			const move = effect as Move;
+			if (move.category != "Status") return 0;
+
+			target.cureStatus();
+			return 0;
 		},
 		/**
 		 * This is called right before the statused target receives any kind of stat boosts. 
