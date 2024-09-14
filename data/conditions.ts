@@ -53,10 +53,11 @@ export const Conditions: {[k: string]: ConditionData} = {
 			if (move.category != "Status") return;
 			source.cureStatus();
 		},
-		onBeforeMove(pokemon, target, move) {
+		onBeforeMove(source, target, move) {
 			if (move.flags['heal'] && move.category == "Status") {
 				/// Outright block status healing moves.
-				this.add('cant', pokemon, 'status: bleed', move);
+				this.add('cant', target, 'status: bleed', move);
+				target.cureStatus();
 				return false;
 			}
 		},
