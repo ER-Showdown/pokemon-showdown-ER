@@ -8599,6 +8599,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		name: "Voodoo Power",
 		shortDesc: "30% chance to bleed when hit by special attacks.",
 		onDamagingHit(damage, target, source, move) {
+			if (source.status == "bleed") return;
 			// if (this.randomChance(3, 10)) {
 			this.add('-activate', target, 'ability: Voodoo Power');
 			// Hack to make status-prevention abilities think voodoo power is a status move
