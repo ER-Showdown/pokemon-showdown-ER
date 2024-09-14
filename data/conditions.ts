@@ -49,6 +49,15 @@ export const Conditions: {[k: string]: ConditionData} = {
 	 * The healing move's effect will be negated, but the bleed will be cured.
 	 * NOTE That currently, non-self targeted healing moves cure the target's bleed if applicable.
 	 * It's not clear that this is an intended mechanic in e.g. doubles, etc.
+	 * 
+	 * ======================= Developer notes =======================
+	 * Adding new status conditions involve the following pieces:
+	 * - data/conditions.ts < --- [you are here], where the main business logic of how the condition behaves in battle takes place.
+	 * - data/abilities.ts:line 8598, where the voodoo power ability is defined which adds this status condition when hit (30% chance).
+	 * - data/typechart.ts, this controls the type chart and what weaknessess, immunities etc are active for each pokemon type.
+	 * - data/text/default.ts, where status text messages are defined.
+	 * - frontend/src/battle-animations.ts:updateStatBar():line 2727, where the status bar is rendered/updated on the client during battle.
+	 * - frontend/style/client.css:line 2070, where the status bar indicators are styled with colors in css.
 	 */
 	bleed: {
 		name: "bleed",

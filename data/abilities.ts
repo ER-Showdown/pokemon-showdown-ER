@@ -8595,15 +8595,46 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			this.field.setWeather("hail");
 		}
 	},
+	/**
+	 * New voodoo power ability which sets the bleed condition with a 30% chance on hit by special attack.
+	 */
 	voodoopower: {
 		name: "Voodoo Power",
 		shortDesc: "30% chance to bleed when hit by special attacks.",
+		/**
+		 * This is called right after the pokemon with this ability is hit by a damaging move.
+		 * In this case, the target is the pokemon with the ability, and the source is the user that damaged us.
+		 * Hence, we add the bleed status to the source if the conditions are right.
+		 * Here, we check the logic for applying bleed with the right input conditions.
+		 */
 		onDamagingHit(damage, target, source, move) {
+			/**
+			 * Handle type immunities to bleed (rock and ghost as of v2.1).
+			 * Weirdly, this function call returns true if the type is NOT immune, despite it's name.
+			 */
 			if (!this.dex.getImmunity("bleed", source)) return;
 			if (move.category != "Special") return;
+			/**
+			 * This ability has a 30% chance to activate, here we short circuit if that random chance fails.
+			 */
 			if (!this.randomChance(3, 10)) return;
+			/**
+			 * This check prevents additional ability activation messages and failure messages 
+			 * from trying to activate bleed on a pokemon who is already bleeding.
+			 */
 			if (source.status == "bleed") return;
+			/**
+			 * Popup an ability activation message before we bleed the move's source,
+			 * which indicates why the user bleed.
+			 */
 			this.add('-activate', target, 'ability: Voodoo Power');
+			/**
+			 * Add the actual status to the target. In theory even though we're using "try" setStatus,
+			 * our checks should guarantee success.
+			 * There are several other variations of adding statuses to pokemon from abilities,
+			 * but this was the only one that gave good success with not random poorly formatted status messages
+			 * popping up in the battle log as a result.
+			 */
 			source.trySetStatus('bleed', target, this.dex.abilities.get("voodoopower"));
 		}
 	}
