@@ -71,9 +71,9 @@ export const Conditions: {[k: string]: ConditionData} = {
 		 */
 		onStart(target, source, sourceEffect) {
 			if (sourceEffect && sourceEffect.effectType == "Ability") {
-				this.add("-status", target, "bleed", `[from] ability: ${sourceEffect.name}`, ` [of] ${source}`);
+				this.add("-status", target, "bld", `[from] ability: ${sourceEffect.name}`, ` [of] ${source}`);
 			} else if (sourceEffect && sourceEffect.effectType === 'Move') {
-				this.add('-status', target, 'bleed', '[from] move: ' + sourceEffect.name);
+				this.add('-status', target, 'bld', '[from] move: ' + sourceEffect.name);
 			}
 		},
 		/**
