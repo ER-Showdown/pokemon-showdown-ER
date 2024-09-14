@@ -8600,7 +8600,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		shortDesc: "30% chance to bleed when hit by special attacks.",
 		onDamagingHit(damage, target, source, move) {
 			// if (this.randomChance(3, 10)) {
-			source.trySetStatus('bleed', target, target.getAbility());
+			source.trySetStatus('bleed', target, this.dex.abilities.get("voodoopower"));
 			// }
 		}
 	}
