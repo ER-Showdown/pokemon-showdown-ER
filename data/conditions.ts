@@ -37,9 +37,28 @@ export const Conditions: {[k: string]: ConditionData} = {
 			this.damage(pokemon.baseMaxhp / 16);
 		},
 	},
+	/**
+	 * Bleed is a new status condition added in elite redux v2.0.
+	 * As of this release, it has the following battle effects:
+	 * - Lose 1/16 max hp every turn
+	 * - Prevent ALL healing effects (moves, items, abilities, etc) on the bleeding pokemon
+	 * - Negate any stat boosts on the bleeding pokemon
+	 * - Rock and ghost type pokemon are immune to bleed
+	 * 
+	 * Bleed can be cured by using a healing move such as roost, recover etc.
+	 * The healing move's effect will be negated, but the bleed will be cured.
+	 * NOTE That currently, non-self targeted healing moves cure the target's bleed if applicable.
+	 * It's not clear that this is an intended mechanic in e.g. doubles, etc.
+	 */
 	bleed: {
 		name: "bleed",
 		effectType: "Status",
+		/**
+		 * This is called when the status starts and is responsible for populating status activation messages on screen.
+		 * It handles the status being activated by either an ability or a move secondary effect.
+		 * The target is the pokemon being statused, the source is the pokemon that caused the status.
+		 * Source effect will the ability or move that caused the status.
+		 */
 		onStart(target, source, sourceEffect) {
 			if (sourceEffect && sourceEffect.effectType == "Ability") {
 				this.add("-status", target, "bleed", `[from] ability: ${sourceEffect.name}`, ` [of] ${source}`);
@@ -47,12 +66,12 @@ export const Conditions: {[k: string]: ConditionData} = {
 				this.add('-status', target, 'bleed', '[from] move: ' + sourceEffect.name);
 			}
 		},
-		onAfterMove(source, target, move) {
-			if (source != target) return;
-			if (move.heal == null) return;
-			if (move.category != "Status") return;
-			source.cureStatus();
-		},
+		/**
+		 * This is called right before a pokemon uses a given move.
+		 * We use this to check if a status healing move is being used on a bleeding pokemon.
+		 * If so, we block the heal but cure the bleed.
+		 * NOTE: This should cover non-self healing moves i.e. enemy or partner healing moves used on the bleeding pokemon 
+		 */
 		onBeforeMove(source, target, move) {
 			if (move.flags['heal'] && move.category == "Status") {
 				/// Outright block status healing moves.
@@ -61,10 +80,21 @@ export const Conditions: {[k: string]: ConditionData} = {
 				return false;
 			}
 		},
+		/**
+		 * This is called right before a pokemon is healed by any source.
+		 * In this case, we just prevent the healing.
+		 * In most cases, you want to provide a message by using this.add("cant", ...)
+		 * But since this is from a status effect and blocks secondary effects from items, moves like giga drain, etc...
+		 * The expected behavior is more nuanced.
+		 * It's possible that some conditional messages may be desired here, but more work is needed to iron out all those details.
+		 */
 		onTryHeal(damage, pokemon, source, effect) {
-			// this.add("cant", pokemon, "status: bleed", effect);
 			return false;
 		},
+		/**
+		 * This is called right before the statused target receives any kind of stat boosts. 
+		 * This prevents the statused target from receiving any stat boosts from any source by simply deleting all the boosts.
+		 */
 		onTryBoost(boost, target, source, effect) {
 			let i: BoostID;
 
@@ -74,9 +104,17 @@ export const Conditions: {[k: string]: ConditionData} = {
 
 			this.add('-fail', target, 'unboost', '[from] status: bleed', '[of] ' + target);
 		},
+		/** 
+		 * This is (believed) to be used as an order in which status/item/weather residual effects resolve at the end of the battle.
+		 * In this case, bleed was made to have the same residual order value as bleed/freeze/etc.
+		*/
 		onResidualOrder: 10,
+		/**
+		 * This is called to compute any residual (turn over turn) effects on the statused target.
+		 * Bleed simply causes 1/16 base hp chip damage every turn.
+		 */
 		onResidual(pokemon) {
-			this.damage(pokemon.baseMaxhp * .06);
+			this.damage(pokemon.baseMaxhp / 16);
 		},
 	},
 	par: {
