@@ -8599,7 +8599,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		name: "Voodoo Power",
 		shortDesc: "30% chance to bleed when hit by special attacks.",
 		onDamagingHit(damage, target, source, move) {
-			if (this.dex.getImmunity("bleed", target)) return;
+			if (!this.dex.getImmunity("bleed", target)) return;
 			if (move.category != "Special") return;
 			// if (!this.randomChance(3, 10)) return;
 			if (source.status == "bleed") return;
