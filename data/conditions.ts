@@ -42,7 +42,7 @@ export const Conditions: {[k: string]: ConditionData} = {
 		effectType: "Status",
 		onStart(target, source, sourceEffect) {
 			if (sourceEffect && sourceEffect.effectType == "Ability") {
-				this.add("-status", target, "bleed", `[from] ability: ${sourceEffect.name} [of] ${source}`);
+				this.add("-status", target, "bleed", `[from] ability: ${sourceEffect.name}`, ` [of] ${source}`);
 			} else if (sourceEffect && sourceEffect.effectType === 'Move') {
 				this.add('-status', target, 'bleed', '[from] move: ' + sourceEffect.name);
 			}
