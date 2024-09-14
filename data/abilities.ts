@@ -8601,7 +8601,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		onDamagingHit(damage, target, source, move) {
 			if (!this.dex.getImmunity("bleed", source)) return;
 			if (move.category != "Special") return;
-			// if (!this.randomChance(3, 10)) return;
+			if (!this.randomChance(3, 10)) return;
 			if (source.status == "bleed") return;
 			this.add('-activate', target, 'ability: Voodoo Power');
 			source.trySetStatus('bleed', target, this.dex.abilities.get("voodoopower"));
