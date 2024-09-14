@@ -8594,5 +8594,14 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 
 			this.field.setWeather("hail");
 		}
+	},
+	voodoopower: {
+		name: "Voodoo Power",
+		shortDesc: "30% chance to bleed when hit by special attacks.",
+		onDamagingHit(damage, target, source, move) {
+			if (this.randomChance(3, 10)) {
+				source.trySetStatus('bleed', target, target.getAbility());
+			}
+		}
 	}
 };

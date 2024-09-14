@@ -55,7 +55,7 @@ export const Conditions: {[k: string]: ConditionData} = {
 		},
 		onResidualOrder: 10,
 		onResidual(pokemon) {
-			this.damage(pokemon.baseMaxhp / 16);
+			this.damage(pokemon.baseMaxhp * .06);
 		},
 	},
 	par: {
