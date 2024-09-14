@@ -8602,9 +8602,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			if (!this.dex.getImmunity("bleed", target)) return;
 			if (move.category != "Special") return;
 			// if (!this.randomChance(3, 10)) return;
-			if (source.status == "bleed") return;
-			this.add('-activate', source, 'ability: Voodoo Power');
-			source.trySetStatus('bleed', source, this.dex.abilities.get("voodoopower"));
+			if (target.status == "bleed") return;
+			this.add('-activate', target, 'ability: Voodoo Power');
+			target.trySetStatus('bleed', target, this.dex.abilities.get("voodoopower"));
 		}
 	}
 };
