@@ -2,6 +2,15 @@ import {BasicEffect, toID} from './dex-data';
 import type {SecondaryEffect, MoveEventMethods} from './dex-moves';
 
 export interface EventMethods {
+	/**
+	 * This is called right after the pokemon with this ability is hit by a damaging move.
+	 * @param this The active battle.
+	 * @param damage The amount of damage dealt.
+	 * @param target The target of the move (damage taker).
+	 * @param source The source of the move (damage dealer).
+	 * @param move The move used.
+	 * @returns void, any side effects should be affected to the battle object.
+	 */
 	onDamagingHit?: (this: Battle, damage: number, target: Pokemon, source: Pokemon, move: ActiveMove) => void;
 	onEmergencyExit?: (this: Battle, pokemon: Pokemon) => void;
 	onAfterEachBoost?: (this: Battle, boost: SparseBoostsTable, target: Pokemon, source: Pokemon, effect: Effect) => void;
