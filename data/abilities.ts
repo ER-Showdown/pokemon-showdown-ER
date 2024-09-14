@@ -8589,7 +8589,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		shortDesc: "Triggers hail when hit. 30% chance to frostbite on contact.",
 		onDamagingHit(damage, target, source, move) {
 			if (this.randomChance(3, 10)) {
-				source.trySetStatus('frz', target);
+				source.trySetStatus('frz', target, target.getAbility());
 			}
 
 			this.field.setWeather("hail");
