@@ -2958,5 +2958,10 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 	cryoproficiency: {
 		name: "Cryo Proficiency",
 		shortDesc: "Triggers hail when hit. 30% chance to frostbite on contact.",
+	},
+	voodoopower: {
+		name: "Voodoo Power",
+		shortDesc: "30% chance to bleed when hit by special attacks.",
+		activate: "  [POKEMON] caused a bleed!"
 	}
 };
