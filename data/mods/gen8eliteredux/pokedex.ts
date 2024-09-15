@@ -34,7 +34,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		types: ["Grass", "Poison"],
 		genderRatio: {M: 0.875, F: 0.125},
 		baseStats: {hp: 80, atk: 82, def: 83, spa: 100, spd: 100, spe: 80},
-		abilities: {0: "Spike Armor", 1: "Effect Spore", H: "Chlorophyll", I1: "Rough Skin", I2: "Thick Fat", I3: "Poison Touch"},
+		abilities: {0: "Fairy Tale", 1: "Effect Spore", H: "Chlorophyll", I1: "Rough Skin", I2: "Thick Fat", I3: "Poison Touch"},
 		heightm: 2,
 		weightkg: 100,
 		color: "Green",

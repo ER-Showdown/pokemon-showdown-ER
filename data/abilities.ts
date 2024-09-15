@@ -7669,6 +7669,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		gen: 8,
 
 	},
+	/// Seems correctly implemented per v2.1 elite redux.
 	kingswrath: {
 		onAnyAfterEachBoost(boost, target, source) {
 			let statsLowered = false;
@@ -7689,6 +7690,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		gen: 8,
 
 	},
+	/// Seems correctly implemented per v2.1 elite redux.
 	queensmourning: {
 		onAnyAfterEachBoost(boost, target, source) {
 			let statsLowered = false;
@@ -8297,6 +8299,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		num: 451,
 		gen: 8,
 	},
+	// Not updated since 1.6 -- looks complete
 	angelswrath: { //oh boy, here we go
 		onModifyMove(move, pokemon, target) {
 			if (!move.secondaries) {
@@ -8680,5 +8683,14 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			source.trySetStatus('bld', target, this.dex.abilities.get("spikearmor"));
 		}
 	},
-
+	fairytale: {
+		name: "Fairy Tale",
+		shortDesc: "Adds Fairy type to itself.",
+		onStart(pokemon) {
+			if (!pokemon.types.includes('Fairy')) {
+				if (!pokemon.addType('Fairy')) return;
+				this.add('-start', pokemon, 'typeadd', 'Fairy', '[from] ability: Fairy Tale');
+			}
+		},
+	}
 };
