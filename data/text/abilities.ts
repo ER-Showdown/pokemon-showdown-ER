@@ -2969,8 +2969,4 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 		shortDesc: "30% chance to bleed on contact.",
 		activate: "  [POKEMON] caused a bleed!"
 	},
-	electrosurge: {
-		name: "Electro Surge",
-		shortDesc: "Casts Electric Terrain on entry. Lasts 8 turns."
-	}
 };
