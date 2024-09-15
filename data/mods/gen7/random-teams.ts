@@ -873,7 +873,7 @@ export class RandomGen7Teams extends RandomGen8Teams {
 		if (ability === 'Sheer Force' && counter.get('sheerforce')) return 'Life Orb';
 		if (ability === 'Unburden') return moves.has('fakeout') ? 'Normal Gem' : 'Sitrus Berry';
 		if (moves.has('acrobatics')) return '';
-		if (moves.has('electricterrain') || ability === 'Electric Surge' && moves.has('thunderbolt')) return 'Electrium Z';
+		if (moves.has('electricterrain') || ability === 'Electro Surge' && moves.has('thunderbolt')) return 'Electrium Z';
 		if (
 			moves.has('happyhour') ||
 			moves.has('holdhands') ||

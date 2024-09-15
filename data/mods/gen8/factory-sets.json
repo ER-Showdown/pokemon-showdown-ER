@@ -917,7 +917,7 @@
 			"sets": [{
 				"species": "Tapu Koko",
 				"item": ["Heavy-Duty Boots"],
-				"ability": ["Electric Surge"],
+				"ability": ["Electro Surge"],
 				"evs": {"hp": 4, "spa": 252, "spe": 252},
 				"nature": "Timid",
 				"moves": [["Thunderbolt"], ["Dazzling Gleam"], ["U-turn", "Calm Mind"], ["Roost"]]

@@ -954,7 +954,7 @@
 			"sets": [{
 				"species": "Tapu Koko",
 				"item": ["Electrium Z"],
-				"ability": ["Electric Surge"],
+				"ability": ["Electro Surge"],
 				"evs": {"def": 4, "spa": 252, "spe": 252},
 				"nature": "Timid",
 				"moves": [["Thunder"], ["Nature's Madness"], ["Taunt"], ["U-turn"]]
@@ -2032,35 +2032,35 @@
 			"sets": [{
 				"species": "Tapu Koko",
 				"item": ["Choice Specs"],
-				"ability": ["Electric Surge"],
+				"ability": ["Electro Surge"],
 				"evs": {"spa": 252, "spd": 4, "spe": 252},
 				"nature": "Timid",
 				"moves": [["Thunderbolt"], ["Dazzling Gleam"], ["Volt Switch"], ["Hidden Power Ice", "Hidden Power Fire"]]
 			}, {
 				"species": "Tapu Koko",
 				"item": ["Choice Specs"],
-				"ability": ["Electric Surge"],
+				"ability": ["Electro Surge"],
 				"evs": {"spa": 252, "spd": 4, "spe": 252},
 				"nature": "Timid",
 				"moves": [["Thunderbolt"], ["Roost"], ["Volt Switch"], ["Hidden Power Ice"]]
 			}, {
 				"species": "Tapu Koko",
 				"item": ["Light Clay"],
-				"ability": ["Electric Surge"],
+				"ability": ["Electro Surge"],
 				"evs": {"hp": 248, "atk": 8, "spe": 252},
 				"nature": "Jolly",
 				"moves": [["Taunt"], ["Reflect"], ["Light Screen"], ["U-turn"]]
 			}, {
 				"species": "Tapu Koko",
 				"item": ["Electrium Z"],
-				"ability": ["Electric Surge"],
+				"ability": ["Electro Surge"],
 				"evs": {"atk": 252, "spa": 4, "spe": 252},
 				"nature": "Naive",
 				"moves": [["Wild Charge"], ["Hidden Power Ice"], ["Taunt"], ["U-turn"]]
 			}, {
 				"species": "Tapu Koko",
 				"item": ["Shuca Berry"],
-				"ability": ["Electric Surge"],
+				"ability": ["Electro Surge"],
 				"evs": {"hp": 32, "def": 88, "spa": 172, "spe": 216},
 				"ivs": {"atk": 0},
 				"nature": "Timid",
@@ -2068,7 +2068,7 @@
 			}, {
 				"species": "Tapu Koko",
 				"item": ["Leftovers"],
-				"ability": ["Electric Surge"],
+				"ability": ["Electro Surge"],
 				"evs": {"hp": 32, "def": 88, "spa": 172, "spe": 216},
 				"ivs": {"atk": 0},
 				"nature": "Timid",
@@ -10701,56 +10701,56 @@
 			"sets": [{
 				"species": "Tapu Koko",
 				"item": ["Magnet"],
-				"ability": ["Electric Surge"],
+				"ability": ["Electro Surge"],
 				"evs": {"spa": 252, "spd": 4, "spe": 252},
 				"nature": "Timid",
 				"moves": [["Thunderbolt"], ["Hidden Power Ice"], ["U-turn"], ["Taunt", "Dazzling Gleam"]]
 			}, {
 				"species": "Tapu Koko",
 				"item": ["Magnet"],
-				"ability": ["Electric Surge"],
+				"ability": ["Electro Surge"],
 				"evs": {"spa": 252, "spd": 4, "spe": 252},
 				"nature": "Timid",
 				"moves": [["Thunderbolt"], ["Hidden Power Ice"], ["Taunt"], ["Roost"]]
 			}, {
 				"species": "Tapu Koko",
 				"item": ["Choice Specs"],
-				"ability": ["Electric Surge"],
+				"ability": ["Electro Surge"],
 				"evs": {"spa": 252, "spd": 4, "spe": 252},
 				"nature": "Timid",
 				"moves": [["Thunderbolt"], ["Hidden Power Ice"], ["Dazzling Gleam", "Grass Knot"], ["Volt Switch"]]
 			}, {
 				"species": "Tapu Koko",
 				"item": ["Choice Band"],
-				"ability": ["Electric Surge"],
+				"ability": ["Electro Surge"],
 				"evs": {"atk": 252, "spa": 4, "spe": 252},
 				"nature": "Naive",
 				"moves": [["Wild Charge"], ["Brave Bird"], ["U-turn"], ["Thunderbolt"]]
 			}, {
 				"species": "Tapu Koko",
 				"item": ["Flyinium Z"],
-				"ability": ["Electric Surge"],
+				"ability": ["Electro Surge"],
 				"evs": {"atk": 252, "spa": 4, "spe": 252},
 				"nature": "Naive",
 				"moves": [["Wild Charge"], ["Brave Bird"], ["U-turn"], ["Thunderbolt"]]
 			}, {
 				"species": "Tapu Koko",
 				"item": ["Magnet"],
-				"ability": ["Electric Surge"],
+				"ability": ["Electro Surge"],
 				"evs": {"spa": 252, "spd": 4, "spe": 252},
 				"nature": "Timid",
 				"moves": [["Thunderbolt"], ["Hidden Power Ice"], ["U-turn"], ["Taunt", "Grass Knot"]]
 			}, {
 				"species": "Tapu Koko",
 				"item": ["Choice Specs"],
-				"ability": ["Electric Surge"],
+				"ability": ["Electro Surge"],
 				"evs": {"spa": 252, "spd": 4, "spe": 252},
 				"nature": "Timid",
 				"moves": [["Thunderbolt"], ["Hidden Power Ice"], ["Volt Switch"], ["Grass Knot"]]
 			}, {
 				"species": "Tapu Koko",
 				"item": ["Magnet"],
-				"ability": ["Electric Surge"],
+				"ability": ["Electro Surge"],
 				"evs": {"spa": 252, "spd": 4, "spe": 252},
 				"nature": "Timid",
 				"moves": [["Thunderbolt"], ["Hidden Power Ice"], ["Roost"], ["Taunt"]]
