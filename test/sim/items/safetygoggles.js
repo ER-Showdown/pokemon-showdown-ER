@@ -12,7 +12,7 @@ describe('Safety Goggles', function () {
 
 	it(`should be revealed if Terrain is also active`, function () {
 		battle = common.createBattle([[
-			{species: 'tapukoko', ability: 'electricsurge', item: 'safetygoggles', moves: ['sleeptalk']},
+			{species: 'tapukoko', ability: 'electrosurge', item: 'safetygoggles', moves: ['sleeptalk']},
 		], [
 			{species: 'amoonguss', moves: ['spore']},
 		]]);

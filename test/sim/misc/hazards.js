@@ -13,7 +13,7 @@ describe('Hazards', function () {
 	it(`should damage Pokemon before regular entrance Abilities`, function () {
 		battle = common.createBattle([[
 			{species: 'wynaut', moves: ['uturn']},
-			{species: 'shedinja', ability: 'electricsurge', moves: ['sleeptalk']},
+			{species: 'shedinja', ability: 'electrosurge', moves: ['sleeptalk']},
 		], [
 			{species: 'landorus', moves: ['stealthrock']},
 		]]);

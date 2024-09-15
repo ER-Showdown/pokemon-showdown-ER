@@ -12,7 +12,7 @@ describe('Seeds', function () {
 
 	it(`should activate even on a double-switch-in`, function () {
 		battle = common.createBattle([[
-			{species: 'Tapu Koko', ability: 'electricsurge', item: 'grassyseed', moves: ['protect']},
+			{species: 'Tapu Koko', ability: 'electrosurge', item: 'grassyseed', moves: ['protect']},
 		], [
 			{species: 'Tapu Bulu', ability: 'grassysurge', item: 'electricseed', moves: ['protect']},
 		]]);
@@ -22,7 +22,7 @@ describe('Seeds', function () {
 
 	it(`should not activate when Magic Room ends`, function () {
 		battle = common.createBattle([[
-			{species: 'Tapu Koko', ability: 'electricsurge', moves: ['protect']},
+			{species: 'Tapu Koko', ability: 'electrosurge', moves: ['protect']},
 			{species: 'Hawlucha', item: 'electricseed', moves: ['protect']},
 		], [
 			{species: 'Alakazam', moves: ['magicroom']},
@@ -34,7 +34,7 @@ describe('Seeds', function () {
 
 	it.skip(`should activate on switching in after other entrance Abilities, at the same time as Primal reversion`, function () {
 		battle = common.createBattle([[
-			{species: 'Tapu Koko', ability: 'electricsurge', moves: ['finalgambit']},
+			{species: 'Tapu Koko', ability: 'electrosurge', moves: ['finalgambit']},
 			{species: 'Groudon', ability: 'drought', item: 'redorb', moves: ['sleeptalk']},
 		], [
 			{species: 'Bounsweet', moves: ['sleeptalk']},

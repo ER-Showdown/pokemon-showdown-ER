@@ -290,7 +290,7 @@ describe('Neutralizing Gas', function () {
 	describe(`Ability reactivation order`, function () {
 		it(`should cause entrance Abilities to reactivate in order of Speed`, function () {
 			battle = common.createBattle({gameType: 'doubles'}, [[
-				{species: "Pincurchin", ability: 'electricsurge', moves: ['sleeptalk']},
+				{species: "Pincurchin", ability: 'electrosurge', moves: ['sleeptalk']},
 				{species: "Eternatus", moves: ['sleeptalk']},
 			], [
 				{species: "Rillaboom", ability: 'grassysurge', moves: ['sleeptalk']},

@@ -1106,11 +1106,14 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 2,
 		num: 27,
 	},
-	electricsurge: {
+	/**
+	 * Updating this to "Electro Surge" to match elite redux ability name.
+	 */
+	electrosurge: {
 		onStart(source) {
 			this.field.setTerrain('electricterrain');
 		},
-		name: "Electric Surge",
+		name: "Electro Surge",
 		rating: 4,
 		num: 226,
 	},
@@ -4056,6 +4059,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 3,
 		num: 116,
 	},
+	/**
+	 * Doesn't seem to be any changes to soul-heart since 1.6, so looks good.
+	 */
 	soulheart: {
 		onAnyFaintPriority: 1,
 		onAnyFaint() {
@@ -4865,6 +4871,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 3.5,
 		num: 10,
 	},
+	/**
+	 * Looks like wandering spirit is already implemented correctly according to the dex.
+	 */
 	wanderingspirit: {
 		onDamagingHit(damage, target, source, move) {
 			const additionalBannedAbilities = ['hungerswitch', 'illusion', 'neutralizinggas', 'wonderguard'];
@@ -8649,5 +8658,5 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			this.add("-activate", target, "ability: Spike Armor");
 			source.trySetStatus('bld', target, this.dex.abilities.get("spikearmor"));
 		}
-	}
+	},
 };

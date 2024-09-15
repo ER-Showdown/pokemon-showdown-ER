@@ -134,7 +134,7 @@ describe(`Eject Pack`, function () {
 			{species: 'Wynaut', moves: ['sleeptalk']},
 		], [
 			{species: 'Morelull', ability: 'drought', item: 'ejectpack', moves: ['sleeptalk']},
-			{species: 'Mew', level: 1, ability: 'electricsurge', moves: ['sleeptalk']},
+			{species: 'Mew', level: 1, ability: 'electrosurge', moves: ['sleeptalk']},
 			{species: 'Wynaut', moves: ['sleeptalk']},
 		]]);
 		battle.makeChoices();

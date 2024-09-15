@@ -430,9 +430,9 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 			shortDesc: "10% chance of poison/paralysis/sleep on others making contact with this Pokemon.",
 		},
 	},
-	electricsurge: {
-		name: "Electric Surge",
-		shortDesc: "On switch-in, this Pokemon summons Electric Terrain.",
+	electrosurge: {
+		name: "Electro Surge",
+		shortDesc: "Casts Electric Terrain on entry. Lasts 8 turns.",
 	},
 	electromorphosis: {
 		name: "Electromorphosis",
@@ -2968,5 +2968,9 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 		name: "Spike Armor",
 		shortDesc: "30% chance to bleed on contact.",
 		activate: "  [POKEMON] caused a bleed!"
+	},
+	electrosurge: {
+		name: "Electro Surge",
+		shortDesc: "Casts Electric Terrain on entry. Lasts 8 turns."
 	}
 };
