@@ -2041,7 +2041,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		onBasePower(basePower, attacker, defender, move) {
 			if (move.flags['punch']) {
 				this.debug('Iron Fist boost');
-				return this.chainModify([4915, 4096]);
+				return this.chainModify(1.3);
 			}
 		},
 		name: "Iron Fist",
@@ -6747,7 +6747,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		onBasePower(basePower, attacker, defender, move) {
 			if (move.flags['kick']) {
 				this.debug('Striker boost');
-				return this.chainModify([5325, 4096]);
+				return this.chainModify(1.3);
 			}
 		},
 		name: "Striker",
@@ -8692,5 +8692,58 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 				this.add('-start', pokemon, 'typeadd', 'Fairy', '[from] ability: Fairy Tale');
 			}
 		},
+	},
+	kunoichisblade: {
+		name: "Kunoichi's Blade",
+		shortDesc: "Boost weaker moves and increases the frequency of multi-hit moves.",
+		/// Technician
+		onBasePowerPriority: 30,
+		onBasePower(basePower, attacker, defender, move) {
+			const basePowerAfterMultiplier = this.modify(basePower, this.event.modifier);
+			this.debug('Base Power: ' + basePowerAfterMultiplier);
+			if (basePowerAfterMultiplier <= 60) {
+				this.debug('Technician boost');
+				return this.chainModify(1.5);
+			}
+		},
+		/// Skill Link
+		onModifyMove(move) {
+			if (move.multihit && Array.isArray(move.multihit) && move.multihit.length) {
+				move.multihit = move.multihit[1];
+			}
+			if (move.multiaccuracy) {
+				delete move.multiaccuracy;
+			}
+		},
+	},
+	combatspecialist: {
+		name: "Combat Specialist",
+		shortDesc: "Boost the power of punching and kicking moves by 1.3x.",
+		/// Iron Fist
+		onBasePowerPriority: 23,
+		onBasePower(basePower, attacker, defender, move) {
+			if (move.flags['punch']) {
+				this.debug('Iron Fist boost');
+				return this.chainModify(1.3);
+			}
+			if (move.flags['kick']) {
+				this.debug('Striker boost');
+				return this.chainModify(1.3);
+			}
+		},
 	}
+	
+	// No pokemon appears to have this ability yet?
+	// archmage: {
+	// 	name: "Archmage",
+	// 	shortDesc: "30% chance of adding a type related effect to each move.",
+	// }
 };
+
+/**
+ * "archmage",
+  "kunoichi'sblade",
+  "combatspecialist",
+  "jungle'sguard",
+  "hunter'shorn",
+ */

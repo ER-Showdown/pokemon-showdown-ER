@@ -2969,4 +2969,8 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 		shortDesc: "30% chance to bleed on contact.",
 		activate: "  [POKEMON] caused a bleed!"
 	},
+	kunoichisblade: {
+		name: "Kunoichi's Blade",
+		shortDesc: "Boost weaker moves and increases the frequency of multi-hit moves.",
+	}
 };
