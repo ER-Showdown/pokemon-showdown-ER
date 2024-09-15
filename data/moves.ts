@@ -20354,7 +20354,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 					this.add('-activate', source, 'ability: Persistent', '[move] Trick Room');
 					return 7;
 				}
-				
+
 				if (effect?.effectType == "Ability" && effect.id === "twistdimension") {
 					/// The twisted dimension ability should only enable trick room for 3 turns, not the usual 5.
 					return 3;
@@ -20363,12 +20363,13 @@ export const Moves: {[moveid: string]: MoveData} = {
 				return 5;
 			},
 			onFieldStart(target, source, effect) {
-				if (effect?.effectType === 'Ability') {
-					this.effectState.duration = 3; //Twist Dimension duration change
-				}
-					if (this.gen <= 5) this.effectState.duration = 0;
+				if (this.gen <= 5) this.effectState.duration = 0;
 				if (source?.hasAbility('persistent')) {
 					this.add('-fieldstart', 'move: Trick Room', '[of] ' + source, '[persistent]');
+				} else if (effect.effectType == "Ability" && effect.id == "twistdimension") {
+					this.effectState.duration = 3; //Twist Dimension duration change
+					this.add("-fieldstart", 'move: Trick Room', `[of] ${source}`, '[twistdimension]');
+				
 				} else {
 					this.add('-fieldstart', 'move: Trick Room', '[of] ' + source);
 				}
