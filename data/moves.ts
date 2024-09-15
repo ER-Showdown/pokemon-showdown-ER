@@ -20349,11 +20349,16 @@ export const Moves: {[moveid: string]: MoveData} = {
 		pseudoWeather: 'trickroom',
 		condition: {
 			duration: 5,
-			durationCallback(source, effect) {
+			durationCallback(target, source, effect) {
 				if (source?.hasAbility('persistent')) {
 					this.add('-activate', source, 'ability: Persistent', '[move] Trick Room');
 					return 7;
 				}
+				if (effect?.effectType == "Ability" && effect.id === "twistdimension") {
+					/// The twisted dimension ability should only enable trick room for 3 turns, not the usual 5.
+					return 3;
+				}
+				
 				return 5;
 			},
 			onFieldStart(target, source, effect) {

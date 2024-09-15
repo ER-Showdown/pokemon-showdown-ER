@@ -630,11 +630,19 @@ export type ConditionData = PokemonConditionData | SideConditionData | FieldCond
 
 export type ModdedConditionData = ConditionData & {inherit?: true};
 
+
 export class Condition extends BasicEffect implements
 	Readonly<BasicEffect & SideConditionData & FieldConditionData & PokemonConditionData> {
 	declare readonly effectType: 'Condition' | 'Weather' | 'Status' | 'Terastal';
 	declare readonly counterMax?: number;
 
+	/**
+	 * This is called to override the default duration of a given condition depending on activation criteria.
+	 * @param this the battle instance.
+	 * @param target the target for the given condition.
+	 * @param source the source of the condition starting.
+	 * @param effect the move, ability, item that started the effect.
+	 */
 	declare readonly durationCallback?: (this: Battle, target: Pokemon, source: Pokemon, effect: Effect | null) => number;
 	declare readonly onCopy?: (this: Battle, pokemon: Pokemon) => void;
 	declare readonly onEnd?: (this: Battle, target: Pokemon) => void;

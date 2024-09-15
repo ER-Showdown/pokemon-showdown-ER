@@ -257,6 +257,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 2,
 		num: 165,
 	},
+	/**
+	 * Seems correct according to elite redux dex.
+	 */
 	asoneglastrier: {
 		onPreStart(pokemon) {
 			this.add('-ability', pokemon, 'As One');
@@ -279,6 +282,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 3.5,
 		num: 266,
 	},
+	/**
+	 * Seems correct according to elite redux dex.
+	 */
 	asonespectrier: {
 		onPreStart(pokemon) {
 			this.add('-ability', pokemon, 'As One');
@@ -486,6 +492,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 2,
 		num: 167,
 	},
+	/**
+	 * Looks correct according to elite redux dex
+	 */
 	chillingneigh: {
 		onSourceAfterFaint(length, target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
@@ -741,6 +750,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 2,
 		num: 291,
 	},
+	/**
+	 * Seems to be implemented properly based on the elite redux dex.
+	 */
 	curiousmedicine: {
 		onStart(pokemon) {
 			for (const ally of pokemon.adjacentAllies()) {
@@ -998,6 +1010,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		rating: 3.5,
 		num: 88,
 	},
+	/**
+	 * Looks correct according to elite redux dex
+	 */
 	dragonsmaw: {
 		onModifyAtkPriority: 5,
 		onModifyAtk(atk, attacker, defender, move) {
@@ -5567,6 +5582,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		num: 322,
 		gen: 8,
 	},
+	/**
+	 * Looks correct according to elite redux dex.
+	 */
 	letsroll: {
 		onStart(pokemon) {
 			this.boost({def: 1}, pokemon);
@@ -6456,6 +6474,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		num: 360,
 		gen: 8,
 	},
+	/**
+	 * Trick room needs to only last 3 turns from this ability.
+	 */
 	twistdimension: {
 		onStart(source) {
 			this.add('-activate', source, 'ability: Twist. Dimension');
@@ -8659,4 +8680,5 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			source.trySetStatus('bld', target, this.dex.abilities.get("spikearmor"));
 		}
 	},
+
 };
