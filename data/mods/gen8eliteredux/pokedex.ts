@@ -12283,7 +12283,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		name: "Clawitzer-Redux",
 		types: ["Fire", "Electric"],
 		baseStats: {hp: 80, atk: 65, def: 83, spa: 110, spd: 82, spe: 110},
-		abilities: {0: "Plasma Lamp", I1: "Ice Age", I2: "Levitate", I3: "Dual Wield"},
+		abilities: {0: "Elemental Charge", I1: "Ice Age", I2: "Levitate", I3: "Dual Wield"},
 		heightm: 1.3,
 		weightkg: 35.3,
 		color: "White",
