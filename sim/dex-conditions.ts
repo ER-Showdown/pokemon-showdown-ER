@@ -354,6 +354,13 @@ export interface EventMethods {
 	onAnyAccuracy?: (
 		this: Battle, accuracy: number, target: Pokemon, source: Pokemon, move: ActiveMove
 	) => number | boolean | null | void;
+	/**
+	 * This is called right before *any* pokemon in the battle uses a move, and is meant to modify the base power.
+	 * @param basePower the current basePower value.
+	 * @param source The pokemon that initiated the move.
+	 * @param target The pokemon that is targeted by the move.
+	 * @param move The move being used.
+	 */
 	onAnyBasePower?: CommonHandlers['ModifierSourceMove'];
 	onAnyBeforeFaint?: (this: Battle, pokemon: Pokemon, effect: Effect) => void;
 	onAnyBeforeMove?: CommonHandlers['VoidSourceMove'];

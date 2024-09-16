@@ -8793,6 +8793,26 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	pixiepower: {
 		name: "Pixie Power",
 		shortDesc: "Boosts Fairy moves by 33% and 1.2x accuracy.",
+		/// Display pixie power activation message.
+		onStart(pokemon) {
+			if (this.suppressingAbility(pokemon)) return;
+			this.add('-ability', pokemon, 'Pixie Power');
+		},
+		/// Fairy Aura boost.
+		onAnyBasePowerPriority: 20,
+		onAnyBasePower(basePower, source, target, move) {
+			if (target === source || move.category === 'Status' || move.type !== 'Fairy') return;
+			if (!move.auraBooster?.hasAbility('Pixie Power')) move.auraBooster = this.effectState.target;
+			if (move.auraBooster !== this.effectState.target) return;
+			return this.chainModify([move.hasAuraBreak ? 3072 : 5448, 4096]);
+		},
+		/// Modified Compound Eyes boost.
+		onAnyModifyAccuracyPriority: -1,
+		onAnyModifyAccuracy(accuracy) {
+			if (typeof accuracy !== 'number') return;
+			this.debug('pixiepower - enhancing accuracy');
+			return this.chainModify(1.2);
+		},
 	},
 	plasmalamp: {
 		name: "Plasma Lamp",
