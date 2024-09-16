@@ -2972,9 +2972,33 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 	kunoichisblade: {
 		name: "Kunoichi's Blade",
 		shortDesc: "Boost weaker moves and increases the frequency of multi-hit moves.",
+		start: "  [POKEMON] sharpened it's blade!"
 	},
 	junglesguard: {
 		name: "Jungle's Guard",
 		shortDesc: "Grass-types on user side: immune to status/stat drops from enemy.",
+		start: "  [POKEMON] is guarding it's jungle friends!"
+	},
+	pixiepower: {
+		name: "Pixie Power",
+		shortDesc: "Boosts Fairy moves by 33% and 1.2x accuracy.",
+		start: "  [POKEMON] is emanating pixie power!",
+	},
+	plasmalamp: {
+		name: "Plasma Lamp",
+		shortDesc: "Boost accuracy & power of Fire and Electric type moves by 1.2x.",
+		start: "  [POKEMON]'s plasma lamp is powering it up!"
+	},
+	magmaeater: {
+		name: "Magma Eater",
+		shortDesc: "Combines Predator & Molten Down."
+	},
+	superhotgoo: {
+		name: "Super Hot Goo",
+		shortDesc: "Inflicts burn and lower the speed on contact."
+	},
+	nika: {
+		name: "Nika",
+		shortDesc: "Iron fist + Water moves function normally under sun."
 	}
 };

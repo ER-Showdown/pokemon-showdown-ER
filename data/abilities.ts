@@ -8789,6 +8789,26 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 				return this.chainModify(1.3);
 			}
 		},
+	},
+	pixiepower: {
+		name: "Pixie Power",
+		shortDesc: "Boosts Fairy moves by 33% and 1.2x accuracy.",
+	},
+	plasmalamp: {
+		name: "Plasma Lamp",
+		shortDesc: "Boost accuracy & power of Fire and Electric type moves by 1.2x."
+	},
+	magmaeater: {
+		name: "Magma Eater",
+		shortDesc: "Combines Predator & Molten Down."
+	},
+	superhotgoo: {
+		name: "Super Hot Goo",
+		shortDesc: "Inflicts burn and lower the speed on contact."
+	},
+	nika: {
+		name: "Nika",
+		shortDesc: "Iron fist + Water moves function normally under sun."
 	}
 	
 	// No pokemon appears to have this ability yet?
