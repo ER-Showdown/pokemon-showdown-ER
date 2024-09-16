@@ -8841,11 +8841,39 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	},
 	magmaeater: {
 		name: "Magma Eater",
-		shortDesc: "Combines Predator & Molten Down."
+		shortDesc: "Combines Predator & Molten Down.",
+		/// Molten Down
+		onFoeEffectiveness(typeMod, target, type, move) {
+			if (type === 'Rock' && move.type === 'Fire') {
+				return 1;
+			}
+		},
+		/// Predator
+		onSourceAfterFaint(length, target, source, effect) {
+			if (effect && effect.effectType === 'Move') {
+				this.add('-activate', source, 'Predator');
+				source.heal(source.baseMaxhp / 4);
+				this.add('-heal', source, source.getHealth, '[silent]')
+			}
+		},
 	},
 	superhotgoo: {
 		name: "Super Hot Goo",
-		shortDesc: "Inflicts burn and lower the speed on contact."
+		shortDesc: "Inflicts burn and lower the speed on contact.",
+		/// Gooey.
+		onDamagingHit(damage, target, source, move) {
+			if (this.checkMoveMakesContact(move, source, target, true)) {
+				this.add('-ability', target, 'Gooey');
+				this.boost({spe: -1}, source, target, null, true);
+			}
+			
+			if (this.checkMoveMakesContact(move, source, target)) {
+				// TODO: Is this a random chance like flame body or guaranteed?
+				// if (this.randomChance(3, 10)) {
+				source.trySetStatus('brn', target);
+				// }
+			}
+		},
 	},
 	nika: {
 		name: "Nika",
