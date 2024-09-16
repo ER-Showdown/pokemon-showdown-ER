@@ -2972,5 +2972,9 @@ export const AbilitiesText: {[k: string]: AbilityText} = {
 	kunoichisblade: {
 		name: "Kunoichi's Blade",
 		shortDesc: "Boost weaker moves and increases the frequency of multi-hit moves.",
+	},
+	junglesguard: {
+		name: "Jungle's Guard",
+		shortDesc: "Grass-types on user side: immune to status/stat drops from enemy.",
 	}
 };

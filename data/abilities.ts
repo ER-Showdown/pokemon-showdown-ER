@@ -8731,6 +8731,44 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 				return this.chainModify(1.3);
 			}
 		},
+	},
+	/// This is just copied from flower veil which seemed to behave the same.
+	junglesguard: {
+		name: "Jungle's Guard",
+		shortDesc: "Grass-types on user side: immune to status/stat drops from enemy.",
+		onAllyTryBoost(boost, target, source, effect) {
+			if ((source && target === source) || !target.hasType('Grass')) return;
+			let showMsg = false;
+			let i: BoostID;
+			for (i in boost) {
+				if (boost[i]! < 0) {
+					delete boost[i];
+					showMsg = true;
+				}
+			}
+			if (showMsg && !(effect as ActiveMove).secondaries) {
+				const effectHolder = this.effectState.target;
+				this.add('-block', target, "ability: Jungle's Guard", '[of] ' + effectHolder);
+			}
+		},
+		onAllySetStatus(status, target, source, effect) {
+			if (target.hasType('Grass') && source && target !== source && effect && effect.id !== 'yawn') {
+				this.debug('interrupting setStatus with Jungle Guard');
+				if (effect.name === 'Synchronize' || (effect.effectType === 'Move' && !effect.secondaries)) {
+					const effectHolder = this.effectState.target;
+					this.add('-block', target, "ability: Jungle's Guard", '[of] ' + effectHolder);
+				}
+				return null;
+			}
+		},
+		onAllyTryAddVolatile(status, target) {
+			if (target.hasType('Grass') && status.id === 'yawn') {
+				this.debug('Jungles Guard blocking yawn');
+				const effectHolder = this.effectState.target;
+				this.add('-block', target, "ability: Jungle's Guard", '[of] ' + effectHolder);
+				return null;
+			}
+		},
 	}
 	
 	// No pokemon appears to have this ability yet?
