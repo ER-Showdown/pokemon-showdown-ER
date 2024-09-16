@@ -8819,7 +8819,25 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	},
 	plasmalamp: {
 		name: "Plasma Lamp",
-		shortDesc: "Boost accuracy & power of Fire and Electric type moves by 1.2x."
+		shortDesc: "Boost accuracy & power of Fire and Electric type moves by 1.2x.",
+		onStart(pokemon) {
+			if (this.suppressingAbility(pokemon)) return;
+			this.add('-ability', pokemon, 'Plasma Lamp');
+		},
+		/// Plasma Lamp boost.
+		onModifyAtk(atk, attacker, defender, move) {
+			if (move.type === 'Electric' || move.type == "Fire") {
+				this.debug('Plasma Lamp boost');
+				return this.chainModify(1.2);
+			}
+		},
+		/// Modified Compound Eyes boost.
+		onModifyAccuracy(accuracy, target, source, move) {
+			if (typeof accuracy !== 'number') return;
+			if (move.type !== "Fire" && move.type != "Electric") return;
+			this.debug('plasma lamp - enhancing accuracy');
+			return this.chainModify(1.2);
+		},
 	},
 	magmaeater: {
 		name: "Magma Eater",
