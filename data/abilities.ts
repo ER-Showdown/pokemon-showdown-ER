@@ -8825,14 +8825,14 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			this.add('-ability', pokemon, 'Plasma Lamp');
 		},
 		/// Plasma Lamp boost.
-		onModifyAtk(atk, attacker, defender, move) {
+		onSourceModifyAtk(atk, attacker, defender, move) {
 			if (move.type === 'Electric' || move.type == "Fire") {
 				this.debug('Plasma Lamp boost');
 				return this.chainModify(1.2);
 			}
 		},
 		/// Modified Compound Eyes boost.
-		onModifyAccuracy(accuracy, target, source, move) {
+		onSourceModifyAccuracy(accuracy, target, source, move) {
 			if (typeof accuracy !== 'number') return;
 			if (move.type !== "Fire" && move.type != "Electric") return;
 			this.debug('plasma lamp - enhancing accuracy');
