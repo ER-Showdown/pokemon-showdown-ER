@@ -8775,7 +8775,7 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		shortDesc: "Boost horn moves and heals 1/4 hp when defeating an enemy.",
 		onSourceAfterFaint(length, target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
-				this.add('-activate', source, 'Predator');
+				this.add('-activate', source, "Hunter's Horn");
 				source.heal(source.baseMaxhp / 4);
 				this.add('-heal', source, source.getHealth, '[silent]')
 			}
