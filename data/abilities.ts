@@ -8804,12 +8804,14 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 			if (target === source || move.category === 'Status' || move.type !== 'Fairy') return;
 			if (!move.auraBooster?.hasAbility('Pixie Power')) move.auraBooster = this.effectState.target;
 			if (move.auraBooster !== this.effectState.target) return;
+			/// TODO: Should aura break cancel this?
 			return this.chainModify([move.hasAuraBreak ? 3072 : 5448, 4096]);
 		},
 		/// Modified Compound Eyes boost.
 		onAnyModifyAccuracyPriority: -1,
 		onAnyModifyAccuracy(accuracy, target, source, move) {
 			if (typeof accuracy !== 'number') return;
+			/// TODO: Does the accuracy boost only apply to fairy type moves?
 			if (move.type !== "Fairy") return;
 			this.debug('pixiepower - enhancing accuracy');
 			return this.chainModify(1.2);
