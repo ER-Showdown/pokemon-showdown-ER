@@ -8808,8 +8808,9 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 		},
 		/// Modified Compound Eyes boost.
 		onAnyModifyAccuracyPriority: -1,
-		onAnyModifyAccuracy(accuracy) {
+		onAnyModifyAccuracy(accuracy, target, source, move) {
 			if (typeof accuracy !== 'number') return;
+			if (move.type !== "Fairy") return;
 			this.debug('pixiepower - enhancing accuracy');
 			return this.chainModify(1.2);
 		},
