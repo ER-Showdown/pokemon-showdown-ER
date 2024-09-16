@@ -902,6 +902,13 @@ export class Battle {
 		return handler as EventListener;
 	}
 
+	/**
+	 * NOTE: This is where the actual dynamic dispatch of different 'on*' event handlers are actually collected and then called.
+	 * @param target 
+	 * @param eventName 
+	 * @param source 
+	 * @returns 
+	 */
 	findEventHandlers(target: Pokemon | Pokemon[] | Side | Battle, eventName: string, source?: Pokemon | null) {
 		let handlers: EventListener[] = [];
 		if (Array.isArray(target)) {

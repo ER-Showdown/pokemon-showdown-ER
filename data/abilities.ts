@@ -8877,7 +8877,18 @@ export const Abilities: {[abilityid: string]: AbilityData} = {
 	},
 	nika: {
 		name: "Nika",
-		shortDesc: "Iron fist + Water moves function normally under sun."
+		shortDesc: "Iron fist + Water moves function normally under sun.",
+		onBasePower(basePower, attacker, defender, move) {
+			if (move.flags['punch']) {
+				this.debug('Iron Fist boost');
+				this.chainModify(1.3);
+			}
+
+			if (move.type == "Water" && this.field.weather == "sunnyday") {
+				this.debug("water sun boost offset");
+				this.chainModify(1.5);
+			}
+		},
 	}
 	
 	// No pokemon appears to have this ability yet?
