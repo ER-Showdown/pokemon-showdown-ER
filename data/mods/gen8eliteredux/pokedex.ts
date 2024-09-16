@@ -8466,7 +8466,8 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		types: ["Electric", "Fire"],
 		gender: "N",
 		baseStats: {hp: 50, atk: 65, def: 107, spa: 105, spd: 107, spe: 86},
-		abilities: {0: "Plasma Lamp", 1: "Motor Drive", I1: "Levitate", I2: "Minus", I3: "Phantom"},
+		/// TODO: Rotom-Heat is missing abilities.
+		abilities: {0: "Flash Fire", 1: "Motor Drive", I1: "Levitate", I2: "Minus", I3: "Phantom"},
 		heightm: 0.3,
 		weightkg: 0.3,
 		color: "Red",
@@ -12282,7 +12283,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		name: "Clawitzer-Redux",
 		types: ["Fire", "Electric"],
 		baseStats: {hp: 80, atk: 65, def: 83, spa: 110, spd: 82, spe: 110},
-		abilities: {0: "Elemental Charge", I1: "Ice Age", I2: "Levitate", I3: "Dual Wield"},
+		abilities: {0: "Plasma Lamp", I1: "Ice Age", I2: "Levitate", I3: "Dual Wield"},
 		heightm: 1.3,
 		weightkg: 35.3,
 		color: "White",
