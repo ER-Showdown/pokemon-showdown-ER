@@ -15,6 +15,8 @@ import { MoveData } from "../../../sim/dex-moves";
 import { LearnsetData } from "../../../sim/dex-species";
 import { SpeciesData } from "../../../sim/dex-species";
 import { MoveTarget } from "../../../sim/dex-moves";
+import { DexTableData, ModdedDex } from "../../../sim/dex";
+import { capitalize } from "lodash";
 
 type StatIDExceptHP = "atk" | "def" | "spa" | "spd" | "spe";
 type StatID = "hp" | StatIDExceptHP;
@@ -83,6 +85,7 @@ export interface ParsedMove {
  * Works with data from the elite redux online dex to parse and generate showdown data for moves, pokedex and learnsets.
  */
 export class DexParser {
+	showdownData: DexTableData;
 	gameData?: CompactGameData;
 	config: DexConfig;
 	moves: { [id: string]: MoveData } = {};
@@ -90,6 +93,8 @@ export class DexParser {
 	pokedex: { [speciesId: string]: SpeciesData } = {};
 
 	constructor(config?: DexConfig) {
+		const dex = new ModdedDex("gen8eliteredux");
+		this.showdownData = dex.data;
 		this.config = config ?? {
 			dexDataUrl:
 				"https://forwardfeed.github.io/ER-nextdex/static/js/data/gameDataVBeta2.1.json",
@@ -153,8 +158,10 @@ export class DexParser {
 				baseStats: this.getBaseStats(pokemon),
 				eggGroups: this.getEggGroups(pokemon),
 				// TODO: Can we prefill this value?
-				weightkg: 0,
-				evos: this.getEvolutions(pokemon),
+				weightkg: this.showdownData.Pokedex[id]?.weightkg,
+				heightm: this.showdownData.Pokedex[id]?.heightm,
+				color: this.showdownData.Pokedex[id]?.color,
+				...this.getEvolutionData(pokemon),
 				prevo: this.findPrevo(pokemon),
 			};
 		}
@@ -455,10 +462,24 @@ export class DexParser {
 			.map(this.getEggGroupId);
 	}
 
-	private getEvolutions(pokemon: CompactSpecie): string[] {
-		return pokemon.evolutions
-			.map((evolution) => this.gameData!.species[evolution.in]?.name)
-			.filter((value) => value != null);
+	private getEvolutionData(
+		pokemon: CompactSpecie
+	): Partial<SpeciesData> & { evos: string[] } {
+		const evoItems = pokemon.evolutions
+			.map((evo) => evo.rs)
+			.filter((spec) => spec.startsWith("ITEM_"))
+			.map((spec) => spec.replace("ITEM_", "").toLowerCase());
+		const evoLevels = pokemon.evolutions
+			.map((evolution) => evolution.rs)
+			.filter((level) => level != null);
+		return {
+			evoLevel: evoLevels.length > 0 ? parseInt(evoLevels[0]) : undefined,
+			evoItem: evoItems.length > 0 ? evoItems[0] : undefined,
+
+			evos: pokemon.evolutions
+				.map((evolution) => this.gameData!.species[evolution.in]?.name)
+				.filter((value) => value != null),
+		};
 	}
 
 	private findPrevo(pokemon: CompactSpecie): string | undefined {

@@ -8,7 +8,7 @@
 		}
 	],
 	"settings": {
-		"typescript.tsdk": "node_modules/typescript/lib"
+		"typescript.tsdk": "pokemon-showdown-client-ER\\node_modules\\typescript\\lib"
 	},
 	"launch": {
 		"version": "0.2.0",
@@ -25,14 +25,14 @@
 				"presentation": {
 					"hidden": false,
 					"group": "COMBO",
-					"order": 1,
+					"order": 1
 				}
 			},
 			{
 				"name": "[SINGLEPLAYER] Elite Redux Showdown",
 				"configurations": [
 					"[SERVER] Start Test Server",
-					"[BROWSER] Player 1 Session",
+					"[BROWSER] Player 1 Session"
 				],
 				"stopAll": true,
 				"presentation": {
@@ -42,5 +42,5 @@
 				}
 			}
 		]
-	},
+	}
 }
