@@ -44,7 +44,8 @@
     "full-test-ci": "eslint ${FILES} --max-warnings 0 && npm run tsc && (([ \"$SKIPSIMTESTS\" = true ] && mocha --timeout 8000 --forbid-only -g \".*\" --exclude \"test/{sim,random-battles}/**\") || mocha --timeout 8000 --forbid-only -g \".*\")",
     "postinstall": "npm run build postinstall",
     "setup-er-tools": "ts-node tools/elite-redux/setup-tools.ts",
-    "generate-er-learnsets": "npm run setup-er-tools && ts-node tools/elite-redux/generate-learnsets.ts"
+    "generate-er-learnsets": "npm run setup-er-tools && ts-node tools/elite-redux/dex-parser/generate-learnsets.ts",
+    "generate-er-pokedex": "npm run setup-er-tools && ts-node tools/elite-redux/dex-parser/generate-pokedex.ts"
   },
   "bin": "./pokemon-showdown",
   "homepage": "http://pokemonshowdown.com",
@@ -82,7 +83,7 @@
     "@typescript-eslint/parser": "^5.8.0",
     "eslint": "^8.5.0",
     "mocha": "^8.2.0",
-    "node-fetch": "^3.3.2",
+    "node-fetch": "^2.7.0",
     "nodemon": "^3.1.4",
     "smogon": "^2.2.1",
     "ts-node": "^10.9.2",

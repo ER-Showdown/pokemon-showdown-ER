@@ -29,6 +29,9 @@ tools/set-import/*.js
 
 dex_repo
 
+learnset-output.ts
+pokedex-output.ts
+
 # visual studio live share
 .vs
 

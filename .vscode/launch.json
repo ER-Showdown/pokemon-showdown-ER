@@ -1,26 +1,49 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "[SERVER] Start Test Server",
-            "request": "launch",
-            "runtimeArgs": [
-                "run-script",
-                "start"
-            ],
-            "runtimeExecutable": "npm",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node",
-            "presentation": {
-                "hidden": false,
-                "group": "",
-                "order": 3
-            }
-        },
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "[TOOLS] Generate ER Learnsets",
+      "request": "launch",
+      "program": "${workspaceFolder}/tools/elite-redux/dex-parser/generate-learnsets.ts",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/ts-node",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "presentation": {
+        "hidden": false,
+        "group": "",
+        "order": 3
+      },
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "name": "[TOOLS] Generate ER Pokedex",
+      "request": "launch",
+      "program": "${workspaceFolder}/tools/elite-redux/dex-parser/generate-pokedex.ts",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/ts-node",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "presentation": {
+        "hidden": false,
+        "group": "",
+        "order": 3
+      },
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "name": "[SERVER] Start Test Server",
+      "request": "launch",
+      "runtimeArgs": ["run-script", "start"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "presentation": {
+        "hidden": false,
+        "group": "",
+        "order": 3
+      }
+    }
+  ]
 }

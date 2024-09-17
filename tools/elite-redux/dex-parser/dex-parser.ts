@@ -2,6 +2,7 @@
  * NOTE: If you are getting import errors here, you need to clone the ER dex repository by running the setup-tools:
  * >>> npm run setup-er-tools
  */
+const fetch = require("node-fetch");
 import {
 	CompactGameData,
 	compactMove,
@@ -10,6 +11,14 @@ import {
 import { MoveFlags } from "../../../sim/dex-moves";
 import { SpeciesAbility } from "../../../sim/dex-species";
 import { Ability as DexAbility } from "../../../dex_repo/src/abilities";
+import { MoveData } from "../../../sim/dex-moves";
+import { LearnsetData } from "../../../sim/dex-species";
+import { SpeciesData } from "../../../sim/dex-species";
+import { MoveTarget } from "../../../sim/dex-moves";
+
+type StatIDExceptHP = "atk" | "def" | "spa" | "spd" | "spe";
+type StatID = "hp" | StatIDExceptHP;
+type StatsTable = { [stat in StatID]: number };
 
 export interface DexConfig {
 	dexDataUrl: string;
@@ -70,6 +79,9 @@ export interface ParsedMove {
 	level?: number;
 }
 
+/**
+ * Works with data from the elite redux online dex to parse and generate showdown data for moves, pokedex and learnsets.
+ */
 export class DexParser {
 	gameData?: CompactGameData;
 	config: DexConfig;
@@ -86,20 +98,28 @@ export class DexParser {
 		};
 	}
 
-	private async pullDexData(): Promise<CompactGameData> {
-		const response = await fetch(this.config.dexDataUrl);
-		return (await response.json()) as CompactGameData;
-	}
-
 	async init() {
 		this.gameData = await this.pullDexData();
 		this.parseMoves();
 		this.parsePokemon();
 	}
 
+	/**
+	 * Load all dex data from the elite redux json file.
+	 * @returns The online dex data.
+	 */
+	private async pullDexData(): Promise<CompactGameData> {
+		const response = await fetch(this.config.dexDataUrl);
+		return (await response.json()) as CompactGameData;
+	}
+
+	/**
+	 * Load all move data from the elite redux json file.
+	 */
 	private parseMoves() {
 		for (const move of this.gameData!.moves) {
 			const id = this.getShowdownMoveId(move);
+			if (id == "??????????") continue;
 			this.moves[id] = {
 				...this.getMoveFlags(move),
 				name: move.name,
@@ -114,10 +134,14 @@ export class DexParser {
 		}
 	}
 
+	/**
+	 * Load all pokemon data from the elite redux json file.
+	 */
 	private parsePokemon() {
 		for (const pokemon of this.gameData!.species) {
 			const learnset = this.generateLearnset(pokemon);
 			const id = pokemon.name.toLowerCase();
+			if (id == "??????????") continue;
 			this.learnsets[id] = learnset;
 			this.pokedex[id] = {
 				name: pokemon.name,
@@ -130,11 +154,18 @@ export class DexParser {
 				eggGroups: this.getEggGroups(pokemon),
 				// TODO: Can we prefill this value?
 				weightkg: 0,
+				evos: this.getEvolutions(pokemon),
+				prevo: this.findPrevo(pokemon),
 			};
 		}
 	}
 
-	findMoveByID(id: number): compactMove {
+	/**
+	 * Lookup a given move definition by online dex id.
+	 * @param id The id of the move.
+	 * @returns The online dex move definition.
+	 */
+	private findMoveByID(id: number): compactMove {
 		const move = this.gameData!.moves.find((move) => move.id == id);
 		if (move == null)
 			throw new Error(
@@ -143,11 +174,22 @@ export class DexParser {
 		return move;
 	}
 
+	/**
+	 * Generate the showdown learnset code fro a give move.
+	 * @param parsedMove The parsed move from the dex data.
+	 * @returns The showdown learnset code.
+	 */
 	private generateLearnsetCode(parsedMove: ParsedMove): string {
 		const categoryCode = getCategoryCode(parsedMove.category);
-		return `${this.config.learnsetGenPrefix}${categoryCode}${parsedMove.level}`;
+		const level = parsedMove.level != null ? parsedMove.level : "";
+		return `${this.config.learnsetGenPrefix}${categoryCode}${level}`;
 	}
 
+	/**
+	 * Get the category from an online dex move.
+	 * @param move The dex move.
+	 * @returns The category as "Physical" | "Special" | "Status"
+	 */
 	private getMoveCategory(
 		move: compactMove
 	): "Physical" | "Special" | "Status" {
@@ -166,12 +208,22 @@ export class DexParser {
 		}
 	}
 
+	/**
+	 * Map the type of the online dex move.
+	 * @param move The dex move.
+	 * @returns The showdown type string for the type.
+	 */
 	private getMoveType(move: compactMove): string {
 		// TODO: Dex moves can have more than one type?
 		// Showdown doesn't support this.
 		return this.gameData!.typeT[move.types[0]];
 	}
 
+	/**
+	 * Get the target of a given online dex move (single/double/ally/etc.).
+	 * @param move The dex move.
+	 * @returns The appropriate showdown MoveTarget.
+	 */
 	private getMoveTarget(move: compactMove): MoveTarget {
 		const target = this.gameData!.targetT[move.target];
 		switch (target) {
@@ -269,10 +321,20 @@ export class DexParser {
 		};
 	}
 
+	/**
+	 * Get the showdown move id from an online dex move.
+	 * @param move The dex move.
+	 * @returns The proper move id.
+	 */
 	private getShowdownMoveId(move: compactMove): string {
-		return move.NAME.toLowerCase().replace("MOVE_", "").replace("_", "");
+		return move.NAME.toLowerCase().replace("move_", "").replace("_", "");
 	}
 
+	/**
+	 * Create a learnset definition for a single pokemon from the online dex.
+	 * @param pokemon The dex pokemon.
+	 * @returns The showdown learnset for this pokemon.
+	 */
 	private generateLearnset(pokemon: CompactSpecie): LearnDefinition {
 		const parsed: ParsedMove[] = [];
 
@@ -321,16 +383,28 @@ export class DexParser {
 		return learnset;
 	}
 
+	/**
+	 * Get the showdown ability id from an online dex ability.
+	 * @param ability The dex ability.
+	 * @returns The showdown ability id.
+	 */
 	private getAbilityId(ability: DexAbility): string {
 		return ability.name.toLowerCase();
 	}
 
+	/**
+	 * Get the showdown ability data from an online dex pokemon.
+	 * @param pokemon The dex pokemon.
+	 * @returns The showdown ability definition.
+	 */
 	private getAbilityData(pokemon: CompactSpecie): SpeciesAbility {
 		const dexAbilities = pokemon.stats.abis
 			.map((index) => this.gameData!.abilities[index])
+			.filter((ability) => ability.name != "-------")
 			.map(this.getAbilityId);
 		const dexInnates = pokemon.stats.inns
 			.map((index) => this.gameData!.abilities[index])
+			.filter((ability) => ability.name != "-------")
 			.map(this.getAbilityId);
 		return {
 			0: dexAbilities[0],
@@ -343,6 +417,11 @@ export class DexParser {
 		};
 	}
 
+	/**
+	 * Get the showdown base stats from an online dex pokemon.
+	 * @param pokemon The dex pokemon.
+	 * @returns The showdown stat definition.
+	 */
 	private getBaseStats(pokemon: CompactSpecie): StatsTable {
 		const base = pokemon.stats.base;
 		return {
@@ -355,15 +434,43 @@ export class DexParser {
 		};
 	}
 
+	/**
+	 * Get the showdown egg group id from an online egg name.
+	 * @param dexGroup The dex egg group.
+	 * @returns The showdown egg group.
+	 */
 	private getEggGroupId(dexGroup: string): string {
 		let lower = dexGroup.replace("EGG_GROUP_", "").toLowerCase();
 		return `${lower[0].toUpperCase()}${lower.substring(1)}`;
 	}
 
+	/**
+	 * Get the showdown egg group ids from an online dex pokemon.
+	 * @param pokemon The dex pokemon.
+	 * @returns The showdown egg group list.
+	 */
 	private getEggGroups(pokemon: CompactSpecie): string[] {
 		return pokemon.stats.eggG
 			.map((index) => this.gameData!.eggT[index])
 			.map(this.getEggGroupId);
+	}
+
+	private getEvolutions(pokemon: CompactSpecie): string[] {
+		return pokemon.evolutions
+			.map((evolution) => this.gameData!.species[evolution.in]?.name)
+			.filter((value) => value != null);
+	}
+
+	private findPrevo(pokemon: CompactSpecie): string | undefined {
+		const index = this.gameData!.species.findIndex(
+			(species) => species.name == pokemon.name
+		);
+
+		return this.gameData!.species.find(
+			(species) =>
+				species.evolutions.find((evolution) => evolution.in == index) !=
+				null
+		)?.name;
 	}
 }
 
