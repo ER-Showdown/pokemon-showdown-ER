@@ -4,37 +4,46 @@ type Mutable<T> = {
 	-readonly [P in keyof T]: T[P];
 };
 
-type Battle = import('./battle').Battle;
-type BattleQueue = import('./battle-queue').BattleQueue;
-type BattleActions = import('./battle-actions').BattleActions;
-type Field = import('./field').Field;
-type Action = import('./battle-queue').Action;
-type MoveAction = import('./battle-queue').MoveAction;
-type ActionChoice = import('./battle-queue').ActionChoice;
-type ModdedDex = import('./dex').ModdedDex;
-type Pokemon = import('./pokemon').Pokemon;
-type PRNGSeed = import('./prng').PRNGSeed;
-type Side = import('./side').Side;
-type TeamValidator = import('./team-validator').TeamValidator;
-type PokemonSources = import('./team-validator').PokemonSources;
+type Battle = import("./battle").Battle;
+type BattleQueue = import("./battle-queue").BattleQueue;
+type BattleActions = import("./battle-actions").BattleActions;
+type Field = import("./field").Field;
+type Action = import("./battle-queue").Action;
+type MoveAction = import("./battle-queue").MoveAction;
+type ActionChoice = import("./battle-queue").ActionChoice;
+type ModdedDex = import("./dex").ModdedDex;
+type Pokemon = import("./pokemon").Pokemon;
+type PRNGSeed = import("./prng").PRNGSeed;
+type Side = import("./side").Side;
+type TeamValidator = import("./team-validator").TeamValidator;
+type PokemonSources = import("./team-validator").PokemonSources;
 
 /** An ID must be lowercase alphanumeric. */
-type ID = '' | string & {__isID: true};
-type PokemonSlot = '' | string & {__isSlot: true};
-interface AnyObject {[k: string]: any}
+type ID = "" | (string & { __isID: true });
+type PokemonSlot = "" | (string & { __isSlot: true });
+interface AnyObject {
+	[k: string]: any;
+}
 
-type GenderName = 'M' | 'F' | 'N' | '';
-type StatIDExceptHP = 'atk' | 'def' | 'spa' | 'spd' | 'spe';
-type StatID = 'hp' | StatIDExceptHP;
-type StatsExceptHPTable = {[stat in StatIDExceptHP]: number};
-type StatsTable = {[stat in StatID]: number};
+type GenderName = "M" | "F" | "N" | "";
+type StatIDExceptHP = "atk" | "def" | "spa" | "spd" | "spe";
+type StatID = "hp" | StatIDExceptHP;
+type StatsExceptHPTable = { [stat in StatIDExceptHP]: number };
+type StatsTable = { [stat in StatID]: number };
 type SparseStatsTable = Partial<StatsTable>;
-type BoostID = StatIDExceptHP | 'accuracy' | 'evasion';
-type BoostsTable = {[boost in BoostID]: number };
+type BoostID = StatIDExceptHP | "accuracy" | "evasion";
+type BoostsTable = { [boost in BoostID]: number };
 type SparseBoostsTable = Partial<BoostsTable>;
-type Nonstandard = 'Past' | 'Future' | 'Unobtainable' | 'CAP' | 'LGPE' | 'Custom' | 'Gigantamax';
+type Nonstandard =
+	| "Past"
+	| "Future"
+	| "Unobtainable"
+	| "CAP"
+	| "LGPE"
+	| "Custom"
+	| "Gigantamax";
 
-type PokemonSet = import('./teams').PokemonSet;
+type PokemonSet = import("./teams").PokemonSet;
 
 /**
  * Describes a possible way to get a move onto a pokemon.
@@ -61,9 +70,34 @@ type PokemonSet = import('./teams').PokemonSet;
 type MoveSource = string;
 
 namespace TierTypes {
-	export type Singles = "AG" | "Uber" | "(Uber)" | "OU" | "(OU)" | "UUBL" | "UU" | "RUBL" | "RU" | "NUBL" | "NU" |
-	"(NU)" | "PUBL" | "PU" | "(PU)" | "NFE" | "LC";
-	export type Doubles = "DUber" | "(DUber)" | "DOU" | "(DOU)" | "DBL" | "DUU" | "(DUU)" | "NFE" | "LC";
+	export type Singles =
+		| "AG"
+		| "Uber"
+		| "(Uber)"
+		| "OU"
+		| "(OU)"
+		| "UUBL"
+		| "UU"
+		| "RUBL"
+		| "RU"
+		| "NUBL"
+		| "NU"
+		| "(NU)"
+		| "PUBL"
+		| "PU"
+		| "(PU)"
+		| "NFE"
+		| "LC";
+	export type Doubles =
+		| "DUber"
+		| "(DUber)"
+		| "DOU"
+		| "(DOU)"
+		| "DBL"
+		| "DUU"
+		| "(DUU)"
+		| "NFE"
+		| "LC";
 	export type Other = "Unreleased" | "Illegal" | "CAP" | "CAP NFE" | "CAP LC";
 }
 
@@ -90,48 +124,124 @@ interface EventInfo {
 type Effect = Ability | Item | ActiveMove | Species | Condition | Format;
 
 interface CommonHandlers {
-	ModifierEffect: (this: Battle, relayVar: number, target: Pokemon, source: Pokemon, effect: Effect) => number | void;
-	ModifierMove: (this: Battle, relayVar: number, target: Pokemon, source: Pokemon, move: ActiveMove) => number | void;
-	ResultMove: boolean | (
-		(this: Battle, target: Pokemon, source: Pokemon, move: ActiveMove) => boolean | null | "" | void
-	);
-	ExtResultMove: boolean | (
-		(this: Battle, target: Pokemon, source: Pokemon, move: ActiveMove) => boolean | null | number | "" | void
-	);
-	VoidEffect: (this: Battle, target: Pokemon, source: Pokemon, effect: Effect) => void;
-	VoidMove: (this: Battle, target: Pokemon, source: Pokemon, move: ActiveMove) => void;
+	ModifierEffect: (
+		this: Battle,
+		relayVar: number,
+		target: Pokemon,
+		source: Pokemon,
+		effect: Effect
+	) => number | void;
+	ModifierMove: (
+		this: Battle,
+		relayVar: number,
+		target: Pokemon,
+		source: Pokemon,
+		move: ActiveMove
+	) => number | void;
+	ResultMove:
+		| boolean
+		| ((
+				this: Battle,
+				target: Pokemon,
+				source: Pokemon,
+				move: ActiveMove
+		  ) => boolean | null | "" | void);
+	ExtResultMove:
+		| boolean
+		| ((
+				this: Battle,
+				target: Pokemon,
+				source: Pokemon,
+				move: ActiveMove
+		  ) => boolean | null | number | "" | void);
+	VoidEffect: (
+		this: Battle,
+		target: Pokemon,
+		source: Pokemon,
+		effect: Effect
+	) => void;
+	VoidMove: (
+		this: Battle,
+		target: Pokemon,
+		source: Pokemon,
+		move: ActiveMove
+	) => void;
 	ModifierSourceEffect: (
-		this: Battle, relayVar: number, source: Pokemon, target: Pokemon, effect: Effect
+		this: Battle,
+		relayVar: number,
+		source: Pokemon,
+		target: Pokemon,
+		effect: Effect
 	) => number | void;
 	ModifierSourceMove: (
-		this: Battle, relayVar: number, source: Pokemon, target: Pokemon, move: ActiveMove
+		this: Battle,
+		relayVar: number,
+		source: Pokemon,
+		target: Pokemon,
+		move: ActiveMove
 	) => number | void;
-	ResultSourceMove: boolean | (
-		(this: Battle, source: Pokemon, target: Pokemon, move: ActiveMove) => boolean | null | "" | void
-	);
-	ExtResultSourceMove: boolean | (
-		(this: Battle, source: Pokemon, target: Pokemon, move: ActiveMove) => boolean | null | number | "" | void
-	);
-	VoidSourceEffect: (this: Battle, source: Pokemon, target: Pokemon, effect: Effect) => void;
-	VoidSourceMove: (this: Battle, source: Pokemon, target: Pokemon, move: ActiveMove) => void;
+	ResultSourceMove:
+		| boolean
+		| ((
+				this: Battle,
+				source: Pokemon,
+				target: Pokemon,
+				move: ActiveMove
+		  ) => boolean | null | "" | void);
+	ExtResultSourceMove:
+		| boolean
+		| ((
+				this: Battle,
+				source: Pokemon,
+				target: Pokemon,
+				move: ActiveMove
+		  ) => boolean | null | number | "" | void);
+	VoidSourceEffect: (
+		this: Battle,
+		source: Pokemon,
+		target: Pokemon,
+		effect: Effect
+	) => void;
+	VoidSourceMove: (
+		this: Battle,
+		source: Pokemon,
+		target: Pokemon,
+		move: ActiveMove
+	) => void;
 }
 
 interface EffectData {
 	name?: string;
 	desc?: string;
 	duration?: number;
-	durationCallback?: (this: Battle, target: Pokemon, source: Pokemon, effect: Effect | null) => number;
+	durationCallback?: (
+		this: Battle,
+		target: Pokemon,
+		source: Pokemon,
+		effect: Effect | null
+	) => number;
 	effectType?: string;
 	infiltrates?: boolean;
 	isNonstandard?: Nonstandard | null;
 	shortDesc?: string;
 }
 
-type ModdedEffectData = EffectData | Partial<EffectData> & {inherit: true};
+type ModdedEffectData = EffectData | (Partial<EffectData> & { inherit: true });
 
 type EffectType =
-	'Condition' | 'Pokemon' | 'Move' | 'Item' | 'Ability' | 'Format' |
-	'Nature' | 'Ruleset' | 'Weather' | 'Status' | 'Terastal' | 'Rule' | 'ValidatorRule';
+	| "Condition"
+	| "Pokemon"
+	| "Move"
+	| "Item"
+	| "Ability"
+	| "Format"
+	| "Nature"
+	| "Ruleset"
+	| "Weather"
+	| "Status"
+	| "Terastal"
+	| "Rule"
+	| "ValidatorRule";
 
 interface BasicEffect extends EffectData {
 	id: ID;
@@ -143,36 +253,37 @@ interface BasicEffect extends EffectData {
 	toString: () => string;
 }
 
-type ConditionData = import('./dex-conditions').ConditionData;
-type ModdedConditionData = import('./dex-conditions').ModdedConditionData;
-type Condition = import('./dex-conditions').Condition;
+type ConditionData = import("./dex-conditions").ConditionData;
+type ModdedConditionData = import("./dex-conditions").ModdedConditionData;
+type Condition = import("./dex-conditions").Condition;
 
-type MoveData = import('./dex-moves').MoveData;
-type ModdedMoveData = import('./dex-moves').ModdedMoveData;
-type ActiveMove = import('./dex-moves').ActiveMove;
-type Move = import('./dex-moves').Move;
-type MoveTarget = import('./dex-moves').MoveTarget;
+type MoveData = import("./dex-moves").MoveData;
+type ModdedMoveData = import("./dex-moves").ModdedMoveData;
+type ActiveMove = import("./dex-moves").ActiveMove;
+type Move = import("./dex-moves").Move;
+type MoveTarget = import("./dex-moves").MoveTarget;
 
-type ItemData = import('./dex-items').ItemData;
-type ModdedItemData = import('./dex-items').ModdedItemData;
-type Item = import('./dex-items').Item;
+type ItemData = import("./dex-items").ItemData;
+type ModdedItemData = import("./dex-items").ModdedItemData;
+type Item = import("./dex-items").Item;
 
-type AbilityData = import('./dex-abilities').AbilityData;
-type ModdedAbilityData = import('./dex-abilities').ModdedAbilityData;
-type Ability = import('./dex-abilities').Ability;
+type AbilityData = import("./dex-abilities").AbilityData;
+type ModdedAbilityData = import("./dex-abilities").ModdedAbilityData;
+type Ability = import("./dex-abilities").Ability;
 
-type SpeciesData = import('./dex-species').SpeciesData;
-type ModdedSpeciesData = import('./dex-species').ModdedSpeciesData;
-type SpeciesFormatsData = import('./dex-species').SpeciesFormatsData;
-type ModdedSpeciesFormatsData = import('./dex-species').ModdedSpeciesFormatsData;
-type LearnsetData = import('./dex-species').LearnsetData;
-type ModdedLearnsetData = import('./dex-species').ModdedLearnsetData;
-type Species = import('./dex-species').Species;
+type SpeciesData = import("./dex-species").SpeciesData;
+type ModdedSpeciesData = import("./dex-species").ModdedSpeciesData;
+type SpeciesFormatsData = import("./dex-species").SpeciesFormatsData;
+type ModdedSpeciesFormatsData =
+	import("./dex-species").ModdedSpeciesFormatsData;
+type LearnsetData = import("./dex-species").LearnsetData;
+type ModdedLearnsetData = import("./dex-species").ModdedLearnsetData;
+type Species = import("./dex-species").Species;
 
-type FormatData = import('./dex-formats').FormatData;
-type FormatList = import('./dex-formats').FormatList;
-type ModdedFormatData = import('./dex-formats').ModdedFormatData;
-type Format = import('./dex-formats').Format;
+type FormatData = import("./dex-formats").FormatData;
+type FormatList = import("./dex-formats").FormatList;
+type ModdedFormatData = import("./dex-formats").ModdedFormatData;
+type Format = import("./dex-formats").Format;
 
 interface NatureData {
 	name: string;
@@ -180,12 +291,20 @@ interface NatureData {
 	minus?: StatIDExceptHP;
 }
 
-type ModdedNatureData = NatureData | Partial<Omit<NatureData, 'name'>> & {inherit: true};
+type ModdedNatureData =
+	| NatureData
+	| (Partial<Omit<NatureData, "name">> & { inherit: true });
 
-type Nature = import('./dex-data').Nature;
+type Nature = import("./dex-data").Nature;
 
-type GameType = 'singles' | 'doubles' | 'triples' | 'rotation' | 'multi' | 'freeforall';
-type SideID = 'p1' | 'p2' | 'p3' | 'p4';
+type GameType =
+	| "singles"
+	| "doubles"
+	| "triples"
+	| "rotation"
+	| "multi"
+	| "freeforall";
+type SideID = "p1" | "p2" | "p3" | "p4";
 
 interface GameTimerSettings {
 	dcTimer: boolean;
@@ -201,9 +320,9 @@ interface GameTimerSettings {
 
 type SpreadMoveTargets = (Pokemon | false | null)[];
 type SpreadMoveDamage = (number | boolean | undefined)[];
-type ZMoveOptions = ({move: string, target: MoveTarget} | null)[];
+type ZMoveOptions = ({ move: string; target: MoveTarget } | null)[];
 interface DynamaxOptions {
-	maxMoves: ({move: string, target: MoveTarget, disabled?: boolean})[];
+	maxMoves: { move: string; target: MoveTarget; disabled?: boolean }[];
 	gigantamax?: string;
 }
 
@@ -213,97 +332,263 @@ interface BattleScriptsData {
 
 interface ModdedBattleActions {
 	inherit?: true;
-	afterMoveSecondaryEvent?: (this: BattleActions, targets: Pokemon[], pokemon: Pokemon, move: ActiveMove) => undefined;
-	calcRecoilDamage?: (this: BattleActions, damageDealt: number, move: Move, pokemon: Pokemon) => number;
-	canMegaEvo?: (this: BattleActions, pokemon: Pokemon) => string | undefined | null;
+	afterMoveSecondaryEvent?: (
+		this: BattleActions,
+		targets: Pokemon[],
+		pokemon: Pokemon,
+		move: ActiveMove
+	) => undefined;
+	calcRecoilDamage?: (
+		this: BattleActions,
+		damageDealt: number,
+		move: Move,
+		pokemon: Pokemon
+	) => number;
+	canMegaEvo?: (
+		this: BattleActions,
+		pokemon: Pokemon
+	) => string | undefined | null;
 	canUltraBurst?: (this: BattleActions, pokemon: Pokemon) => string | null;
 	canZMove?: (this: BattleActions, pokemon: Pokemon) => ZMoveOptions | void;
-	canDynamax?: (this: BattleActions, pokemon: Pokemon, skipChecks?: boolean) => DynamaxOptions | void;
+	canDynamax?: (
+		this: BattleActions,
+		pokemon: Pokemon,
+		skipChecks?: boolean
+	) => DynamaxOptions | void;
 	forceSwitch?: (
-		this: BattleActions, damage: SpreadMoveDamage, targets: SpreadMoveTargets, source: Pokemon,
-		move: ActiveMove, moveData: ActiveMove, isSecondary?: boolean, isSelf?: boolean
+		this: BattleActions,
+		damage: SpreadMoveDamage,
+		targets: SpreadMoveTargets,
+		source: Pokemon,
+		move: ActiveMove,
+		moveData: ActiveMove,
+		isSecondary?: boolean,
+		isSelf?: boolean
 	) => SpreadMoveDamage;
-	getActiveMaxMove?: (this: BattleActions, move: Move, pokemon: Pokemon) => ActiveMove;
-	getActiveZMove?: (this: BattleActions, move: Move, pokemon: Pokemon) => ActiveMove;
-	getMaxMove?: (this: BattleActions, move: Move, pokemon: Pokemon) => Move | undefined;
+	getActiveMaxMove?: (
+		this: BattleActions,
+		move: Move,
+		pokemon: Pokemon
+	) => ActiveMove;
+	getActiveZMove?: (
+		this: BattleActions,
+		move: Move,
+		pokemon: Pokemon
+	) => ActiveMove;
+	getMaxMove?: (
+		this: BattleActions,
+		move: Move,
+		pokemon: Pokemon
+	) => Move | undefined;
 	getSpreadDamage?: (
-		this: BattleActions, damage: SpreadMoveDamage, targets: SpreadMoveTargets, source: Pokemon,
-		move: ActiveMove, moveData: ActiveMove, isSecondary?: boolean, isSelf?: boolean
+		this: BattleActions,
+		damage: SpreadMoveDamage,
+		targets: SpreadMoveTargets,
+		source: Pokemon,
+		move: ActiveMove,
+		moveData: ActiveMove,
+		isSecondary?: boolean,
+		isSelf?: boolean
 	) => SpreadMoveDamage;
-	getZMove?: (this: BattleActions, move: Move, pokemon: Pokemon, skipChecks?: boolean) => string | true | undefined;
-	hitStepAccuracy?: (this: BattleActions, targets: Pokemon[], pokemon: Pokemon, move: ActiveMove) => boolean[];
-	hitStepBreakProtect?: (this: BattleActions, targets: Pokemon[], pokemon: Pokemon, move: ActiveMove) => undefined;
-	hitStepMoveHitLoop?: (this: BattleActions, targets: Pokemon[], pokemon: Pokemon, move: ActiveMove) => SpreadMoveDamage;
-	hitStepTryImmunity?: (this: BattleActions, targets: Pokemon[], pokemon: Pokemon, move: ActiveMove) => boolean[];
-	hitStepStealBoosts?: (this: BattleActions, targets: Pokemon[], pokemon: Pokemon, move: ActiveMove) => undefined;
-	hitStepTryHitEvent?: (this: BattleActions, targets: Pokemon[], pokemon: Pokemon, move: ActiveMove) => (boolean | '')[];
-	hitStepInvulnerabilityEvent?: (
-		this: BattleActions, targets: Pokemon[], pokemon: Pokemon, move: ActiveMove
+	getZMove?: (
+		this: BattleActions,
+		move: Move,
+		pokemon: Pokemon,
+		skipChecks?: boolean
+	) => string | true | undefined;
+	hitStepAccuracy?: (
+		this: BattleActions,
+		targets: Pokemon[],
+		pokemon: Pokemon,
+		move: ActiveMove
 	) => boolean[];
-	hitStepTypeImmunity?: (this: BattleActions, targets: Pokemon[], pokemon: Pokemon, move: ActiveMove) => boolean[];
+	hitStepBreakProtect?: (
+		this: BattleActions,
+		targets: Pokemon[],
+		pokemon: Pokemon,
+		move: ActiveMove
+	) => undefined;
+	hitStepMoveHitLoop?: (
+		this: BattleActions,
+		targets: Pokemon[],
+		pokemon: Pokemon,
+		move: ActiveMove
+	) => SpreadMoveDamage;
+	hitStepTryImmunity?: (
+		this: BattleActions,
+		targets: Pokemon[],
+		pokemon: Pokemon,
+		move: ActiveMove
+	) => boolean[];
+	hitStepStealBoosts?: (
+		this: BattleActions,
+		targets: Pokemon[],
+		pokemon: Pokemon,
+		move: ActiveMove
+	) => undefined;
+	hitStepTryHitEvent?: (
+		this: BattleActions,
+		targets: Pokemon[],
+		pokemon: Pokemon,
+		move: ActiveMove
+	) => (boolean | "")[];
+	hitStepInvulnerabilityEvent?: (
+		this: BattleActions,
+		targets: Pokemon[],
+		pokemon: Pokemon,
+		move: ActiveMove
+	) => boolean[];
+	hitStepTypeImmunity?: (
+		this: BattleActions,
+		targets: Pokemon[],
+		pokemon: Pokemon,
+		move: ActiveMove
+	) => boolean[];
 	moveHit?: (
-		this: BattleActions, target: Pokemon | null, pokemon: Pokemon, move: ActiveMove,
-		moveData?: ActiveMove, isSecondary?: boolean, isSelf?: boolean
+		this: BattleActions,
+		target: Pokemon | null,
+		pokemon: Pokemon,
+		move: ActiveMove,
+		moveData?: ActiveMove,
+		isSecondary?: boolean,
+		isSelf?: boolean
 	) => number | undefined | false;
 	runAction?: (this: BattleActions, action: Action) => void;
 	runMegaEvo?: (this: BattleActions, pokemon: Pokemon) => boolean;
 	runMove?: (
-		this: BattleActions, moveOrMoveName: Move | string, pokemon: Pokemon, targetLoc: number, sourceEffect?: Effect | null,
-		zMove?: string, externalMove?: boolean, maxMove?: string, originalTarget?: Pokemon
+		this: BattleActions,
+		moveOrMoveName: Move | string,
+		pokemon: Pokemon,
+		targetLoc: number,
+		sourceEffect?: Effect | null,
+		zMove?: string,
+		externalMove?: boolean,
+		maxMove?: string,
+		originalTarget?: Pokemon
 	) => void;
 	runMoveEffects?: (
-		this: BattleActions, damage: SpreadMoveDamage, targets: SpreadMoveTargets, source: Pokemon,
-		move: ActiveMove, moveData: ActiveMove, isSecondary?: boolean, isSelf?: boolean
+		this: BattleActions,
+		damage: SpreadMoveDamage,
+		targets: SpreadMoveTargets,
+		source: Pokemon,
+		move: ActiveMove,
+		moveData: ActiveMove,
+		isSecondary?: boolean,
+		isSelf?: boolean
 	) => SpreadMoveDamage;
 	runSwitch?: (this: BattleActions, pokemon: Pokemon) => boolean;
-	runZPower?: (this: BattleActions, move: ActiveMove, pokemon: Pokemon) => void;
+	runZPower?: (
+		this: BattleActions,
+		move: ActiveMove,
+		pokemon: Pokemon
+	) => void;
 	secondaries?: (
-		this: BattleActions, targets: SpreadMoveTargets, source: Pokemon, move: ActiveMove,
-		moveData: ActiveMove, isSelf?: boolean
+		this: BattleActions,
+		targets: SpreadMoveTargets,
+		source: Pokemon,
+		move: ActiveMove,
+		moveData: ActiveMove,
+		isSelf?: boolean
 	) => void;
 	selfDrops?: (
-		this: BattleActions, targets: SpreadMoveTargets, source: Pokemon,
-		move: ActiveMove, moveData: ActiveMove, isSecondary?: boolean
+		this: BattleActions,
+		targets: SpreadMoveTargets,
+		source: Pokemon,
+		move: ActiveMove,
+		moveData: ActiveMove,
+		isSecondary?: boolean
 	) => void;
 	spreadMoveHit?: (
-		this: BattleActions, targets: SpreadMoveTargets, pokemon: Pokemon, move: ActiveMove,
-		moveData?: ActiveMove, isSecondary?: boolean, isSelf?: boolean
+		this: BattleActions,
+		targets: SpreadMoveTargets,
+		pokemon: Pokemon,
+		move: ActiveMove,
+		moveData?: ActiveMove,
+		isSecondary?: boolean,
+		isSelf?: boolean
 	) => [SpreadMoveDamage, SpreadMoveTargets];
 	targetTypeChoices?: (this: BattleActions, targetType: string) => boolean;
 	tryMoveHit?: (
-		this: BattleActions, target: Pokemon, pokemon: Pokemon, move: ActiveMove
-	) => number | undefined | false | '';
+		this: BattleActions,
+		target: Pokemon,
+		pokemon: Pokemon,
+		move: ActiveMove
+	) => number | undefined | false | "";
 	tryPrimaryHitEvent?: (
-		this: BattleActions, damage: SpreadMoveDamage, targets: SpreadMoveTargets, pokemon: Pokemon,
-		move: ActiveMove, moveData: ActiveMove, isSecondary?: boolean
+		this: BattleActions,
+		damage: SpreadMoveDamage,
+		targets: SpreadMoveTargets,
+		pokemon: Pokemon,
+		move: ActiveMove,
+		moveData: ActiveMove,
+		isSecondary?: boolean
 	) => SpreadMoveDamage;
 	trySpreadMoveHit?: (
-		this: BattleActions, targets: Pokemon[], pokemon: Pokemon, move: ActiveMove, notActive?: boolean
+		this: BattleActions,
+		targets: Pokemon[],
+		pokemon: Pokemon,
+		move: ActiveMove,
+		notActive?: boolean
 	) => boolean;
 	useMove?: (
-		this: BattleActions, move: Move, pokemon: Pokemon, target?: Pokemon | null,
-		sourceEffect?: Effect | null, zMove?: string, maxMove?: string
+		this: BattleActions,
+		move: Move,
+		pokemon: Pokemon,
+		target?: Pokemon | null,
+		sourceEffect?: Effect | null,
+		zMove?: string,
+		maxMove?: string
 	) => boolean;
 	useMoveInner?: (
-		this: BattleActions, move: Move, pokemon: Pokemon, target?: Pokemon | null,
-		sourceEffect?: Effect | null, zMove?: string, maxMove?: string
+		this: BattleActions,
+		move: Move,
+		pokemon: Pokemon,
+		target?: Pokemon | null,
+		sourceEffect?: Effect | null,
+		zMove?: string,
+		maxMove?: string
 	) => boolean;
 	getDamage?: (
-		this: BattleActions, pokemon: Pokemon, target: Pokemon, move: string | number | ActiveMove, suppressMessages: boolean
+		this: BattleActions,
+		pokemon: Pokemon,
+		target: Pokemon,
+		move: string | number | ActiveMove,
+		suppressMessages: boolean
 	) => number | undefined | null | false;
 	modifyDamage?: (
-		this: BattleActions, baseDamage: number, pokemon: Pokemon, target: Pokemon, move: ActiveMove, suppressMessages?: boolean
+		this: BattleActions,
+		baseDamage: number,
+		pokemon: Pokemon,
+		target: Pokemon,
+		move: ActiveMove,
+		suppressMessages?: boolean
 	) => void;
 
 	// oms
-	mutateOriginalSpecies?: (this: BattleActions, species: Species, deltas: AnyObject) => Species;
-	getFormeChangeDeltas?: (this: BattleActions, formeChangeSpecies: Species, pokemon?: Pokemon) => AnyObject;
-	getMixedSpecies?: (this: BattleActions, originalName: string, megaName: string, pokemon?: Pokemon) => Species;
+	mutateOriginalSpecies?: (
+		this: BattleActions,
+		species: Species,
+		deltas: AnyObject
+	) => Species;
+	getFormeChangeDeltas?: (
+		this: BattleActions,
+		formeChangeSpecies: Species,
+		pokemon?: Pokemon
+	) => AnyObject;
+	getMixedSpecies?: (
+		this: BattleActions,
+		originalName: string,
+		megaName: string,
+		pokemon?: Pokemon
+	) => Species;
 }
 
 interface ModdedBattleSide {
 	canDynamaxNow?: (this: Side) => boolean;
-	getRequestData?: (this: Side, forAlly?: boolean) => {name: string, id: ID, pokemon: AnyObject[]};
+	getRequestData?: (
+		this: Side,
+		forAlly?: boolean
+	) => { name: string; id: ID; pokemon: AnyObject[] };
 }
 
 interface ModdedBattlePokemon {
@@ -311,51 +596,119 @@ interface ModdedBattlePokemon {
 	lostItemForDelibird?: Item | null;
 	boostBy?: (this: Pokemon, boost: SparseBoostsTable) => boolean | number;
 	clearBoosts?: (this: Pokemon) => void;
-	calculateStat?: (this: Pokemon, statName: StatIDExceptHP, boost: number, modifier?: number) => number;
+	calculateStat?: (
+		this: Pokemon,
+		statName: StatIDExceptHP,
+		boost: number,
+		modifier?: number
+	) => number;
 	cureStatus?: (this: Pokemon, silent?: boolean) => boolean;
 	deductPP?: (
-		this: Pokemon, move: string | Move, amount?: number | null, target?: Pokemon | null | false
+		this: Pokemon,
+		move: string | Move,
+		amount?: number | null,
+		target?: Pokemon | null | false
 	) => number;
-	eatItem?: (this: Pokemon, force?: boolean, source?: Pokemon, sourceEffect?: Effect) => boolean;
+	eatItem?: (
+		this: Pokemon,
+		force?: boolean,
+		source?: Pokemon,
+		sourceEffect?: Effect
+	) => boolean;
 	formeChange?: (
-		this: Pokemon, speciesId: string | Species, source: Effect, isPermanent?: boolean, message?: string
+		this: Pokemon,
+		speciesId: string | Species,
+		source: Effect,
+		isPermanent?: boolean,
+		message?: string
 	) => boolean;
 	hasType?: (this: Pokemon, type: string | string[]) => boolean;
 	getAbility?: (this: Pokemon) => Ability;
 	getActionSpeed?: (this: Pokemon) => number;
 	getItem?: (this: Pokemon) => Item;
 	getMoveRequestData?: (this: Pokemon) => {
-		moves: {move: string, id: ID, target?: string, disabled?: boolean}[],
-		maybeDisabled?: boolean, trapped?: boolean, maybeTrapped?: boolean,
-		canMegaEvo?: boolean, canUltraBurst?: boolean, canZMove?: ZMoveOptions,
+		moves: { move: string; id: ID; target?: string; disabled?: boolean }[];
+		maybeDisabled?: boolean;
+		trapped?: boolean;
+		maybeTrapped?: boolean;
+		canMegaEvo?: boolean;
+		canUltraBurst?: boolean;
+		canZMove?: ZMoveOptions;
 	};
-	getMoves?: (this: Pokemon, lockedMove?: string | null, restrictData?: boolean) => {
-		move: string, id: string, disabled?: string | boolean, disabledSource?: string,
-		target?: string, pp?: number, maxpp?: number,
+	getMoves?: (
+		this: Pokemon,
+		lockedMove?: string | null,
+		restrictData?: boolean
+	) => {
+		move: string;
+		id: string;
+		disabled?: string | boolean;
+		disabledSource?: string;
+		target?: string;
+		pp?: number;
+		maxpp?: number;
 	}[];
 	getStat?: (
-		this: Pokemon, statName: StatIDExceptHP, unboosted?: boolean, unmodified?: boolean, fastReturn?: boolean
+		this: Pokemon,
+		statName: StatIDExceptHP,
+		unboosted?: boolean,
+		unmodified?: boolean,
+		fastReturn?: boolean
 	) => number;
-	getTypes?: (this: Pokemon, excludeAdded?: boolean, preterastallized?: boolean) => string[];
+	getTypes?: (
+		this: Pokemon,
+		excludeAdded?: boolean,
+		preterastallized?: boolean
+	) => string[];
 	getWeight?: (this: Pokemon) => number;
 	hasAbility?: (this: Pokemon, ability: string | string[]) => boolean;
 	hasItem?: (this: Pokemon, item: string | string[]) => boolean;
-	isGrounded?: (this: Pokemon, negateImmunity: boolean | undefined) => boolean | null;
-	modifyStat?: (this: Pokemon, statName: StatIDExceptHP, modifier: number) => void;
+	isGrounded?: (
+		this: Pokemon,
+		negateImmunity: boolean | undefined
+	) => boolean | null;
+	modifyStat?: (
+		this: Pokemon,
+		statName: StatIDExceptHP,
+		modifier: number
+	) => void;
 	moveUsed?: (this: Pokemon, move: ActiveMove, targetLoc?: number) => void;
 	recalculateStats?: (this: Pokemon) => void;
-	runImmunity?: (this: Pokemon, type: string, message?: string | boolean) => boolean;
+	runImmunity?: (
+		this: Pokemon,
+		type: string,
+		message?: string | boolean
+	) => boolean;
 	setAbility?: (
-		this: Pokemon, ability: string | Ability, source: Pokemon | null, isFromFormeChange: boolean
+		this: Pokemon,
+		ability: string | Ability,
+		source: Pokemon | null,
+		isFromFormeChange: boolean
 	) => string | false;
-	setItem?: (this: Pokemon, item: string | Item, source?: Pokemon, effect?: Effect) => boolean;
+	setItem?: (
+		this: Pokemon,
+		item: string | Item,
+		source?: Pokemon,
+		effect?: Effect
+	) => boolean;
 	setStatus?: (
-		this: Pokemon, status: string | Condition, source: Pokemon | null,
-		sourceEffect: Effect | null, ignoreImmunities: boolean
+		this: Pokemon,
+		status: string | Condition,
+		source: Pokemon | null,
+		sourceEffect: Effect | null,
+		ignoreImmunities: boolean
 	) => boolean;
 	takeItem?: (this: Pokemon, source: Pokemon | undefined) => boolean | Item;
-	transformInto?: (this: Pokemon, pokemon: Pokemon, effect: Effect | null) => boolean;
-	useItem?: (this: Pokemon, source?: Pokemon, sourceEffect?: Effect) => boolean;
+	transformInto?: (
+		this: Pokemon,
+		pokemon: Pokemon,
+		effect: Effect | null
+	) => boolean;
+	useItem?: (
+		this: Pokemon,
+		source?: Pokemon,
+		sourceEffect?: Effect
+	) => boolean;
 	ignoringAbility?: (this: Pokemon) => boolean;
 	ignoringItem?: (this: Pokemon) => boolean;
 
@@ -365,12 +718,16 @@ interface ModdedBattlePokemon {
 }
 
 interface ModdedBattleQueue extends Partial<BattleQueue> {
-	resolveAction?: (this: BattleQueue, action: ActionChoice, midTurn?: boolean) => Action[];
+	resolveAction?: (
+		this: BattleQueue,
+		action: ActionChoice,
+		midTurn?: boolean
+	) => Action[];
 }
 
 interface ModdedField extends Partial<Field> {
 	suppressingWeather?: (this: Field) => boolean;
-	suppressingTerrain?: (this:Field) => boolean;
+	suppressingTerrain?: (this: Field) => boolean;
 }
 
 interface ModdedBattleScriptsData extends Partial<BattleScriptsData> {
@@ -381,39 +738,64 @@ interface ModdedBattleScriptsData extends Partial<BattleScriptsData> {
 	field?: ModdedField;
 	side?: ModdedBattleSide;
 	boost?: (
-		this: Battle, boost: SparseBoostsTable, target: Pokemon, source?: Pokemon | null,
-		effect?: Effect | string | null, isSecondary?: boolean, isSelf?: boolean
+		this: Battle,
+		boost: SparseBoostsTable,
+		target: Pokemon,
+		source?: Pokemon | null,
+		effect?: Effect | string | null,
+		isSecondary?: boolean,
+		isSelf?: boolean
 	) => boolean | null | 0;
 	debug?: (this: Battle, activity: string) => void;
 	getActionSpeed?: (this: Battle, action: AnyObject) => void;
 	init?: (this: ModdedDex) => void;
 	maybeTriggerEndlessBattleClause?: (
-		this: Battle, trappedBySide: boolean[], stalenessBySide: ('internal' | 'external' | undefined)[]
+		this: Battle,
+		trappedBySide: boolean[],
+		stalenessBySide: ("internal" | "external" | undefined)[]
 	) => boolean | undefined;
-	natureModify?: (this: Battle, stats: StatsTable, set: PokemonSet) => StatsTable;
+	natureModify?: (
+		this: Battle,
+		stats: StatsTable,
+		set: PokemonSet
+	) => StatsTable;
 	nextTurn?: (this: Battle) => void;
 	runAction?: (this: Battle, action: Action) => void;
-	spreadModify?: (this: Battle, baseStats: StatsTable, set: PokemonSet) => StatsTable;
+	spreadModify?: (
+		this: Battle,
+		baseStats: StatsTable,
+		set: PokemonSet
+	) => StatsTable;
 	start?: (this: Battle) => void;
 	suppressingWeather?: (this: Battle) => boolean;
 	suppressingTerrain?: (this: Battle) => boolean;
 	trunc?: (n: number) => number;
-	win?: (this: Battle, side?: SideID | '' | Side | null) => boolean;
-	faintMessages?: (this: Battle, lastFirst?: boolean, forceCheck?: boolean, checkWin?: boolean) => boolean | undefined;
+	win?: (this: Battle, side?: SideID | "" | Side | null) => boolean;
+	faintMessages?: (
+		this: Battle,
+		lastFirst?: boolean,
+		forceCheck?: boolean,
+		checkWin?: boolean
+	) => boolean | undefined;
 	tiebreak?: (this: Battle) => boolean;
-	checkWin?: (this: Battle, faintQueue?: Battle['faintQueue'][0]) => true | undefined;
+	checkWin?: (
+		this: Battle,
+		faintQueue?: Battle["faintQueue"][0]
+	) => true | undefined;
 }
 
 interface TypeData {
-	damageTaken: {[attackingTypeNameOrEffectid: string]: number};
+	damageTaken: { [attackingTypeNameOrEffectid: string]: number };
 	HPdvs?: SparseStatsTable;
 	HPivs?: SparseStatsTable;
 	isNonstandard?: Nonstandard | null;
 }
 
-type ModdedTypeData = TypeData | Partial<Omit<TypeData, 'name'>> & {inherit: true};
+type ModdedTypeData =
+	| TypeData
+	| (Partial<Omit<TypeData, "name">> & { inherit: true });
 
-type TypeInfo = import('./dex-data').TypeInfo;
+type TypeInfo = import("./dex-data").TypeInfo;
 
 interface PlayerOptions {
 	name?: string;
@@ -518,12 +900,12 @@ namespace RandomTeamsTypes {
 		zCount?: number;
 		forceResult: boolean;
 		weather?: string;
-		typeCount: {[k: string]: number};
-		typeComboCount: {[k: string]: number};
-		baseFormes: {[k: string]: number};
-		has: {[k: string]: number};
-		weaknesses: {[k: string]: number};
-		resistances: {[k: string]: number};
+		typeCount: { [k: string]: number };
+		typeComboCount: { [k: string]: number };
+		baseFormes: { [k: string]: number };
+		has: { [k: string]: number };
+		weaknesses: { [k: string]: number };
+		resistances: { [k: string]: number };
 		gigantamax?: boolean;
 	}
 	export interface RandomSet {

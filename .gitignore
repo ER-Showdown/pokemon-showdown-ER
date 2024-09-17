@@ -27,6 +27,8 @@ tools/modlog/converter.js
 tools/modlog/**/*.js
 tools/set-import/*.js
 
+dex_repo
+
 # visual studio live share
 .vs
 
