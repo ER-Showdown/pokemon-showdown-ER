@@ -8,6 +8,8 @@ import {
 	CompactSpecie,
 } from "../../../dex_repo/src/compactify";
 import { MoveFlags } from "../../../sim/dex-moves";
+import { SpeciesAbility } from "../../../sim/dex-species";
+import { Ability as DexAbility } from "../../../dex_repo/src/abilities";
 
 export interface DexConfig {
 	dexDataUrl: string;
@@ -91,17 +93,15 @@ export class DexParser {
 
 	async init() {
 		this.gameData = await this.pullDexData();
+		this.parseMoves();
 		this.parsePokemon();
 	}
 
 	private parseMoves() {
 		for (const move of this.gameData!.moves) {
 			const id = this.getShowdownMoveId(move);
-			const split = this.gameData!.splitT[move.split];
-			let category: "Physical" | "Special" | "Status";
-			const flags = this.getMoveFlags(move);
-
-			const showdownMove: MoveData = {
+			this.moves[id] = {
+				...this.getMoveFlags(move),
 				name: move.name,
 				basePower: move.pwr,
 				accuracy: move.acc,
@@ -110,8 +110,6 @@ export class DexParser {
 				type: this.getMoveType(move),
 				priority: move.prio,
 				target: this.getMoveTarget(move),
-				flags: flags,
-				breaksProtect: flags.protect == undefined,
 			};
 		}
 	}
@@ -119,6 +117,20 @@ export class DexParser {
 	private parsePokemon() {
 		for (const pokemon of this.gameData!.species) {
 			const learnset = this.generateLearnset(pokemon);
+			const id = pokemon.name.toLowerCase();
+			this.learnsets[id] = learnset;
+			this.pokedex[id] = {
+				name: pokemon.name,
+				types: pokemon.stats.types.map(
+					(index) => this.gameData!.typeT[index]
+				),
+				num: pokemon.id,
+				abilities: this.getAbilityData(pokemon),
+				baseStats: this.getBaseStats(pokemon),
+				eggGroups: this.getEggGroups(pokemon),
+				// TODO: Can we prefill this value?
+				weightkg: 0,
+			};
 		}
 	}
 
@@ -189,17 +201,71 @@ export class DexParser {
 		);
 	}
 
-	private getMoveFlags(move: compactMove): MoveFlags {
+	/**
+	 * Parse the move flags from the ER dex data structure.
+	 * Returns a partial of move data object because not all move flag related fields are stored on the move flags object.
+	 * @param move The dex move object.
+	 * @returns The partial with all populated fields from the dex flags.
+	 */
+	private getMoveFlags(
+		move: compactMove
+	): Partial<MoveData> & { flags: MoveFlags } {
+		// TODO: dmg 2x in air flag
+		// TODO: dmg in air flag
+		// TODO: dmg underwater flag
+		// TODO: dmg underground flag
+		// TODO: dmg ungrounded ignore type if flying flag
+		// TODO: kings rock affected flag
+
 		const flagData = move.flags.map((flag) =>
 			this.gameData!.flagsT[flag].toLowerCase()
 		);
 		return {
-			contact: flagData.includes("makes contact") ? 1 : undefined,
-			/// If protect affected, we set it to undefined and check that in the higher level move definition.
-			/// that's because showdown requires us to set the `breaksProtect` property on the main move def.s
-			protect: flagData.includes("protect affected") ? undefined : 1,
-			field: flagData.includes("field based") ? 1 : undefined,
-			kick: flagData.includes("striker boost") ? 1 : undefined,
+			breaksProtect: flagData.includes("protect affected"),
+			critRatio: flagData.includes("high crit") ? 2 : undefined,
+			willCrit: flagData.includes("always_crit") ? true : undefined,
+			// TODO: validate sheer force flag implementation
+			secondary: flagData.includes("sheer force boost") ? {} : undefined,
+			multihit: flagData.includes("two strikes") ? 2 : undefined,
+			// TODO: Hardcoded recoil value of 1/3. needs updated.
+			recoil: flagData.includes("reckless boost") ? [1, 3] : undefined,
+			ignoreDefensive: flagData.includes("stat stages ignored")
+				? true
+				: undefined,
+			ignoreAbility: flagData.includes("target ability ignored")
+				? true
+				: undefined,
+			/// For protection moves (protect, kingsshield, etc) the id of the move is set as the volatileStatus.
+			/// TODO: Validate all protect moves come across okay.
+			volatileStatus: flagData.includes("protection move")
+				? this.getShowdownMoveId(move)
+				: undefined,
+			flags: {
+				contact: flagData.includes("makes contact") ? 1 : undefined,
+				/// If protect affected, we set it to undefined and check that in the higher level move definition.
+				/// that's because showdown requires us to set the `breaksProtect` property on the main move def.s
+				protect: flagData.includes("protect affected") ? undefined : 1,
+				mirror: flagData.includes("mirror move affected") ? 1 : undefined,
+
+				punch: flagData.includes("iron fist") ? 1 : undefined,
+				slicing: flagData.includes("keen edge boost") ? 1 : undefined,
+				snatch: flagData.includes("snatch affected") ? 1 : undefined,
+				dance: flagData.includes("dance") ? 1 : undefined,
+				field: flagData.includes("field based") ? 1 : undefined,
+				reflectable: flagData.includes("magic coat affected")
+					? 1
+					: undefined,
+				kick: flagData.includes("striker boost") ? 1 : undefined,
+				bite: flagData.includes("strong jaw boost") ? 1 : undefined,
+				sound: flagData.includes("sound") ? 1 : undefined,
+				pulse: flagData.includes("mega launcher boost") ? 1 : undefined,
+				bullet: flagData.includes("ballistic") ? 1 : undefined,
+				weather: flagData.includes("weather based") ? 1 : undefined,
+				powder: flagData.includes("powder") ? 1 : undefined,
+				bone: flagData.includes("bone based") ? 1 : undefined,
+				defrost: flagData.includes("thaw user") ? 1 : undefined,
+				bypasssub: flagData.includes("hit in substitute") ? 1 : undefined,
+			},
 		};
 	}
 
@@ -253,6 +319,51 @@ export class DexParser {
 		}
 
 		return learnset;
+	}
+
+	private getAbilityId(ability: DexAbility): string {
+		return ability.name.toLowerCase();
+	}
+
+	private getAbilityData(pokemon: CompactSpecie): SpeciesAbility {
+		const dexAbilities = pokemon.stats.abis
+			.map((index) => this.gameData!.abilities[index])
+			.map(this.getAbilityId);
+		const dexInnates = pokemon.stats.inns
+			.map((index) => this.gameData!.abilities[index])
+			.map(this.getAbilityId);
+		return {
+			0: dexAbilities[0],
+			1: dexAbilities.length >= 2 ? dexAbilities[1] : undefined,
+			H: dexAbilities.length >= 3 ? dexAbilities[2] : undefined,
+			S: dexAbilities.length >= 4 ? dexAbilities[3] : undefined,
+			I1: dexInnates.length >= 1 ? dexInnates[0] : undefined,
+			I2: dexInnates.length >= 2 ? dexInnates[1] : undefined,
+			I3: dexInnates.length >= 3 ? dexInnates[2] : undefined,
+		};
+	}
+
+	private getBaseStats(pokemon: CompactSpecie): StatsTable {
+		const base = pokemon.stats.base;
+		return {
+			hp: base[0],
+			atk: base[1],
+			def: base[2],
+			spa: base[3],
+			spd: base[4],
+			spe: base[5],
+		};
+	}
+
+	private getEggGroupId(dexGroup: string): string {
+		let lower = dexGroup.replace("EGG_GROUP_", "").toLowerCase();
+		return `${lower[0].toUpperCase()}${lower.substring(1)}`;
+	}
+
+	private getEggGroups(pokemon: CompactSpecie): string[] {
+		return pokemon.stats.eggG
+			.map((index) => this.gameData!.eggT[index])
+			.map(this.getEggGroupId);
 	}
 }
 

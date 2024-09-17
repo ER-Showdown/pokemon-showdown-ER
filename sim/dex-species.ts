@@ -1,6 +1,6 @@
 import { toID, BasicEffect } from "./dex-data";
 
-interface SpeciesAbility {
+export interface SpeciesAbility {
 	0: string;
 	1?: string;
 	H?: string;
@@ -10,7 +10,7 @@ interface SpeciesAbility {
 	I3?: string;
 }
 
-type SpeciesTag =
+export type SpeciesTag =
 	| "Mythical"
 	| "Restricted Legendary"
 	| "Sub-Legendary"
