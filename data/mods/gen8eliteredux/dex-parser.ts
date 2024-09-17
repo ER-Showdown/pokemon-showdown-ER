@@ -92,8 +92,7 @@ export class DexParser {
 	learnsets: { [pokemonid: string]: LearnsetData } = {};
 	pokedex: { [speciesId: string]: SpeciesData } = {};
 
-	constructor(config?: DexConfig) {
-		const dex = new ModdedDex("gen8eliteredux");
+	constructor(dex: ModdedDex, config?: DexConfig) {
 		this.showdownData = dex.data;
 		this.config = config ?? {
 			dexDataUrl:
@@ -493,10 +492,4 @@ export class DexParser {
 				null
 		)?.name;
 	}
-}
-
-export async function loadDexParser(config?: DexConfig) {
-	const parser = new DexParser(config);
-	await parser.init();
-	return parser;
 }
