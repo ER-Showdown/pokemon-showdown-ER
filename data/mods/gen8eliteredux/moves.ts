@@ -1026,6 +1026,9 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		inherit: true,
 		isNonstandard: null,
 	},
+	/**
+	 * Looks like this handles electro-surge's 8 turn duration for us.
+	 */
 	electricterrain: {
 		inherit: true,
 		condition: {

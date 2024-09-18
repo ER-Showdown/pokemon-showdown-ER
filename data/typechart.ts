@@ -193,6 +193,10 @@ export const TypeChart: {[k: string]: TypeData} = {
 	},
 	ghost: {
 		damageTaken: {
+			/**
+			 * Ghosts are immune to bleed, which equates to a 3.
+			 */
+			bld: 3,
 			trapped: 3,
 			Bug: 2,
 			Dark: 1,
@@ -366,6 +370,10 @@ export const TypeChart: {[k: string]: TypeData} = {
 	},
 	rock: {
 		damageTaken: {
+			/**
+			 * Ghosts are immune to bleed, which equates to a 3.
+			 */
+			bld: 3,
 			sandstorm: 3,
 			Bug: 0,
 			Dark: 0,

@@ -177,12 +177,21 @@ export const DefaultText: {[k: string]: DefaultText} = {
 		damage: "  [POKEMON] was hurt by its burn!",
 	},
 	frz: {
-		start: "  [POKEMON] was frozen solid!",
-		alreadyStarted: "  [POKEMON] is already frozen solid!",
-		end: "  [POKEMON] thawed out!",
-		endFromItem: "  [POKEMON]'s [ITEM] defrosted it!",
-		endFromMove: "  [POKEMON]'s [MOVE] melted the ice!",
-		cant: "[POKEMON] is frozen solid!",
+		start: "  [POKEMON] was frost bitten!",
+		alreadyStarted: "  [POKEMON] is already frost bitten!",
+		end: "  [POKEMON] was cured of its frostbite!",
+		endFromItem: "  [POKEMON]'s [ITEM] cured its frostbite!",
+		damage: "  [POKEMON] was hurt by frostbite!",
+	},
+	/**
+	 * These are the battle text messages that describe the bleeding status conditions effects/events.
+	 */ 
+	bld: {
+		start: "  [POKEMON] started bleeding!",
+		alreadyStarted: "  [POKEMON] is already bleeding!",
+		end: "  [POKEMON] was cured of its bleed!",
+		endFromItem: "  [POKEMON]'s [ITEM] cured its bleed!",
+		damage: "  [POKEMON] was hurt by bleed!",
 	},
 	par: {
 		start: "  [POKEMON] is paralyzed! It may be unable to move!",

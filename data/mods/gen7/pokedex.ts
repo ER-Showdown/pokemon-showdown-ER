@@ -147,7 +147,7 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	},
 	tapukoko: {
 		inherit: true,
-		abilities: {0: "Electric Surge"},
+		abilities: {0: "Electro Surge"},
 	},
 	tapulele: {
 		inherit: true,

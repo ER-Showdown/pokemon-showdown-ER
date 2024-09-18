@@ -5,6 +5,13 @@ interface AbilityEventMethods {
 	onCheckShow?: (this: Battle, pokemon: Pokemon) => void;
 	onEnd?: (this: Battle, target: Pokemon & Side & Field) => void;
 	onPreStart?: (this: Battle, pokemon: Pokemon) => void;
+	/**
+	 * This is called when the pokemon switches in and this ability activates.
+	 * You should handle any "on switch" effects here.
+	 * @param this The battle instance.
+	 * @param target The pokemon that's activating this ability.
+	 * @returns void. Manipulate the battle instance to cause side effects.
+	 */
 	onStart?: (this: Battle, target: Pokemon) => void;
 }
 

@@ -2,6 +2,15 @@ import {BasicEffect, toID} from './dex-data';
 import type {SecondaryEffect, MoveEventMethods} from './dex-moves';
 
 export interface EventMethods {
+	/**
+	 * This is called right after the pokemon with this ability is hit by a damaging move.
+	 * @param this The active battle.
+	 * @param damage The amount of damage dealt.
+	 * @param target The target of the move (damage taker).
+	 * @param source The source of the move (damage dealer).
+	 * @param move The move used.
+	 * @returns void, any side effects should be affected to the battle object.
+	 */
 	onDamagingHit?: (this: Battle, damage: number, target: Pokemon, source: Pokemon, move: ActiveMove) => void;
 	onEmergencyExit?: (this: Battle, pokemon: Pokemon) => void;
 	onAfterEachBoost?: (this: Battle, boost: SparseBoostsTable, target: Pokemon, source: Pokemon, effect: Effect) => void;
@@ -31,6 +40,18 @@ export interface EventMethods {
 	onBeforeSwitchOut?: (this: Battle, pokemon: Pokemon) => void;
 	onBeforeTurn?: (this: Battle, pokemon: Pokemon) => void;
 	onChangeBoost?: (this: Battle, boost: SparseBoostsTable, target: Pokemon, source: Pokemon, effect: Effect) => void;
+	/**
+	 * This is called right before a stat boost goes off on a given target.
+	 * Here, you can do any modifications to the stat boost by modifying the boost parameter.
+	 * If you want to prevent a boost, you can "delete it", for example:
+	 *     delete boost.accuracy // prevents an accuracy boost.
+	 * @param this The active battle instance.
+	 * @param boost The boost that is being applied.
+	 * @param target The target of the boost.
+	 * @param source The source that initiated the boost (pokemon).
+	 * @param effect The effect that initiated the boost (ability/move/etc).
+	 * @returns void. Any side effects should be done on the boost parameter or the battle.
+	 */
 	onTryBoost?: (this: Battle, boost: SparseBoostsTable, target: Pokemon, source: Pokemon, effect: Effect) => void;
 	onChargeMove?: CommonHandlers['VoidSourceMove'];
 	onCriticalHit?: ((this: Battle, pokemon: Pokemon, source: null, move: ActiveMove) => boolean | void) | boolean;
@@ -97,6 +118,10 @@ export interface EventMethods {
 	) => boolean | null | void;
 	onTryEatItem?: boolean | ((this: Battle, item: Item, pokemon: Pokemon) => boolean | void);
 	/* FIXME: onTryHeal() is run with two different sets of arguments */
+	/**
+	 * This is called just before a pokemon is about to be healed by any source.
+	 * Can return a modified amount of healing, false to "fail" the healing, or void to not modify the healing.
+	 */
 	onTryHeal?: (
 		((this: Battle, relayVar: number, target: Pokemon, source: Pokemon, effect: Effect) => number | boolean | void) |
 		((this: Battle, pokemon: Pokemon) => boolean | void) | boolean
@@ -252,6 +277,15 @@ export interface EventMethods {
 	onSourceLockMove?: string | ((this: Battle, pokemon: Pokemon) => void | string);
 	onSourceMaybeTrapPokemon?: (this: Battle, pokemon: Pokemon) => void;
 	onSourceModifyAccuracy?: CommonHandlers['ModifierMove'];
+	/**
+	 * This event is called to modify the source's attacks.
+	 * Useful for abilities to modify only the attacks of the pokemon with the ability.
+	 * @param this The battle instance.
+	 * @param amount The attack damage value.
+	 * @param source The source pokemon.
+	 * @param target The target of the attack.
+	 * @param move The move being used.
+	 */
 	onSourceModifyAtk?: CommonHandlers['ModifierSourceMove'];
 	onSourceModifyBoost?: (this: Battle, boosts: SparseBoostsTable, pokemon: Pokemon) => SparseBoostsTable | void;
 	onSourceModifyCritRatio?: CommonHandlers['ModifierSourceMove'];
@@ -329,6 +363,13 @@ export interface EventMethods {
 	onAnyAccuracy?: (
 		this: Battle, accuracy: number, target: Pokemon, source: Pokemon, move: ActiveMove
 	) => number | boolean | null | void;
+	/**
+	 * This is called right before *any* pokemon in the battle uses a move, and is meant to modify the base power.
+	 * @param basePower the current basePower value.
+	 * @param source The pokemon that initiated the move.
+	 * @param target The pokemon that is targeted by the move.
+	 * @param move The move being used.
+	 */
 	onAnyBasePower?: CommonHandlers['ModifierSourceMove'];
 	onAnyBeforeFaint?: (this: Battle, pokemon: Pokemon, effect: Effect) => void;
 	onAnyBeforeMove?: CommonHandlers['VoidSourceMove'];
@@ -605,11 +646,19 @@ export type ConditionData = PokemonConditionData | SideConditionData | FieldCond
 
 export type ModdedConditionData = ConditionData & {inherit?: true};
 
+
 export class Condition extends BasicEffect implements
 	Readonly<BasicEffect & SideConditionData & FieldConditionData & PokemonConditionData> {
 	declare readonly effectType: 'Condition' | 'Weather' | 'Status' | 'Terastal';
 	declare readonly counterMax?: number;
 
+	/**
+	 * This is called to override the default duration of a given condition depending on activation criteria.
+	 * @param this the battle instance.
+	 * @param target the target for the given condition.
+	 * @param source the source of the condition starting.
+	 * @param effect the move, ability, item that started the effect.
+	 */
 	declare readonly durationCallback?: (this: Battle, target: Pokemon, source: Pokemon, effect: Effect | null) => number;
 	declare readonly onCopy?: (this: Battle, pokemon: Pokemon) => void;
 	declare readonly onEnd?: (this: Battle, target: Pokemon) => void;

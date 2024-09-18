@@ -465,7 +465,7 @@ export const Pokedex: {[speciesid: string]: ModdedSpeciesData} = {
 	},
 	pincurchin: {
 		inherit: true,
-		abilities: {0: "Lightning Rod", 1: "Prickly Coat", H: "Electric Surge"},
+		abilities: {0: "Lightning Rod", 1: "Prickly Coat", H: "Electro Surge"},
 	},
 	jolteon: {
 		inherit: true,

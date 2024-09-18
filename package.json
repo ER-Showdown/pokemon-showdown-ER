@@ -5,7 +5,6 @@
   "main": "dist/sim/index.js",
   "dependencies": {
     "esbuild": "^0.16.10",
-    "pokemon-showdown": "file:",
     "preact": "^10.5.15",
     "preact-render-to-string": "^5.1.19",
     "probe-image-size": "^5.0.0",
@@ -30,7 +29,7 @@
     "node": ">=14.0.0"
   },
   "scripts": {
-    "start": "node pokemon-showdown start",
+    "start": "nodemon ./pokemon-showdown start",
     "build": "node build",
     "tsc": "tsc",
     "fast-lint": "eslint . --config .eslintrc-no-types.json --cache --cache-location .eslintcache-no-types --ext .js,.ts,.tsx",
@@ -42,7 +41,10 @@
     "posttest": "npm run tsc",
     "full-test": "npm run lint && npm run tsc && mocha --timeout 8000 --forbid-only -g \".*\"",
     "full-test-ci": "eslint ${FILES} --max-warnings 0 && npm run tsc && (([ \"$SKIPSIMTESTS\" = true ] && mocha --timeout 8000 --forbid-only -g \".*\" --exclude \"test/{sim,random-battles}/**\") || mocha --timeout 8000 --forbid-only -g \".*\")",
-    "postinstall": "npm run build postinstall"
+    "postinstall": "npm run build postinstall",
+    "setup-er-tools": "ts-node tools/elite-redux/setup-tools.ts",
+    "generate-er-learnsets": "npm run setup-er-tools && ts-node tools/elite-redux/dex-parser/generate-learnsets.ts",
+    "generate-er-pokedex": "npm run setup-er-tools && ts-node tools/elite-redux/dex-parser/generate-pokedex.ts"
   },
   "bin": "./pokemon-showdown",
   "homepage": "http://pokemonshowdown.com",
@@ -71,6 +73,7 @@
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.2",
     "@types/cloud-env": "^0.2.2",
+    "@types/lodash": "^4.17.7",
     "@types/node": "^14.18.36",
     "@types/node-static": "^0.7.7",
     "@types/nodemailer": "^6.4.4",
@@ -79,8 +82,12 @@
     "@typescript-eslint/eslint-plugin": "^5.8.0",
     "@typescript-eslint/parser": "^5.8.0",
     "eslint": "^8.5.0",
+    "lodash": "^4.17.21",
     "mocha": "^8.2.0",
+    "node-fetch": "^2.7.0",
+    "nodemon": "^3.1.4",
     "smogon": "^2.2.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.0.4"
   }
 }

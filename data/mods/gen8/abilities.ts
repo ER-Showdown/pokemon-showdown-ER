@@ -273,7 +273,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		inherit: true,
 		rating: 2,
 	},
-	electricsurge: {
+	electrosurge: {
 		inherit: true,
 		rating: 4,
 	},

@@ -14305,7 +14305,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		types: ["Electric", "Fairy"],
 		gender: "N",
 		baseStats: {hp: 70, atk: 115, def: 85, spa: 95, spd: 75, spe: 130},
-		abilities: {0: "Electric Surge", H: "Telepathy"},
+		abilities: {0: "Electro Surge", H: "Telepathy"},
 		heightm: 1.8,
 		weightkg: 20.5,
 		color: "Yellow",
@@ -15864,7 +15864,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 		name: "Pincurchin",
 		types: ["Electric"],
 		baseStats: {hp: 48, atk: 101, def: 95, spa: 91, spd: 85, spe: 15},
-		abilities: {0: "Lightning Rod", H: "Electric Surge"},
+		abilities: {0: "Lightning Rod", H: "Electro Surge"},
 		heightm: 0.3,
 		weightkg: 1,
 		color: "Purple",
@@ -19133,7 +19133,7 @@ export const Pokedex: {[speciesid: string]: SpeciesData} = {
 	},
 	"magnezonemega": {
 		"abilities": {
-			"0": "Electric Surge"
+			"0": "Electro Surge"
 		},
 		"baseStats": {
 			"hp": 70,

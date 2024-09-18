@@ -3027,7 +3027,7 @@
 		"sets": [{
 			"species": "Tapu Koko",
 			"item": "Life Orb",
-			"ability": "Electric Surge",
+			"ability": "Electro Surge",
 			"evs": {"spa": 252, "spd": 4, "spe": 252},
 			"ivs": {"atk": 0},
 			"nature": "Timid",
@@ -3035,7 +3035,7 @@
 		}, {
 			"species": "Tapu Koko",
 			"item": "Electrium Z",
-			"ability": "Electric Surge",
+			"ability": "Electro Surge",
 			"evs": {"spa": 252, "spd": 4, "spe": 252},
 			"ivs": {"atk": 0},
 			"nature": "Timid",
@@ -3043,7 +3043,7 @@
 		}, {
 			"species": "Tapu Koko",
 			"item": "Choice Specs",
-			"ability": "Electric Surge",
+			"ability": "Electro Surge",
 			"evs": {"spa": 252, "spd": 4, "spe": 252},
 			"ivs": {"atk": 0},
 			"nature": "Timid",
@@ -3051,14 +3051,14 @@
 		}, {
 			"species": "Tapu Koko",
 			"item": "Electrium Z",
-			"ability": "Electric Surge",
+			"ability": "Electro Surge",
 			"evs": {"hp": 4, "atk": 252, "spe": 252},
 			"nature": "Jolly",
 			"moves": [["Wild Charge"], ["Brave Bird"], ["U-turn"], ["Taunt"]]
 		}, {
 			"species": "Tapu Koko",
 			"item": "Electric Seed",
-			"ability": "Electric Surge",
+			"ability": "Electro Surge",
 			"evs": {"def": 60, "spa": 196, "spe": 252},
 			"ivs": {"atk": 0},
 			"nature": "Timid",
@@ -3066,7 +3066,7 @@
 		}, {
 			"species": "Tapu Koko",
 			"item": "Light Clay",
-			"ability": "Electric Surge",
+			"ability": "Electro Surge",
 			"evs": {"hp": 252, "spd": 4, "spe": 252},
 			"ivs": {"atk": 0},
 			"nature": "Timid",

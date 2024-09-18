@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict';
+"use strict";
 // no-var is disabled since this is supposed to support old versions of node
 // block scoped var is just because idk what the fuck is going on there since it wasn't
 // failing before
@@ -21,20 +21,23 @@
 // of interfacing with the simulator from non-JS languages. Otherwise we error
 // on the side of caution and run `node build` to ensure we're always running
 // with the latest code.
-var fs = require('fs');
+var fs = require("fs");
 function build() {
-	require('child_process').execSync('node build', {stdio: 'inherit', cwd: __dirname});
+	require("child_process").execSync("node build", {
+		stdio: "inherit",
+		cwd: __dirname,
+	});
 }
 
 function readTeam(stream) {
-	return stream.readLine().then(line => {
-		if (line.startsWith('[') || line.includes('|')) return line;
-		return stream.readAll().then(all => (line + '\n' + all));
+	return stream.readLine().then((line) => {
+		if (line.startsWith("[") || line.includes("|")) return line;
+		return stream.readAll().then((all) => line + "\n" + all);
 	});
 }
 
 function ensureBuilt() {
-	if (!fs.existsSync('./dist')) {
+	if (!fs.existsSync("./dist")) {
 		build();
 	}
 }
@@ -47,205 +50,233 @@ if (!process.argv[2] || /^[0-9]+$/.test(process.argv[2])) {
 	// host on port 9000:
 	// $ ./pokemon-showdown 9000
 	build();
-	require('module')._load('./dist/server/index.js', module, true);
+	require("module")._load("./dist/server/index.js", module, true);
 } else {
 	switch (process.argv[2]) {
-	case 'help':
-	case 'h':
-	case '?':
-	case '-h':
-	case '--help':
-	case '-?':
-		console.log('pokemon-showdown start [--skip-build] [PORT]');
-		console.log('');
-		console.log('  Starts a PS server on the specified port');
-		console.log('  (Defaults to the port setting in config/config.js)');
-		console.log('  (The port setting in config/config.js defaults to 8000)');
-		console.log('');
-		console.log('pokemon-showdown generate-team [FORMAT-ID [RANDOM-SEED]]');
-		console.log('');
-		console.log('  Generates a random team, and writes it to stdout in packed team format');
-		console.log('  (Format defaults to the latest Random Battles format)');
-		console.log('');
-		console.log('pokemon-showdown validate-team [FORMAT-ID]');
-		console.log('');
-		console.log('  Reads a team from stdin, and validates it');
-		console.log('  If valid: exits with code 0');
-		console.log('  If invalid: writes errors to stderr, exits with code 1');
-		console.log('');
-		console.log('pokemon-showdown simulate-battle');
-		console.log('');
-		console.log('  Simulates a battle, taking input to stdin and writing output to stdout');
-		console.log('  Protocol is documented in ./dist/sim/README.md');
-		console.log('');
-		console.log('pokemon-showdown json-team');
-		console.log('');
-		console.log('  Reads a team in any format from stdin, writes the unpacked JSON to stdout');
-		console.log('');
-		console.log('pokemon-showdown pack-team');
-		console.log('');
-		console.log('  Reads a team in any format from stdin, writes the packed team to stdout');
-		console.log('');
-		console.log('pokemon-showdown export-team');
-		console.log('');
-		console.log('  Reads a team in any format from stdin, writes the exported (human-readable) team to stdout');
-		console.log('');
-		console.log('pokemon-showdown help');
-		console.log('');
-		console.log('  Displays this reference');
-		break;
-	case 'start':
-	{
-		process.argv.splice(2, 1);
-		build();
-		require('module')._load('./dist/server/index.js', module, true);
-		break;
-	}
-	case 'generate-team':
-		{
-			ensureBuilt();
-			var Teams = require('./dist/sim/teams.js').Teams;
-			var seed = process.argv[4] ? process.argv[4].split(',').map(Number) : undefined;
-			console.log(Teams.pack(Teams.generate(process.argv[3], {seed})));
+		case "help":
+		case "h":
+		case "?":
+		case "-h":
+		case "--help":
+		case "-?":
+			console.log("pokemon-showdown start [--skip-build] [PORT]");
+			console.log("");
+			console.log("  Starts a PS server on the specified port");
+			console.log("  (Defaults to the port setting in config/config.js)");
+			console.log(
+				"  (The port setting in config/config.js defaults to 8000)"
+			);
+			console.log("");
+			console.log(
+				"pokemon-showdown generate-team [FORMAT-ID [RANDOM-SEED]]"
+			);
+			console.log("");
+			console.log(
+				"  Generates a random team, and writes it to stdout in packed team format"
+			);
+			console.log("  (Format defaults to the latest Random Battles format)");
+			console.log("");
+			console.log("pokemon-showdown validate-team [FORMAT-ID]");
+			console.log("");
+			console.log("  Reads a team from stdin, and validates it");
+			console.log("  If valid: exits with code 0");
+			console.log(
+				"  If invalid: writes errors to stderr, exits with code 1"
+			);
+			console.log("");
+			console.log("pokemon-showdown simulate-battle");
+			console.log("");
+			console.log(
+				"  Simulates a battle, taking input to stdin and writing output to stdout"
+			);
+			console.log("  Protocol is documented in ./dist/sim/README.md");
+			console.log("");
+			console.log("pokemon-showdown json-team");
+			console.log("");
+			console.log(
+				"  Reads a team in any format from stdin, writes the unpacked JSON to stdout"
+			);
+			console.log("");
+			console.log("pokemon-showdown pack-team");
+			console.log("");
+			console.log(
+				"  Reads a team in any format from stdin, writes the packed team to stdout"
+			);
+			console.log("");
+			console.log("pokemon-showdown export-team");
+			console.log("");
+			console.log(
+				"  Reads a team in any format from stdin, writes the exported (human-readable) team to stdout"
+			);
+			console.log("");
+			console.log("pokemon-showdown help");
+			console.log("");
+			console.log("  Displays this reference");
+			break;
+		case "start": {
+			process.argv.splice(2, 1);
+			build();
+			require("module")._load("./dist/server/index.js", module, true);
+			break;
 		}
-		break;
-	case 'validate-team':
-		{
-			ensureBuilt();
-			var Teams = require('./dist/sim/teams.js').Teams;
-			var TeamValidator = require('./dist/sim/team-validator.js').TeamValidator;
-			var validator = TeamValidator.get(process.argv[3]);
-			var Streams = require('./dist/lib/streams.js');
-			var stdin = Streams.stdin();
+		case "prod": {
+			process.argv.splice(2, 1);
+			require("module")._load("./dist/server/index.js", module, true);
+			break;
+		}
+		case "generate-team":
+			{
+				ensureBuilt();
+				var Teams = require("./dist/sim/teams.js").Teams;
+				var seed = process.argv[4]
+					? process.argv[4].split(",").map(Number)
+					: undefined;
+				console.log(Teams.pack(Teams.generate(process.argv[3], { seed })));
+			}
+			break;
+		case "validate-team":
+			{
+				ensureBuilt();
+				var Teams = require("./dist/sim/teams.js").Teams;
+				var TeamValidator =
+					require("./dist/sim/team-validator.js").TeamValidator;
+				var validator = TeamValidator.get(process.argv[3]);
+				var Streams = require("./dist/lib/streams.js");
+				var stdin = Streams.stdin();
 
-			readTeam(stdin).then(function (textTeam) {
-				try {
-					var team = Teams.import(textTeam);
-					var result = validator.validateTeam(team);
-					if (result) {
-						console.error(result.join('\n'));
+				readTeam(stdin).then(function (textTeam) {
+					try {
+						var team = Teams.import(textTeam);
+						var result = validator.validateTeam(team);
+						if (result) {
+							console.error(result.join("\n"));
+							process.exit(1);
+						}
+						process.exit(0);
+					} catch (e) {
+						console.error(e);
 						process.exit(1);
 					}
-					process.exit(0);
-				} catch (e) {
-					console.error(e);
-					process.exit(1);
-				}
-			});
-		}
-		break;
-	case 'simulate-battle':
-		{
-			build();
-			var BattleTextStream = require('./dist/sim/battle-stream.js').BattleTextStream;
-			var Streams = require('./dist/lib/streams');
-			var stdin = Streams.stdin();
-			var stdout = Streams.stdout();
-
-			var args = process.argv.slice(3);
-
-			var options = args.flatMap(function (arg) {
-				if (arg.charAt(0) !== '-') {
-					if (arg) console.error("Invalid parameter: " + arg);
-					return [];
-				} else if (arg.charAt(1) === '-') {
-					return arg.slice(2);
-				} else {
-					return Array.from(arg.slice(1));
-				}
-			});
-
-			var debug = false;
-			var replay = false;
-			var spectate = false;
-			for (var i = 0; i < options.length; i++) {
-				switch (options[i]) {
-				case 'debug': case 'D':
-					debug = true;
-					break;
-				case 'replay': case 'R':
-					replay = true;
-					break;
-				case 'spectate': case 'spectator': case 'S':
-					replay = true;
-					spectate = true;
-					break;
-				default:
-					console.error("Invalid option: " + options[i]);
-					break;
-				}
+				});
 			}
+			break;
+		case "simulate-battle":
+			{
+				build();
+				var BattleTextStream =
+					require("./dist/sim/battle-stream.js").BattleTextStream;
+				var Streams = require("./dist/lib/streams");
+				var stdin = Streams.stdin();
+				var stdout = Streams.stdout();
 
-			var battleStream = new BattleTextStream({
-				noCatch: true,
-				debug: debug,
-				replay: spectate ? 'spectator' : replay,
-			});
-			stdin.pipeTo(battleStream);
-			battleStream.pipeTo(stdout);
-		}
-		break;
-	case 'unpack-team':
-	case 'json-team':
-		{
-			build();
-			var Teams = require('./dist/sim/teams').Teams;
-			var Streams = require('./dist/lib/streams');
-			var stdin = Streams.stdin();
+				var args = process.argv.slice(3);
 
-			readTeam(stdin).then(function (team) {
-				try {
-					var unpackedTeam = Teams.unpack(Teams.import(team));
-					console.log(JSON.stringify(unpackedTeam));
-					process.exit(0);
-				} catch (e) {
-					console.error(e);
-					process.exit(1);
+				var options = args.flatMap(function (arg) {
+					if (arg.charAt(0) !== "-") {
+						if (arg) console.error("Invalid parameter: " + arg);
+						return [];
+					} else if (arg.charAt(1) === "-") {
+						return arg.slice(2);
+					} else {
+						return Array.from(arg.slice(1));
+					}
+				});
+
+				var debug = false;
+				var replay = false;
+				var spectate = false;
+				for (var i = 0; i < options.length; i++) {
+					switch (options[i]) {
+						case "debug":
+						case "D":
+							debug = true;
+							break;
+						case "replay":
+						case "R":
+							replay = true;
+							break;
+						case "spectate":
+						case "spectator":
+						case "S":
+							replay = true;
+							spectate = true;
+							break;
+						default:
+							console.error("Invalid option: " + options[i]);
+							break;
+					}
 				}
-			});
-		}
-		break;
-	case 'pack-team':
-		{
-			build();
-			var Teams = require('./dist/sim/teams').Teams;
-			var Streams = require('./dist/lib/streams');
-			var stdin = Streams.stdin();
 
-			readTeam(stdin).then(function (team) {
-				try {
-					var packedTeam = Teams.pack(Teams.import(team));
-					console.log(packedTeam);
-					process.exit(0);
-				} catch (e) {
-					console.error(e);
-					process.exit(1);
-				}
-			});
-		}
-		break;
-	case 'export-team':
-		{
-			build();
-			var Teams = require('./dist/sim/teams').Teams;
-			var Streams = require('./dist/lib/streams');
-			var stdin = Streams.stdin();
+				var battleStream = new BattleTextStream({
+					noCatch: true,
+					debug: debug,
+					replay: spectate ? "spectator" : replay,
+				});
+				stdin.pipeTo(battleStream);
+				battleStream.pipeTo(stdout);
+			}
+			break;
+		case "unpack-team":
+		case "json-team":
+			{
+				build();
+				var Teams = require("./dist/sim/teams").Teams;
+				var Streams = require("./dist/lib/streams");
+				var stdin = Streams.stdin();
 
-			readTeam(stdin).then(function (team) {
-				try {
-					var exportedTeam = Teams.export(Teams.import(team));
-					console.log(exportedTeam);
-					process.exit(0);
-				} catch (e) {
-					console.error(e);
-					process.exit(1);
-				}
-			});
-		}
-		break;
-	default:
-		console.error('Unrecognized command: ' + process.argv[2]);
-		console.error('Use `pokemon-showdown help` for help');
-		process.exit(1);
+				readTeam(stdin).then(function (team) {
+					try {
+						var unpackedTeam = Teams.unpack(Teams.import(team));
+						console.log(JSON.stringify(unpackedTeam));
+						process.exit(0);
+					} catch (e) {
+						console.error(e);
+						process.exit(1);
+					}
+				});
+			}
+			break;
+		case "pack-team":
+			{
+				build();
+				var Teams = require("./dist/sim/teams").Teams;
+				var Streams = require("./dist/lib/streams");
+				var stdin = Streams.stdin();
+
+				readTeam(stdin).then(function (team) {
+					try {
+						var packedTeam = Teams.pack(Teams.import(team));
+						console.log(packedTeam);
+						process.exit(0);
+					} catch (e) {
+						console.error(e);
+						process.exit(1);
+					}
+				});
+			}
+			break;
+		case "export-team":
+			{
+				build();
+				var Teams = require("./dist/sim/teams").Teams;
+				var Streams = require("./dist/lib/streams");
+				var stdin = Streams.stdin();
+
+				readTeam(stdin).then(function (team) {
+					try {
+						var exportedTeam = Teams.export(Teams.import(team));
+						console.log(exportedTeam);
+						process.exit(0);
+					} catch (e) {
+						console.error(e);
+						process.exit(1);
+					}
+				});
+			}
+			break;
+		default:
+			console.error("Unrecognized command: " + process.argv[2]);
+			console.error("Use `pokemon-showdown help` for help");
+			process.exit(1);
 	}
 }

@@ -17,6 +17,129 @@ export const Conditions: {[k: string]: ConditionData} = {
 			this.damage(pokemon.baseMaxhp / 16);
 		},
 	},
+	frz: {
+		name: "frostbite",
+		effectType: "Status",
+		onStart(target, source, sourceEffect) {
+			if (sourceEffect && sourceEffect.effectType == "Ability") {
+				this.add("-status", target, "frz", `[from] ability: ${sourceEffect.name} [of] ${source}`);
+			} else if (sourceEffect && sourceEffect.effectType === 'Move') {
+				this.add('-status', target, 'frz', '[from] move: ' + sourceEffect.name);
+			}
+		},
+		onModifySpA(spa, source, target, move) {
+			if (move.id === 'facade') return
+			if (source.hasAbility('determination')) return
+			return this.modify(spa, 0.5)
+		},
+		onResidualOrder: 10,
+		onResidual(pokemon) {
+			this.damage(pokemon.baseMaxhp / 16);
+		},
+	},
+	/**
+	 * Bleed is a new status condition added in elite redux v2.0.
+	 * As of this release, it has the following battle effects:
+	 * - Lose 1/16 max hp every turn
+	 * - Prevent ALL healing effects (moves, items, abilities, etc) on the bleeding pokemon
+	 * - Negate any stat boosts on the bleeding pokemon
+	 * - Rock and ghost type pokemon are immune to bleed
+	 * 
+	 * Bleed can be cured by using a healing move such as roost, recover etc.
+	 * The healing move's effect will be negated, but the bleed will be cured.
+	 * NOTE That currently, non-self targeted healing moves cure the target's bleed if applicable.
+	 * It's not clear that this is an intended mechanic in e.g. doubles, etc.
+	 * 
+	 * ======================= Developer notes =======================
+	 * Adding new status conditions involve the following pieces:
+	 * - data/conditions.ts < --- [you are here], where the main business logic of how the condition behaves in battle takes place.
+	 * - data/abilities.ts:line 8598, where the voodoo power ability is defined which adds this status condition when hit (30% chance).
+	 * - data/typechart.ts, this controls the type chart and what weaknessess, immunities etc are active for each pokemon type.
+	 * - data/mods/gen8eliteredux/pokedex.ts, contains the pokedex definitions for all elite redux formats. Use this for testing to give pokemon new abilities prior to them being implemented fully.
+	 * - data/text/default.ts, where status text messages are defined.
+	 * - frontend/src/battle-animations.ts:updateStatBar():line 2727, where the status bar is rendered/updated on the client during battle.
+	 * - frontend/style/client.css:line 2070, where the status bar indicators are styled with colors in css.
+	 */
+	bld: {
+		name: "bld",
+		effectType: "Status",
+		/**
+		 * This is called when the status starts and is responsible for populating status activation messages on screen.
+		 * It handles the status being activated by either an ability or a move secondary effect.
+		 * The target is the pokemon being statused, the source is the pokemon that caused the status.
+		 * Source effect will the ability or move that caused the status.
+		 */
+		onStart(target, source, sourceEffect) {
+			if (sourceEffect && sourceEffect.effectType == "Ability") {
+				this.add("-status", target, "bld", `[from] ability: ${sourceEffect.name}`, ` [of] ${source}`);
+			} else if (sourceEffect && sourceEffect.effectType === 'Move') {
+				this.add('-status', target, 'bld', '[from] move: ' + sourceEffect.name);
+			}
+		},
+		/**
+		 * This is called right before a pokemon uses a given move.
+		 * We use this to check if a status healing move is being used on a bleeding pokemon.
+		 * If so, we block the heal but cure the bleed.
+		 * NOTE: This should cover non-self healing moves i.e. enemy or partner healing moves used on the bleeding pokemon 
+		 */
+		// onBeforeMove(source, target, move) {
+		// 	if (move.flags['heal'] && move.category == "Status") {
+		// 		/// Outright block status healing moves.
+		// 		this.add('cant', target, 'status: bleed', move);
+		// 		target.cureStatus();
+		// 		return false;
+		// 	}
+		// },
+		/**
+		 * This is called right before a pokemon is healed by any source.
+		 * In this case, we just prevent the healing.
+		 * In most cases, you want to provide a message by using this.add("cant", ...)
+		 * But since this is from a status effect and blocks secondary effects from items, moves like giga drain, etc...
+		 * The expected behavior is more nuanced.
+		 * It's possible that some conditional messages may be desired here, but more work is needed to iron out all those details.
+		 */
+		onTryHeal(amount, target, source, effect) {
+			if (effect.effectType == "Condition" && effect.id == "wish") {
+				this.add("-message", `${target.name}'s wish cured it's bleed!`);
+				target.cureStatus(true);
+			}
+
+			if (effect.effectType == "Move") {
+				const move = effect as Move;
+
+				if (move.basePower < 0) target.cureStatus();
+				if (move.category == "Status") target.cureStatus();
+			}
+			
+			/// This modifies the heal by a multiple of 0, effectively preventing it.
+			return this.chainModify(0);
+		},
+		/**
+		 * This is called right before the statused target receives any kind of stat boosts. 
+		 * This prevents the statused target from receiving any stat boosts from any source by simply deleting all the boosts.
+		 */
+		onTryBoost(boost, target, source, effect) {
+			let i: BoostID;
+
+			for (i in boost) {
+				delete boost[i];
+			}
+
+			this.add('-fail', target, 'boost', '[from] status: bleed', '[of] ' + target);
+		},
+		/** 
+		 * This is (believed) to be used as an order in which status/item/weather residual effects resolve at the end of the battle.
+		 * In this case, bleed was made to have the same residual order value as bleed/freeze/etc.
+		*/
+		onResidualOrder: 10,
+		/**
+		 * This is called to compute any residual (turn over turn) effects on the statused target.
+		 * Bleed simply causes 1/16 base hp chip damage every turn.
+		 */
+		onResidual(pokemon) {
+			this.damage(pokemon.baseMaxhp / 16);
+		},
+	},
 	par: {
 		name: 'par',
 		effectType: 'Status',
@@ -77,46 +200,6 @@ export const Conditions: {[k: string]: ConditionData} = {
 				return;
 			}
 			return false;
-		},
-	},
-	frz: {
-		name: 'frz',
-		effectType: 'Status',
-		onStart(target, source, sourceEffect) {
-			if (sourceEffect && sourceEffect.effectType === 'Ability') {
-				this.add('-status', target, 'frz', '[from] ability: ' + sourceEffect.name, '[of] ' + source);
-			} else {
-				this.add('-status', target, 'frz');
-			}
-			if (target.species.name === 'Shaymin-Sky' && target.baseSpecies.baseSpecies === 'Shaymin') {
-				target.formeChange('Shaymin', this.effect, true);
-			}
-		},
-		onBeforeMovePriority: 10,
-		onBeforeMove(pokemon, target, move) {
-			if (move.flags['defrost']) return;
-			if (this.randomChance(1, 5)) {
-				pokemon.cureStatus();
-				return;
-			}
-			this.add('cant', pokemon, 'frz');
-			return false;
-		},
-		onModifyMove(move, pokemon) {
-			if (move.flags['defrost']) {
-				this.add('-curestatus', pokemon, 'frz', '[from] move: ' + move);
-				pokemon.clearStatus();
-			}
-		},
-		onAfterMoveSecondary(target, source, move) {
-			if (move.thawsTarget) {
-				target.cureStatus();
-			}
-		},
-		onDamagingHit(damage, target, source, move) {
-			if (move.type === 'Fire' && move.category !== 'Status') {
-				target.cureStatus();
-			}
 		},
 	},
 	psn: {
