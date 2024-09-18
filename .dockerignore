@@ -2,6 +2,8 @@
 .git
 .vscode
 
+Dockerfile
+
 dist
 dex_repo
 logs
