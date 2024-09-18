@@ -2,6 +2,7 @@
 .git
 .vscode
 
+dist
 dex_repo
 logs
 node_modules
@@ -20,3 +21,8 @@ pokedex-output.ts
 *.txt
 
 Procfile
+
+data/mods/
+!data/mods/gen8eliteredux/
+!data/mods/ssb/
+!data/mods/gen8/
