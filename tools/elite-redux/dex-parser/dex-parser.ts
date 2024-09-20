@@ -92,7 +92,7 @@ export class DexParser {
 	pokedex: { [speciesId: string]: SpeciesData } = {};
 
 	constructor(config?: DexConfig) {
-		const dex = new ModdedDex("gen8eliteredux");
+		const dex = new ModdedDex("eliteredux");
 		this.showdownData = dex.data;
 		this.config = config ?? {
 			dexDataUrl:
