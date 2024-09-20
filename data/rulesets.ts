@@ -631,7 +631,7 @@ export const Rulesets: {[k: string]: FormatData} = {
 			}
 		},
 	},
-	forcemonotypeER: {
+	forcemonotypeer: {
 		effectType: "ValidatorRule",
 		name: 'Force Monotype (ER)',
 		desc: "Forced monotype",
@@ -639,13 +639,21 @@ export const Rulesets: {[k: string]: FormatData} = {
 			this.add('rule', 'Monotype Clause: All pokemon on a team must share a type');
 		},
 		onValidateTeam(team, format) {
+			console.log(team);
 			var valid = false;
 			for(const type of this.dex.types.names()){
+				var innervalid = true;
 				for(const mon of team){
 					const species = this.dex.species.get(mon.species);
+					console.log(species.types);
+					console.log(type);
 					if(!species.types.includes(type)){
+						innervalid = false;
 						break;
 					}
+				}
+				if(!innervalid){
+					continue
 				}
 				valid = true;
 			}
