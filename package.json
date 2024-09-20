@@ -42,9 +42,9 @@
     "full-test": "npm run lint && npm run tsc && mocha --timeout 8000 --forbid-only -g \".*\"",
     "full-test-ci": "eslint ${FILES} --max-warnings 0 && npm run tsc && (([ \"$SKIPSIMTESTS\" = true ] && mocha --timeout 8000 --forbid-only -g \".*\" --exclude \"test/{sim,random-battles}/**\") || mocha --timeout 8000 --forbid-only -g \".*\")",
     "postinstall": "npm run build postinstall",
-    "setup-er-tools": "ts-node tools/elite-redux/setup-tools.ts",
-    "generate-er-learnsets": "npm run setup-er-tools && ts-node tools/elite-redux/dex-parser/generate-learnsets.ts",
-    "generate-er-pokedex": "npm run setup-er-tools && ts-node tools/elite-redux/dex-parser/generate-pokedex.ts"
+    "setup-er-tools": "tsx tools/elite-redux/setup-tools.ts",
+    "generate-er-learnsets": "npm run setup-er-tools && tsx tools/elite-redux/dex-parser/generate-learnsets.ts",
+    "generate-er-pokedex": "npm run setup-er-tools && tsx tools/elite-redux/dex-parser/generate-pokedex.ts"
   },
   "bin": "./pokemon-showdown",
   "homepage": "http://pokemonshowdown.com",
@@ -75,6 +75,7 @@
     "@types/cloud-env": "^0.2.2",
     "@types/lodash": "^4.17.7",
     "@types/node": "^14.18.36",
+    "@types/node-fetch": "^2.6.11",
     "@types/node-static": "^0.7.7",
     "@types/nodemailer": "^6.4.4",
     "@types/pg": "^8.6.5",
@@ -88,7 +89,7 @@
     "nodemon": "^3.1.4",
     "smogon": "^2.2.1",
     "sockjs-client": "^1.6.1",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.19.1",
     "typescript": "^5.0.4"
   }
 }

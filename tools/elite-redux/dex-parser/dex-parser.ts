@@ -12,11 +12,10 @@ import { MoveFlags } from "../../../sim/dex-moves";
 import { SpeciesAbility } from "../../../sim/dex-species";
 import { Ability as DexAbility } from "../../../dex_repo/src/abilities";
 import { MoveData } from "../../../sim/dex-moves";
-import { LearnsetData } from "../../../sim/dex-species";
+import { ModdedLearnsetData } from "../../../sim/dex-species";
 import { SpeciesData } from "../../../sim/dex-species";
 import { MoveTarget } from "../../../sim/dex-moves";
 import { DexTableData, ModdedDex } from "../../../sim/dex";
-import { capitalize } from "lodash";
 
 type StatIDExceptHP = "atk" | "def" | "spa" | "spd" | "spe";
 type StatID = "hp" | StatIDExceptHP;
@@ -89,7 +88,7 @@ export class DexParser {
 	gameData?: CompactGameData;
 	config: DexConfig;
 	moves: { [id: string]: MoveData } = {};
-	learnsets: { [pokemonid: string]: LearnsetData } = {};
+	learnsets: { [pokemonid: string]: ModdedLearnsetData } = {};
 	pokedex: { [speciesId: string]: SpeciesData } = {};
 
 	constructor(config?: DexConfig) {
@@ -147,7 +146,7 @@ export class DexParser {
 			const learnset = this.generateLearnset(pokemon);
 			const id = pokemon.name.toLowerCase();
 			if (id == "??????????") continue;
-			this.learnsets[id] = learnset;
+			this.learnsets[id] = { learnset: learnset };
 			this.pokedex[id] = {
 				name: pokemon.name,
 				types: pokemon.stats.types.map(

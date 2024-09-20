@@ -1,5 +1,5 @@
 import { DexParser } from "./dex-parser";
-import { TypescriptFileGenerator, writeFileData } from "./generator-utils";
+import { writeFileData } from "./generator-utils";
 
 const config = {
 	outputFile: "./learnset-output.ts",
@@ -25,34 +25,6 @@ async function main() {
 		)}`
 	);
 	await writeFileData(config.outputFile, fileData);
-	// const generator = new TypescriptFileGenerator(config.outputFile, fileHeader);
-	// generator.indent();
-	// generator.indent();
-
-	// for (const speciesId of Object.keys(parser.learnsets)) {
-	// 	if (speciesId === "??????????") continue;
-
-	// 	const data = parser.learnsets[speciesId];
-	// 	if (data == null) continue;
-	// 	const learnset = {
-	// 		learnset: data,
-	// 		inherit: true,
-	// 	};
-	// 	generator.addObjectProperty(speciesId, learnset);
-
-	// 	// for (const entry of Object.entries(data)) {
-	// 	// 	const moveId = entry[0];
-	// 	// 	const moves = entry[1];
-	// 	// 	generator.addArrayProperty(moveId, moves);
-	// 	// }
-
-	// 	// generator.endObjectDefinition();
-	// 	// generator.addProperty("inherit", true);
-	// 	// generator.endObjectDefinition();
-	// }
-
-	// generator.endObjectDefinition();
-	// await generator.save();
 	console.debug(`Successfully wrote learnset data to ${config.outputFile}`);
 }
 
