@@ -25,6 +25,6 @@ pokedex-output.ts
 Procfile
 
 data/mods/
-!data/mods/eliteredux/
+!data/mods/gen8eliteredux/
 !data/mods/ssb/
 !data/mods/gen8/

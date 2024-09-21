@@ -27,7 +27,7 @@ export const Formats: FormatList = [
 	{
 		name: "Elite Redux OU",
 		desc: `OU for Elite Redux`,
-		mod: "eliteredux",
+		mod: "gen8eliteredux",
 		ruleset: ["Standard"],
 		banlist: [
 			"Uber",
@@ -185,7 +185,7 @@ export const Formats: FormatList = [
 	{
 		name: "Elite Redux Monotype OU",
 		desc: `OU Monotype for Elite Redux`,
-		mod: "eliteredux",
+		mod: "gen8eliteredux",
 		ruleset: ["Standard", "Force Monotype (ER)"],
 		banlist: [
 			"Uber",
@@ -343,7 +343,7 @@ export const Formats: FormatList = [
 	{
 		name: "Elite Redux UU",
 		desc: `UU For Elite Redux`,
-		mod: "eliteredux",
+		mod: "gen8eliteredux",
 		ruleset: ["Elite Redux OU"],
 		banlist: ["OU", "UUBL"],
 		//ER Scripts
@@ -488,7 +488,7 @@ export const Formats: FormatList = [
 	{
 		name: "Elite Redux Ubers",
 		desc: `Testing for ER Innates`,
-		mod: "eliteredux",
+		mod: "gen8eliteredux",
 		ruleset: ["Standard"],
 		banlist: ["AG", "King's Rock", "Baton Pass"],
 
@@ -633,7 +633,7 @@ export const Formats: FormatList = [
 	{
 		name: "Elite Redux AG",
 		desc: `Testing for ER Innates`,
-		mod: "eliteredux",
+		mod: "gen8eliteredux",
 		ruleset: ["Standard"],
 		banlist: ["King's Rock", "Baton Pass"],
 
@@ -782,7 +782,7 @@ export const Formats: FormatList = [
 	{
 		name: "Elite Redux Doubles OU",
 
-		mod: "eliteredux",
+		mod: "gen8eliteredux",
 		gameType: "doubles",
 		ruleset: ["Standard Doubles"],
 		banlist: ["DUber", "Shadow Tag", "Arena Trap"],
@@ -928,7 +928,7 @@ export const Formats: FormatList = [
 	{
 		name: "Elite Redux Monotype Doubles OU",
 
-		mod: "eliteredux",
+		mod: "gen8eliteredux",
 		gameType: "doubles",
 		ruleset: ["Standard Doubles", "Force Monotype (ER)"],
 		banlist: ["DUber", "Shadow Tag", "Arena Trap"],
@@ -1077,7 +1077,7 @@ export const Formats: FormatList = [
 	{
 		name: "Elite Redux Doubles Ubers",
 
-		mod: "eliteredux",
+		mod: "gen8eliteredux",
 		gameType: "doubles",
 		ruleset: ["Standard Doubles", "!Gravity Sleep Clause"],
 
@@ -1222,7 +1222,7 @@ export const Formats: FormatList = [
 	{
 		name: "Elite Redux 2v2 Doubles",
 		desc: `Double battle where you bring four Pok&eacute;mon to Team Preview and choose only two.`,
-		mod: "eliteredux",
+		mod: "gen8eliteredux",
 		gameType: "doubles",
 		ruleset: [
 			"Picked Team Size = 2",
