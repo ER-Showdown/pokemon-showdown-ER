@@ -12417,4 +12417,8 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 			);
 		},
 	},
+	grappler: {
+		name: "Grappler",
+		shortDesc: "Trapping moves last 6 turns. Trapping deals 1/6 HP.",
+	},
 };

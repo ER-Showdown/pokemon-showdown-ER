@@ -731,7 +731,7 @@ export const Pokedex: { [k: string]: ModdedSpeciesData } = {
 		types: ["Electric"],
 		baseStats: { hp: 35, atk: 55, def: 40, spa: 50, spd: 50, spe: 90 },
 		abilities: {
-			0: "Retriever",
+			0: "Electrocytes",
 			1: "Static",
 			H: "Electric Burst",
 			I1: "Short Circuit",
@@ -12240,7 +12240,7 @@ export const Pokedex: { [k: string]: ModdedSpeciesData } = {
 		types: ["Fire", "Steel"],
 		baseStats: { hp: 91, atk: 90, def: 106, spa: 130, spd: 106, spe: 77 },
 		abilities: {
-			0: "Steelworker",
+			0: "Grappler",
 			1: "Mountaineer",
 			H: "Drought",
 			I1: "Magma Armor",
