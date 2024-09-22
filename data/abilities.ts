@@ -11041,16 +11041,41 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	permanence: {
 		name: "Permanence",
 		shortDesc: "Foes can't heal in any way.",
-		onAnyTryHeal(damage, target, source, effect) {
+		onAnyBeforeMove(source: Pokemon, target: Pokemon, effect: ActiveMove) {
 			if (target == this.effectState.target) return;
 			if (target.allies().includes(this.effectState.target)) return;
+			if (!effect.flags["heal"]) return;
+			if (!effect.heal) return;
+			/// Remove heal fraction since soft-boiled doesn't seem to respect the chainModifier.
+			effect.heal = undefined;
+			this.add(
+				"cant",
+				target,
+				"ability: Permanence",
+				effect,
+				"[of] " + this.effectState.target
+			);
+			return this.chainModify(0);
+		},
+		onAnyTryHeal(damage, target, source, effect) {
+			let move = effect;
+
+			if (!target) {
+				//Just preventing the allies check
+			} else if (target == this.effectState.target) return;
+			else if (target?.allies().includes(this.effectState.target)) return;
+
+			if (effect.id == "drain") {
+				move = Dex.moves.get(target.moveThisTurn as string) as Effect;
+			}
+
 			/// Refer to frontend/src/battle-text-parser.ts to understand how the client will format this message.
 			/// As well as what arguments you can pass to it.
 			this.add(
 				"cant",
 				target,
 				"ability: Permanence",
-				effect,
+				move,
 				"[of] " + this.effectState.target
 			);
 			return this.chainModify(0);
@@ -12436,5 +12461,14 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	grappler: {
 		name: "Grappler",
 		shortDesc: "Trapping moves last 6 turns. Trapping deals 1/6 HP.",
+	},
+	parroting: {
+		name: "Parroting",
+		shortDesc: "Copies sound moves used by others. Immune to sound.",
+		onAnyAfterMove(source, target, move) {
+			if (!move.flags.sound) return;
+			this.add("-activate", this.effectState.target, "ability: Parroting");
+			this.add("-start", this.effectState.target, move.name);
+		},
 	},
 };

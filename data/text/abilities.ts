@@ -3474,7 +3474,7 @@ export const AbilitiesText: { [k: string]: AbilityText } = {
 	permanence: {
 		name: "Permanence",
 		shortDesc: "Foes can't heal in any way.",
-		cant: "[POKEMON]'s [MOVE] was blocked!",
+		cant: "[MOVE] failed to heal [POKEMON]!",
 	},
 	hubris: {
 		name: "Hubris",
@@ -3766,5 +3766,9 @@ export const AbilitiesText: { [k: string]: AbilityText } = {
 		name: "Retriever",
 		shortDesc: "Retrieves item on switch-out",
 		activate: "  [POKEMON] retrieved its [ITEM]!",
+	},
+	parroting: {
+		name: "Parroting",
+		shortDesc: "Copies sound moves used by others. Immune to sound.",
 	},
 };
