@@ -731,7 +731,7 @@ export const Pokedex: { [k: string]: ModdedSpeciesData } = {
 		types: ["Electric"],
 		baseStats: { hp: 35, atk: 55, def: 40, spa: 50, spd: 50, spe: 90 },
 		abilities: {
-			0: "Aftershock",
+			0: "Retriever",
 			1: "Static",
 			H: "Electric Burst",
 			I1: "Short Circuit",
