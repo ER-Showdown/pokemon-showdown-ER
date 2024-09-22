@@ -13,6 +13,7 @@
     "js/client-main.js.map",
     "js/panel*.js",
     "js/replay-embed.js",
-    "config/config.js"
+    "config/config.js",
+    "dist/**/*"
   ]
 }

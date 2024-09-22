@@ -1197,4 +1197,62 @@ export const Conditions: { [k: string]: ConditionData } = {
 			return bp;
 		},
 	},
+	/**
+	 * New volatile condition that prevents forms of healing.
+	 * Currently used by permanence.
+	 */
+	healingblocked: {
+		onBeforeMove(source: Pokemon, target: Pokemon, effect: ActiveMove) {
+			// if (target == this.effectState.target) return;
+			// if (target.allies().includes(this.effectState.target)) return;
+			if (!effect.flags["heal"]) return;
+			if (!effect.heal) return;
+			/// Remove heal fraction since soft-boiled doesn't seem to respect the chainModifier.
+			effect.heal = undefined;
+			this.add(
+				"cant",
+				target,
+				"ability: Permanence",
+				effect,
+				"[of] " + this.effectState.source
+			);
+			return this.chainModify(0);
+		},
+		onTryEatItem(item, pokemon) {
+			/// Cancel eating any healing berries.
+			const healingBerries: string[] = [
+				"aguavberry",
+				"iapapaberry",
+				"magoberry",
+				"oranberry",
+				"figyberry",
+				"sitrusberry",
+				"wikiberry",
+			];
+			return !healingBerries.includes(item.id);
+		},
+		onTryHeal(damage, target, source, effect) {
+			let move = effect;
+
+			// Don't need to do this here because it will only activate on the right pokemon.
+			// if (target && target == this.effectState.target) return;
+			// else if (target && target?.allies().includes(this.effectState.target))
+			// 	return;
+
+			if (effect && effect.id == "drain") {
+				move = Dex.moves.get(target.moveThisTurn as string) as Effect;
+			}
+
+			/// Refer to frontend/src/battle-text-parser.ts to understand how the client will format this message.
+			/// As well as what arguments you can pass to it.
+			this.add(
+				"cant",
+				target,
+				"ability: Permanence",
+				move,
+				"[of] " + this.effectState.source
+			);
+			return this.chainModify(0);
+		},
+	},
 };

@@ -11041,44 +11041,26 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	permanence: {
 		name: "Permanence",
 		shortDesc: "Foes can't heal in any way.",
-		onAnyBeforeMove(source: Pokemon, target: Pokemon, effect: ActiveMove) {
-			if (target == this.effectState.target) return;
-			if (target.allies().includes(this.effectState.target)) return;
-			if (!effect.flags["heal"]) return;
-			if (!effect.heal) return;
-			/// Remove heal fraction since soft-boiled doesn't seem to respect the chainModifier.
-			effect.heal = undefined;
-			this.add(
-				"cant",
-				target,
-				"ability: Permanence",
-				effect,
-				"[of] " + this.effectState.target
-			);
-			return this.chainModify(0);
-		},
-		onAnyTryHeal(damage, target, source, effect) {
-			let move = effect;
+		onStart(target) {
+			if (!target) return;
+			if (!target.foes) return;
 
-			if (!target) {
-				//Just preventing the allies check
-			} else if (target == this.effectState.target) return;
-			else if (target?.allies().includes(this.effectState.target)) return;
-
-			if (effect.id == "drain") {
-				move = Dex.moves.get(target.moveThisTurn as string) as Effect;
+			for (const foe of target.foes()) {
+				foe.addVolatile(
+					"healingblocked",
+					target,
+					Dex.abilities.get("permanence"),
+					"healingblocked"
+				);
 			}
-
-			/// Refer to frontend/src/battle-text-parser.ts to understand how the client will format this message.
-			/// As well as what arguments you can pass to it.
-			this.add(
-				"cant",
-				target,
-				"ability: Permanence",
-				move,
-				"[of] " + this.effectState.target
+		},
+		onFoeSwitchIn(foe) {
+			foe.addVolatile(
+				"healingblocked",
+				this.effectState.target,
+				Dex.abilities.get("permanence"),
+				"healingblocked"
 			);
-			return this.chainModify(0);
 		},
 	},
 	hubris: {
