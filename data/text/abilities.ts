@@ -3474,6 +3474,7 @@ export const AbilitiesText: { [k: string]: AbilityText } = {
 	permanence: {
 		name: "Permanence",
 		shortDesc: "Foes can't heal in any way.",
+		cant: "[POKEMON]'s [MOVE] was blocked!",
 	},
 	hubris: {
 		name: "Hubris",

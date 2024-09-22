@@ -11041,9 +11041,19 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	permanence: {
 		name: "Permanence",
 		shortDesc: "Foes can't heal in any way.",
-		onFoeTryHeal(amount, target, source, effect) {
-			this.add("cant", source, "ability: Permanence");
-			return false;
+		onAnyTryHeal(damage, target, source, effect) {
+			if (target == this.effectState.target) return;
+			if (target.allies().includes(this.effectState.target)) return;
+			/// Refer to frontend/src/battle-text-parser.ts to understand how the client will format this message.
+			/// As well as what arguments you can pass to it.
+			this.add(
+				"cant",
+				target,
+				"ability: Permanence",
+				effect,
+				"[of] " + this.effectState.target
+			);
+			return this.chainModify(0);
 		},
 	},
 	hubris: {

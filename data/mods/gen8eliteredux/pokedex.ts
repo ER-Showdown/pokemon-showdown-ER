@@ -4617,7 +4617,7 @@ export const Pokedex: { [k: string]: ModdedSpeciesData } = {
 		genderRatio: { M: 0.875, F: 0.125 },
 		baseStats: { hp: 80, atk: 82, def: 100, spa: 93, spd: 100, spe: 80 },
 		abilities: {
-			0: "Regenerator",
+			0: "Permanence",
 			1: "Triage",
 			H: "Grassy Surge",
 			I1: "Overgrow",
@@ -23621,7 +23621,7 @@ export const Pokedex: { [k: string]: ModdedSpeciesData } = {
 	// },
 	meganiummega: {
 		abilities: {
-			"0": "Misty Surge",
+			"0": "Permanence",
 			I1: "Forest Rage",
 			I2: "Absorbant",
 			I3: "Triage",
