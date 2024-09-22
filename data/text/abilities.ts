@@ -3760,4 +3760,10 @@ export const AbilitiesText: { [k: string]: AbilityText } = {
 		shortDesc: "Triggers Magnitude 4-7 after using a damaging move.",
 		activate: "  [POKEMON] Created an aftershock!",
 	},
+
+	retriever: {
+		name: "Retriever",
+		shortDesc: "Retrieves item on switch-out",
+		activate: "  [POKEMON] retrieved its [ITEM]!",
+	},
 };

@@ -12398,4 +12398,20 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 			this.actions.useMove(aftershock, source, target);
 		},
 	},
+	retriever: {
+		name: "Retriever",
+		shortDesc: "Retrieves item on switch-out",
+
+		onSwitchOut(pokemon) {
+			if (!pokemon.hasAbility("Retriever")) return;
+			pokemon.setItem(pokemon.lastItem);
+			pokemon.lastItem = "";
+			this.add(
+				"-item",
+				pokemon,
+				pokemon.getItem(),
+				"[from] ability: Retriever"
+			);
+		},
+	},
 };
