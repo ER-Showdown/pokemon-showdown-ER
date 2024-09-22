@@ -8348,7 +8348,9 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 				}
 				if (move.secondary) {
 					this.debug("doubling secondary chance");
-					if (secondary.chance) secondary.chance *= 2;
+					// TODO: Fixed an invalid reference bug here.
+					// if (secondary.chance) secondary.chance *= 2;
+					if (move.secondary.chance) move.secondary.chance *= 2;
 				}
 				if (move.self?.chance) move.self.chance *= 2;
 			}
@@ -10927,7 +10929,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 					if (secondary.boosts) {
 						let i: BoostID;
 						for (i in secondary.boosts) {
-							if (secondary.boosts[i] && secondary.boosts[i] < 0) {
+							if (secondary.boosts[i] && secondary.boosts[i]! < 0) {
 								return this.chainModify(2.0);
 							}
 						}
@@ -10940,7 +10942,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 					for (i in move.secondary.boosts) {
 						if (
 							move.secondary.boosts[i] &&
-							move.secondary.boosts[i] < 0
+							move.secondary.boosts[i]! < 0
 						) {
 							return this.chainModify(2.0);
 						}
