@@ -1206,16 +1206,23 @@ export const Conditions: { [k: string]: ConditionData } = {
 			// if (target == this.effectState.target) return;
 			// if (target.allies().includes(this.effectState.target)) return;
 			if (!effect.flags["heal"]) return;
-			if (!effect.heal) return;
 			/// Remove heal fraction since soft-boiled doesn't seem to respect the chainModifier.
-			effect.heal = undefined;
-			this.add(
-				"cant",
-				target,
-				"ability: Permanence",
-				effect,
-				"[of] " + this.effectState.source
-			);
+			if (effect.heal) effect.heal = undefined;
+			if (target == null) {
+				console.debug("FATAL: can't get target!");
+				target = this.effectState.target;
+			}
+
+			if (effect.category == "Status") {
+				this.add(
+					"cant",
+					target,
+					"ability: Permanence",
+					effect,
+					"[of] " + this.effectState.source
+				);
+				return false;
+			}
 			return this.chainModify(0);
 		},
 		onTryEatItem(item, pokemon) {
@@ -1238,6 +1245,10 @@ export const Conditions: { [k: string]: ConditionData } = {
 			// if (target && target == this.effectState.target) return;
 			// else if (target && target?.allies().includes(this.effectState.target))
 			// 	return;
+			if (target == null) {
+				console.debug("FATAL: can't get target!");
+				target = this.effectState.target;
+			}
 
 			if (effect && effect.id == "drain") {
 				move = Dex.moves.get(target.moveThisTurn as string) as Effect;
