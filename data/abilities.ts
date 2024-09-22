@@ -12403,9 +12403,12 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 		shortDesc: "Retrieves item on switch-out",
 
 		onSwitchOut(pokemon) {
+			// TODO: Should retriever support knocked off items?
 			if (!pokemon.hasAbility("Retriever")) return;
+			if (!pokemon.lastItem) return;
 			pokemon.setItem(pokemon.lastItem);
 			pokemon.lastItem = "";
+
 			this.add(
 				"-item",
 				pokemon,
