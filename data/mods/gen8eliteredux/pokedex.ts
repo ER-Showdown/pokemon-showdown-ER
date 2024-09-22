@@ -9048,7 +9048,7 @@ export const Pokedex: { [k: string]: ModdedSpeciesData } = {
 		types: ["Ghost", "Normal"],
 		baseStats: { hp: 84, atk: 125, def: 85, spa: 65, spd: 83, spe: 93 },
 		abilities: {
-			0: "Cursed Body",
+			0: "Grappler",
 			1: "Vengeance",
 			H: "Insomnia",
 			I1: "Scare",
@@ -12240,7 +12240,7 @@ export const Pokedex: { [k: string]: ModdedSpeciesData } = {
 		types: ["Fire", "Steel"],
 		baseStats: { hp: 91, atk: 90, def: 106, spa: 130, spd: 106, spe: 77 },
 		abilities: {
-			0: "Grappler",
+			0: "Steelworker",
 			1: "Mountaineer",
 			H: "Drought",
 			I1: "Magma Armor",
