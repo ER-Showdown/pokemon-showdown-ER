@@ -11041,6 +11041,10 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	permanence: {
 		name: "Permanence",
 		shortDesc: "Foes can't heal in any way.",
+		onFoeTryHeal(amount, target, source, effect) {
+			this.add("cant", source, "ability: Permanence");
+			return false;
+		},
 	},
 	hubris: {
 		name: "Hubris",
