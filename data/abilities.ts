@@ -12194,6 +12194,26 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	coldplasma: {
 		name: "Cold Plasma",
 		shortDesc: "Electric type moves now inflict burn instead of paralysis.",
+		onModifyMove(move, source, target) {
+			if (move.type !== "Electric") return;
+			if (
+				move.secondary &&
+				move.secondary.status &&
+				move.secondary.status == "par"
+			) {
+				// Replace individual paralyze effect chances with brn.
+				move.secondary.status = "brn";
+			}
+			if (move.secondaries) {
+				for (let i = 0; i < move.secondaries.length; i++) {
+					const secondary = move.secondaries[i];
+					// Ignore any secondaries that aren't paralysis chance.
+					if (!secondary.status || secondary.status != "par") return;
+					// Replace the paralysis with burn.
+					move.secondaries[i].status = "brn";
+				}
+			}
+		},
 	},
 	archer: {
 		name: "Archer",
