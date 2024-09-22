@@ -12417,6 +12417,8 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 			);
 		},
 	},
+	/// No business logic required here.
+	/// Check the partiallytrapped condition in conditions.ts.
 	grappler: {
 		name: "Grappler",
 		shortDesc: "Trapping moves last 6 turns. Trapping deals 1/6 HP.",
