@@ -12371,4 +12371,31 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 			});
 		},
 	},
+	aftershock: {
+		name: "Aftershock",
+		shortDesc: "Triggers Magnitude 4-7 after using a damaging move.",
+		onAfterMove(source, target, move) {
+			this.add("-activate", source, "ability: Aftershock");
+			const aftershock = Dex.moves.get("magnitude");
+			/// Magnitude 4-7 is 0->65.
+			/// Defined in moves.ts onModifyMove.
+			const i = this.random(65);
+
+			if (i < 5) {
+				move.magnitude = 4;
+				move.basePower = 10;
+			} else if (i < 15) {
+				move.magnitude = 5;
+				move.basePower = 30;
+			} else if (i < 35) {
+				move.magnitude = 6;
+				move.basePower = 50;
+			} else if (i < 65) {
+				move.magnitude = 7;
+				move.basePower = 70;
+			}
+
+			this.actions.useMove(aftershock, source, target);
+		},
+	},
 };

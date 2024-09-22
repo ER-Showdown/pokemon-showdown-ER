@@ -11053,6 +11053,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1, nonsky: 1},
 		onModifyMove(move, pokemon) {
+			/// If the move's magnitude was already specified, 
+			/// Don't recalculate.
+			if (move.magnitude != null) return;
 			const i = this.random(100);
 			if (i < 5) {
 				move.magnitude = 4;
