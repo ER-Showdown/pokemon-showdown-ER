@@ -3758,6 +3758,6 @@ export const AbilitiesText: { [k: string]: AbilityText } = {
 	aftershock: {
 		name: "Aftershock",
 		shortDesc: "Triggers Magnitude 4-7 after using a damaging move.",
-		activate: "Created an aftershock!",
+		activate: "  [POKEMON] Created an aftershock!",
 	},
 };
