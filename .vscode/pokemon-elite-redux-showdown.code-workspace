@@ -1,13 +1,16 @@
 {
 	"folders": [
 		{
-			"path": "../../pokemon-showdown-client-ER"
+			"path": "../../pokemon-showdown-client-ER",
+			"name": "frontend"
 		},
 		{
-			"path": ".."
+			"path": "..",
+			"name": "backend"
 		},
 		{
-			"path": "../../pokemon-showdown-loginserver-ER"
+			"path": "../../pokemon-showdown-loginserver-ER",
+			"name": "login-server"
 		}
 	],
 	"settings": {
