@@ -1200,6 +1200,9 @@ export const Conditions: { [k: string]: ConditionData } = {
 	/**
 	 * New volatile condition that prevents forms of healing.
 	 * Currently used by permanence.
+	 * NOTE: Healing berries cannot be prevented from being eaten here,
+	 * so we have to modify the battle event loop and check for healing berry and status condition there.
+	 * See sim/battle.ts:821 and sim/pokemon.ts:995.
 	 */
 	healingblocked: {
 		onBeforeMove(source: Pokemon, target: Pokemon, effect: ActiveMove) {
