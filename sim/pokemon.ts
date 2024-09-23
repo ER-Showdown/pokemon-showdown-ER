@@ -255,6 +255,8 @@ export class Pokemon {
 	speed: number;
 	abilityOrder: number;
 
+	gallantyActivated: boolean;
+
 	canMegaEvo: string | null | undefined;
 	canUltraBurst: string | null | undefined;
 	readonly canGigantamax: string | null;
@@ -339,7 +341,7 @@ export class Pokemon {
 				? this.battle.clampIntRange(set.dynamaxLevel, 0, 10)
 				: 10;
 		this.gigantamax = this.set.gigantamax || false;
-
+		this.gallantyActivated = false;
 		this.baseMoveSlots = [];
 		this.moveSlots = [];
 		if (!this.set.moves?.length) {

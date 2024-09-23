@@ -65,6 +65,12 @@ export const Scripts: ModdedBattleScriptsData = {
 				this.battle.debug(`Parental Bond modifier: ${bondModifier}`);
 				baseDamage = this.battle.modify(baseDamage, bondModifier);
 			}
+			else if(move.multihitType === "minion" && move.hit > 1) {
+				// Minion modifier
+				const minionModifier = 0.1;
+				this.battle.debug(`Minion modifier: ${minionModifier}`);
+				baseDamage = this.battle.modify(baseDamage, minionModifier);
+			}
 
 			// weather modifier
 			baseDamage = this.battle.runEvent(

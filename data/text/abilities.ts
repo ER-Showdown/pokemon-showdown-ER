@@ -3771,4 +3771,125 @@ export const AbilitiesText: { [k: string]: AbilityText } = {
 		name: "Parroting",
 		shortDesc: "Copies sound moves used by others. Immune to sound.",
 	},
+	terashell: {
+		name: "Tera Shell",
+		shortDesc: "All hits will be not very effective while at full HP.",
+	},
+	aerialist: {
+		name: "Aerialist",
+		shortDesc: "Combines Levitate & Flock.",
+	},
+	contempt: {
+		name: "Contempt",
+		shortDesc:
+			"Ignores opposing stat changes. Boosts Attack when stat lowered.",
+	},
+	desertspirit: {
+		name: "Desert Spirit",
+		shortDesc: "Summons sand on entry. Ground moves hit airborne in sand.",
+	},
+	flourish: {
+		name: "Flourish",
+		shortDesc: "Boosts Grass moves by 50% in grassy terrain.",
+	},
+	lawnmower: {
+		name: "Lawnmower",
+		shortDesc: "Removes terrain on switch-in. Stat up if terrain removed.",
+	},
+	mythicalarrows: {
+		name: "Mythical Arrows",
+		shortDesc: "Arrow moves become special and deal 30% more damage.",
+	},
+	brawlingwyvern: {
+		name: "Brawling Wyvern",
+		shortDesc: "Dragon type moves become punching moves.",
+	},
+	deadpower: {
+		name: "Dead Power",
+		shortDesc: "1.5x Attack boost. 20% chance to curse on contact moves.",
+	},
+	malicious: {
+		name: "Malicious",
+		shortDesc: "Lowers the foe's highest Attack and Defense stat.",
+	},
+	ole: {
+		name: "Ole!",
+		shortDesc: "20% chance to evade physical moves.",
+	},
+	radiojam: {
+		name: "Radio Jam",
+		shortDesc: "Sound-based moves inflict disable.",
+	},
+	noisecancel: {
+		name: "Noise Cancel",
+		shortDesc: "Protects the party from sound-based moves.",
+	},
+	hauntingfrenzy: {
+		name: "Haunting Frenzy",
+		shortDesc: "20% chance to flinch the opponent. +1 speed on kill.",
+	},
+	moltenblades: {
+		name: "Molten Blades",
+		shortDesc: "Keen Edge + Keen Edge moves have a 20% chance to burn.",
+	},
+	minioncontrol: {
+		name: "Minion Control",
+		shortDesc: "Moves hit an extra time for each healthy party member.",
+	},
+	celestialblessing: {
+		name: "Celestial Blessing",
+		shortDesc: "Recovers 1/12 of its health each turn under Misty Terrain.",
+	},
+	blademaster: {
+		name: "Blade Master",
+		shortDesc: "Combines Sweeping Edge & Keen Edge.",
+	},
+	catastrophe: {
+		name: "Catastrophe",
+		shortDesc: "Sun boosts Water. Rain boosts Fire.",
+	},
+	ironserpent: {
+		name: "Iron Serpent",
+		shortDesc: "Ups “supereffective” by 33%.",
+	},
+	wingedking: {
+		name: "Winged King",
+		shortDesc: "Ups “supereffective” by 33%.",
+	},
+	sunbasking: {
+		name: "Sun Basking",
+		shortDesc: "Immune to status conditions if sun is active.",
+	},
+	gallantry: {
+		name: "Gallantry",
+		shortDesc: "Gets no damage for first hit.",
+	},
+	thickskin: {
+		name: "Thick Skin",
+		shortDesc: "Takes 25% less damage from super-effective moves.",
+	},
+	sharingiscaring: {
+		name: "Sharing is Caring",
+		shortDesc: "Stat changes are shared between all battlers.",
+	},
+	sharpedges: {
+		name: "Sharp Edges",
+		shortDesc: "1/6 HP damage when touched.",
+	},
+	rapidresponse: {
+		name: "Rapid Response",
+		shortDesc: "Boosts Speed by 50% and Sp. Atk by 20% on the first turn.",
+	},
+	watchyourstep: {
+		name: "Watch Your Step",
+		shortDesc: "Spreads two layers of Spikes on switch-in.",
+	},
+	firescales: {
+		name: "Fire Scales",
+		shortDesc: "Halves damage taken from Special moves.",
+	},
+	illwill: {
+		name: "Ill Will",
+		shortDesc: "Deletes the PP of the move that faints this Pokémon.",
+	},
 };
