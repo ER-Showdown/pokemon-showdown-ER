@@ -1225,19 +1225,6 @@ export const Conditions: { [k: string]: ConditionData } = {
 			}
 			return this.chainModify(0);
 		},
-		onTryEatItem(item, pokemon) {
-			/// Cancel eating any healing berries.
-			const healingBerries: string[] = [
-				"aguavberry",
-				"iapapaberry",
-				"magoberry",
-				"oranberry",
-				"figyberry",
-				"sitrusberry",
-				"wikiberry",
-			];
-			return !healingBerries.includes(item.id);
-		},
 		onTryHeal(damage, target, source, effect) {
 			if (effect == null) {
 				/**
