@@ -1239,6 +1239,15 @@ export const Conditions: { [k: string]: ConditionData } = {
 			return !healingBerries.includes(item.id);
 		},
 		onTryHeal(damage, target, source, effect) {
+			if (effect == null) {
+				/**
+				 * onTryHeal has two different callbacks for diff cases.
+				 * When a berry is healing the pokemon,
+				 * we *only* get one argument, the pokemon eating the berry.
+				 */
+				effect = (damage as unknown as Pokemon).getItem();
+			}
+
 			let move = effect;
 
 			// Don't need to do this here because it will only activate on the right pokemon.
