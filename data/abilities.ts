@@ -12451,9 +12451,11 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 		name: "Parroting",
 		shortDesc: "Copies sound moves used by others. Immune to sound.",
 		onAnyAfterMove(source, target, move) {
+			/// Don't activate on ourself.
+			if (source === this.effectState.target) return;
 			if (!move.flags.sound) return;
 			this.add("-activate", this.effectState.target, "ability: Parroting");
-			this.add("-start", this.effectState.target, move.name);
+			this.actions.useMove(move, this.effectState.target, target);
 		},
 	},
 	terashell: {

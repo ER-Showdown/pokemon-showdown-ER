@@ -4617,7 +4617,7 @@ export const Pokedex: { [k: string]: ModdedSpeciesData } = {
 		genderRatio: { M: 0.875, F: 0.125 },
 		baseStats: { hp: 80, atk: 82, def: 100, spa: 93, spd: 100, spe: 80 },
 		abilities: {
-			0: "Permanence",
+			0: "Regenerator",
 			1: "Triage",
 			H: "Grassy Surge",
 			I1: "Overgrow",
@@ -11104,7 +11104,7 @@ export const Pokedex: { [k: string]: ModdedSpeciesData } = {
 		types: ["Normal", "Flying"],
 		baseStats: { hp: 76, atk: 65, def: 45, spa: 102, spd: 42, spe: 101 },
 		abilities: {
-			0: "Expert Hunter",
+			0: "Parroting",
 			1: "Prankster",
 			H: "Cloud Nine",
 			I1: "Adaptability",
@@ -18738,7 +18738,7 @@ export const Pokedex: { [k: string]: ModdedSpeciesData } = {
 		types: ["Normal", "Flying"],
 		baseStats: { hp: 80, atk: 120, def: 95, spa: 75, spd: 95, spe: 60 },
 		abilities: {
-			0: "Immolate",
+			0: "Parroting",
 			1: "Super Luck",
 			H: "Sheer Force",
 			I1: "Flock",
