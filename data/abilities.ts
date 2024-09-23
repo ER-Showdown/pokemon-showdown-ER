@@ -11042,6 +11042,16 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	permanence: {
 		name: "Permanence",
 		shortDesc: "Foes can't heal in any way.",
+		onStart(source) {
+			for (const foe of source.foes()) {
+				foe.addVolatile(
+					"healingblocked",
+					this.effectState.target,
+					Dex.abilities.get("permanence"),
+					"healingblocked"
+				);
+			}
+		},
 		onFoeSwitchIn(foe) {
 			foe.addVolatile(
 				"healingblocked",
@@ -11050,11 +11060,11 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 				"healingblocked"
 			);
 		},
-		onSwitchOut(source) {
+		onEnd(source) {
 			for (const foe of source.foes()) {
 				foe.removeVolatile("healingblocked");
 			}
-		}
+		},
 	},
 	hubris: {
 		name: "Hubris",
