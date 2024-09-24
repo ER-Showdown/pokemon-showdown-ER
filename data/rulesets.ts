@@ -25,7 +25,6 @@ export const Rulesets: { [k: string]: FormatData } = {
 			"Endless Battle Clause",
 			"HP Percentage Mod",
 			"Cancel Mod",
-			"Min Source Gen = 9",
 		],
 	},
 	standardnext: {
@@ -114,7 +113,6 @@ export const Rulesets: { [k: string]: FormatData } = {
 			"Endless Battle Clause",
 			"HP Percentage Mod",
 			"Cancel Mod",
-			"Min Source Gen = 9",
 		],
 	},
 	standardoms: {

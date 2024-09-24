@@ -324,7 +324,7 @@ export class Species
 
 		if (!this.gen && this.num >= 1) {
 			if (this.num >= 906 || this.forme.includes("Paldea")) {
-				this.gen = 9;
+				this.gen = 8;
 			} else if (
 				this.num >= 810 ||
 				["Gmax", "Galar", "Galar-Zen", "Hisui"].includes(this.forme)

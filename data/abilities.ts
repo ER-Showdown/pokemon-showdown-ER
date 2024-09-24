@@ -5115,9 +5115,9 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 		onHit(target, source, move) {
 			if (!target.hp) return;
 			if (move?.effectType === "Move" && target.getMoveHitData(move).crit) {
-				this.boost({ atk: 12 }, target, target);
+				this.boost({ def: 12 }, target, target);
 			} else if (move?.effectType === "Move") {
-				this.boost({ atk: 1 }, target, target);
+				this.boost({ def: 1 }, target, target);
 			}
 		},
 		name: "Stamina",
@@ -12937,6 +12937,15 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 						slot.pp = 0;
 					}
 				});
+			}
+		},
+	},
+	momentum: {
+		name: "Momentum",
+		shortDesc: "Contact moves use the Speed stat for damage calculation.",
+		onModifyMove(move) {
+			if (move.flags["contact"]) {
+				move.overrideOffensiveStat = "spe";
 			}
 		},
 	},
