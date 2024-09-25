@@ -4782,9 +4782,61 @@ export const Rulesets: { [k: string]: FormatData } = {
 				var innervalid = true;
 				for (const mon of team) {
 					const species = this.dex.species.get(mon.species);
-					console.log(species.types);
-					console.log(type);
 					if (!species.types.includes(type)) {
+						if (
+							species.getAbilities().includes("Turboblaze") &&
+							type === "Fire"
+						) {
+							continue;
+						}
+						if (
+							species.getAbilities().includes("Teravolt") &&
+							type === "Electric"
+						) {
+							continue;
+						}
+						if (
+							species.getAbilities().includes("Half Drake") &&
+							type === "Dragon"
+						) {
+							continue;
+						}
+						if (
+							species.getAbilities().includes("Fairy Tale") &&
+							type === "Fairy"
+						) {
+							continue;
+						}
+						if (
+							species.getAbilities().includes("Metallic") &&
+							type === "Steel"
+						) {
+							continue;
+						}
+						if (
+							species.getAbilities().includes("Ice Age") &&
+							type === "Ice"
+						) {
+							continue;
+						}
+						if (
+							species.getAbilities().includes("Grounded") &&
+							type === "Ground"
+						) {
+							continue;
+						}
+						if (
+							species.getAbilities().includes("Aquatic") &&
+							type === "Water"
+						) {
+							continue;
+						}
+						if (
+							species.getAbilities().includes("Phantom") &&
+							type === "Ghost"
+						) {
+							continue;
+						}
 						innervalid = false;
 						break;
 					}

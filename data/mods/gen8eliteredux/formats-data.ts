@@ -806,7 +806,7 @@ export const FormatsData: { [k: string]: ModdedSpeciesFormatsData } = {
 	},
 	articuno: {
 		tier: "OU",
-		doublesTier: "DOU",
+		doublesTier: "DUber",
 	},
 	zapdos: {
 		tier: "OU",
@@ -3808,7 +3808,7 @@ export const FormatsData: { [k: string]: ModdedSpeciesFormatsData } = {
 	},
 	grimmsnarl: {
 		tier: "UU",
-		doublesTier: "DOU",
+		doublesTier: "DUber",
 	},
 	grimmsnarlgmax: {
 		tier: "OU",
@@ -3922,10 +3922,10 @@ export const FormatsData: { [k: string]: ModdedSpeciesFormatsData } = {
 		tier: "OU",
 	},
 	eternatus: {
-		tier: "OU",
+		tier: "Uber",
 	},
 	eternatuseternamax: {
-		tier: "OU",
+		tier: "Illegal",
 	},
 	kubfu: {
 		tier: "OU",
@@ -4298,6 +4298,9 @@ export const FormatsData: { [k: string]: ModdedSpeciesFormatsData } = {
 	kingambit: {
 		tier: "OU",
 	},
+	kingambitredux: {
+		tier: "OU",
+	},
 	clodsire: {
 		tier: "OU",
 	},
@@ -4345,7 +4348,7 @@ export const FormatsData: { [k: string]: ModdedSpeciesFormatsData } = {
 	//Unused ...for now
 	missingno: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	syclar: {
 		isNonstandard: "CAP",
@@ -4633,79 +4636,79 @@ export const FormatsData: { [k: string]: ModdedSpeciesFormatsData } = {
 	},
 	pokestarsmeargle: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestarufo: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestarufo2: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestarbrycenman: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestarmt: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestarmt2: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestartransport: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestargiant: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestargiant2: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestarhumanoid: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestarmonster: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestarf00: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestarf002: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestarspirit: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestarblackdoor: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestarwhitedoor: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestarblackbelt: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestargiantpropo2: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	pokestarufopropu2: {
 		isNonstandard: "Custom",
-		tier: "OU",
+		tier: "Illegal",
 	},
 	basculinwhitestriped: {
 		isNonstandard: "Future",
@@ -4876,5 +4879,255 @@ export const FormatsData: { [k: string]: ModdedSpeciesFormatsData } = {
 	dewleon: {
 		tier: "AG",
 		doublesTier: "DUber",
+	},
+	dodrioredux: {
+		tier: "OU",
+		doublesTier: "DOU",
+	},
+	scraftymega: {
+		tier: "OU",
+	},
+	froslassmega: {
+		tier: "OU",
+	},
+	houndourredux: {
+		tier: "OU",
+	},
+	houndoomredux: {
+		tier: "OU",
+	},
+	houndoommegaredux: {
+		tier: "OU",
+	},
+	sableyeredux: {
+		tier: "OU",
+	},
+	sableyemegaredux: {
+		tier: "OU",
+	},
+	mawileredux: {
+		tier: "OU",
+	},
+	mawilemegaredux: {
+		tier: "OU",
+	},
+	pawniardredux: {
+		tier: "OU",
+	},
+	bisharpredux: {
+		tier: "OU",
+	},
+	deinoredux: {
+		tier: "OU",
+	},
+	zweilousredux: {
+		tier: "OU",
+	},
+	hydreigonredux: {
+		tier: "OU",
+	},
+	gibleredux: {
+		tier: "OU",
+	},
+	gabiteredux: {
+		tier: "OU",
+	},
+	garchompredux: {
+		tier: "OU",
+	},
+	garchompmegaredux: {
+		tier: "OU",
+	},
+	whismurredux: {
+		tier: "OU",
+	},
+	loudredredux: {
+		tier: "OU",
+	},
+	exploudredux: {
+		tier: "OU",
+	},
+	growlitheredux: {
+		tier: "OU",
+	},
+	arcanineredux: {
+		tier: "OU",
+	},
+	arcaninemegaredux: {
+		tier: "OU",
+	},
+	skarmoryredux: {
+		tier: "OU",
+	},
+	skarmorymegaredux: {
+		tier: "OU",
+	},
+	solosisredux: {
+		tier: "OU",
+	},
+	duosionredux: {
+		tier: "OU",
+	},
+	reuniclusredux: {
+		tier: "OU",
+	},
+	machopredux: {
+		tier: "OU",
+	},
+	machokeredux: {
+		tier: "OU",
+	},
+	machampredux: {
+		tier: "OU",
+	},
+	machampmegaredux: {
+		tier: "OU",
+	},
+	uxieredux: {
+		tier: "OU",
+	},
+	mespritredux: {
+		tier: "OU",
+	},
+	azelfredux: {
+		tier: "OU",
+	},
+	buizelredux: {
+		tier: "OU",
+	},
+	floatzelredux: {
+		tier: "OU",
+	},
+	slugmaredux: {
+		tier: "OU",
+	},
+	magcargoredux: {
+		tier: "OU",
+	},
+	pansearredux: {
+		tier: "OU",
+	},
+	simisearredux: {
+		tier: "OU",
+	},
+	pansageredux: {
+		tier: "OU",
+	},
+	simisageredux: {
+		tier: "OU",
+	},
+	panpourredux: {
+		tier: "OU",
+	},
+	simipourredux: {
+		tier: "OU",
+	},
+	stuffulredux: {
+		tier: "OU",
+	},
+	bewearredux: {
+		tier: "OU",
+	},
+	weedleredux: {
+		tier: "OU",
+	},
+	kakunaredux: {
+		tier: "OU",
+	},
+	beedrillredux: {
+		tier: "OU",
+	},
+	beedrillmegaredux: {
+		tier: "OU",
+	},
+	honedgeredux: {
+		tier: "OU",
+	},
+	doubladeredux: {
+		tier: "OU",
+	},
+	aegislashredux: {
+		tier: "OU",
+	},
+	aegislashbladeredux: {
+		tier: "OU",
+	},
+	abraredux: {
+		tier: "OU",
+	},
+	kadabraredux: {
+		tier: "OU",
+	},
+	alakazamredux: {
+		tier: "OU",
+	},
+	alakazammegaredux: {
+		tier: "OU",
+	},
+	ribombeemega: {
+		tier: "OU",
+	},
+	kecleong: {
+		tier: "AG",
+	},
+	phantowl: {
+		tier: "OU",
+	},
+	duelumber: {
+		tier: "OU",
+	},
+	escarginite: {
+		tier: "OU",
+	},
+	archaludon: {
+		tier: "OU",
+	},
+	gougingfire: {
+		tier: "OU",
+	},
+	ironboulder: {
+		tier: "OU",
+	},
+	ironcrown: {
+		tier: "OU",
+	},
+	pecharunt: {
+		tier: "OU",
+	},
+	terapagos: {
+		tier: "OU",
+	},
+	terapagosstellar: {
+		tier: "OU",
+	},
+	ragingbolt: {
+		tier: "OU",
+	},
+	escarginiteredux: {
+		tier: "OU",
+	},
+	wooperpaldean: {
+		tier: "OU",
+	},
+	tyranitarmegaredux: {
+		tier: "OU",
+	},
+	tyranitarredux: {
+		tier: "OU",
+	},
+	pupitarredux: {
+		tier: "OU",
+	},
+	larvitarredux: {
+		tier: "OU",
+	},
+	ironexo: {
+		tier: "OU",
+	},
+	ursalunamega: {
+		tier: "OU",
+	},
+	castformsandy: {
+		tier: "OU",
 	},
 };

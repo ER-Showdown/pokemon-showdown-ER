@@ -1,4 +1,5 @@
 import { toID, BasicEffect } from "./dex-data";
+import { getAbilities } from "../dex_repo/src/abilities";
 
 export interface SpeciesAbility {
 	0: string;
@@ -354,6 +355,16 @@ export class Species
 				this.gen = 1;
 			}
 		}
+	}
+	getAbilities(this: Species): string[] {
+		let abilities: string[] = [];
+		if (this.abilities![0]) abilities.push(this.abilities![0]);
+		if (this.abilities![1]) abilities.push(this.abilities![1]);
+		if (this.abilities!["H"]) abilities.push(this.abilities!["H"]);
+		if (this.abilities!["I1"]) abilities.push(this.abilities!["I1"]);
+		if (this.abilities!["I2"]) abilities.push(this.abilities!["I2"]);
+		if (this.abilities!["I3"]) abilities.push(this.abilities!["I3"]);
+		return abilities;
 	}
 }
 

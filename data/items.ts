@@ -365,6 +365,25 @@ export const Items: { [itemid: string]: ItemData } = {
 		num: 640,
 		gen: 6,
 	},
+	tacticalvest: {
+		name: "Tactical Vest",
+		//spritenum: 581,
+		fling: {
+			basePower: 80,
+		},
+		onModifyDefPriority: 1,
+		onModifyDef(def) {
+			return this.chainModify(1.5);
+		},
+		onDisableMove(pokemon) {
+			for (const moveSlot of pokemon.moveSlots) {
+				if (this.dex.moves.get(moveSlot.move).category === "Status") {
+					pokemon.disableMove(moveSlot.id);
+				}
+			}
+		},
+		gen: 6,
+	},
 	audinite: {
 		name: "Audinite",
 		spritenum: 617,
@@ -2060,6 +2079,20 @@ export const Items: { [itemid: string]: ItemData } = {
 			pokemon.trySetStatus("brn", pokemon);
 		},
 		num: 273,
+		gen: 4,
+	},
+	frostorb: {
+		name: "Frost Orb",
+		//spritenum: 145,
+		fling: {
+			basePower: 30,
+			status: "frz",
+		},
+		onResidualOrder: 28,
+		onResidualSubOrder: 3,
+		onResidual(pokemon) {
+			pokemon.trySetStatus("frz", pokemon);
+		},
 		gen: 4,
 	},
 	flameplate: {

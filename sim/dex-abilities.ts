@@ -1,5 +1,5 @@
-import {PokemonEventMethods} from './dex-conditions';
-import {BasicEffect, toID} from './dex-data';
+import { PokemonEventMethods } from "./dex-conditions";
+import { BasicEffect, toID } from "./dex-data";
 
 interface AbilityEventMethods {
 	onCheckShow?: (this: Battle, pokemon: Pokemon) => void;
@@ -15,20 +15,25 @@ interface AbilityEventMethods {
 	onStart?: (this: Battle, target: Pokemon) => void;
 }
 
-export interface AbilityData extends Partial<Ability>, AbilityEventMethods, PokemonEventMethods {
+export interface AbilityData
+	extends Partial<Ability>,
+		AbilityEventMethods,
+		PokemonEventMethods {
 	name: string;
 }
 
-export type ModdedAbilityData = AbilityData | Partial<AbilityData> & {inherit: true};
+export type ModdedAbilityData =
+	| AbilityData
+	| (Partial<AbilityData> & { inherit: true });
 
 export class Ability extends BasicEffect implements Readonly<BasicEffect> {
-	declare readonly effectType: 'Ability';
+	declare readonly effectType: "Ability";
 
 	/** Rating from -1 Detrimental to +5 Essential; see `data/abilities.ts` for details. */
 	readonly rating: number;
 	readonly suppressWeather: boolean;
-	readonly suppressTerrain: boolean
-	readonly suppressRoom: boolean
+	readonly suppressTerrain: boolean;
+	readonly suppressRoom: boolean;
 	declare readonly condition?: ConditionData;
 	declare readonly isPermanent?: boolean;
 	declare readonly isBreakable?: boolean;
@@ -37,7 +42,7 @@ export class Ability extends BasicEffect implements Readonly<BasicEffect> {
 		super(data);
 
 		this.fullname = `ability: ${this.name}`;
-		this.effectType = 'Ability';
+		this.effectType = "Ability";
 		this.suppressWeather = !!data.suppressWeather;
 		this.suppressTerrain = !!data.suppressTerain;
 		this.suppressRoom = !!data.suppressRoom;
@@ -46,7 +51,7 @@ export class Ability extends BasicEffect implements Readonly<BasicEffect> {
 
 		if (!this.gen) {
 			if (this.num >= 268) {
-				this.gen = 9;
+				this.gen = 8;
 			} else if (this.num >= 234) {
 				this.gen = 8;
 			} else if (this.num >= 192) {
@@ -73,8 +78,8 @@ export class DexAbilities {
 		this.dex = dex;
 	}
 
-	get(name: string | Ability = ''): Ability {
-		if (name && typeof name !== 'string') return name;
+	get(name: string | Ability = ""): Ability {
+		if (name && typeof name !== "string") return name;
 
 		const id = toID(name);
 		return this.getByID(id);
@@ -88,24 +93,36 @@ export class DexAbilities {
 			ability = this.get(this.dex.data.Aliases[id]);
 		} else if (id && this.dex.data.Abilities.hasOwnProperty(id)) {
 			const abilityData = this.dex.data.Abilities[id] as any;
-			const abilityTextData = this.dex.getDescs('Abilities', id, abilityData);
+			const abilityTextData = this.dex.getDescs(
+				"Abilities",
+				id,
+				abilityData
+			);
 			ability = new Ability({
 				name: id,
 				...abilityData,
 				...abilityTextData,
 			});
 			if (ability.gen > this.dex.gen) {
-				(ability as any).isNonstandard = 'Future';
+				(ability as any).isNonstandard = "Future";
 			}
-			if (this.dex.currentMod === 'gen7letsgo' && ability.id !== 'noability') {
-				(ability as any).isNonstandard = 'Past';
+			if (
+				this.dex.currentMod === "gen7letsgo" &&
+				ability.id !== "noability"
+			) {
+				(ability as any).isNonstandard = "Past";
 			}
-			if ((this.dex.currentMod === 'gen7letsgo' || this.dex.gen <= 2) && ability.id === 'noability') {
+			if (
+				(this.dex.currentMod === "gen7letsgo" || this.dex.gen <= 2) &&
+				ability.id === "noability"
+			) {
 				(ability as any).isNonstandard = null;
 			}
 		} else {
 			ability = new Ability({
-				id, name: id, exists: false,
+				id,
+				name: id,
+				exists: false,
 			});
 		}
 

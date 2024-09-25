@@ -1,4 +1,4 @@
-export const ItemsText: {[k: string]: ItemText} = {
+export const ItemsText: { [k: string]: ItemText } = {
 	abilityshield: {
 		name: "Ability Shield",
 		desc: "Holder's Ability cannot be changed by any effect.",
@@ -85,6 +85,10 @@ export const ItemsText: {[k: string]: ItemText} = {
 	assaultvest: {
 		name: "Assault Vest",
 		desc: "Holder's Sp. Def is 1.5x, but it can only select damaging moves.",
+	},
+	tacticalvest: {
+		name: "Tactical Vest",
+		desc: "Holder's Def is 1.5x, but it can only select damaging moves.",
 	},
 	audinite: {
 		name: "Audinite",
@@ -316,7 +320,8 @@ export const ItemsText: {[k: string]: ItemText} = {
 		name: "Custap Berry",
 		desc: "Holder moves first in its priority bracket when at 1/4 max HP or less. Single use.",
 
-		activate: "  [POKEMON] can act faster than normal, thanks to its Custap Berry!",
+		activate:
+			"  [POKEMON] can act faster than normal, thanks to its Custap Berry!",
 	},
 	damprock: {
 		name: "Damp Rock",
@@ -566,6 +571,10 @@ export const ItemsText: {[k: string]: ItemText} = {
 	flameorb: {
 		name: "Flame Orb",
 		desc: "At the end of every turn, this item attempts to burn the holder.",
+	},
+	frostorb: {
+		name: "Frost Orb",
+		desc: "At the end of every turn, this item attempts to freeze the holder.",
 	},
 	flameplate: {
 		name: "Flame Plate",
@@ -882,7 +891,8 @@ export const ItemsText: {[k: string]: ItemText} = {
 	kingsrock: {
 		name: "King's Rock",
 		desc: "Holder's attacks without a chance to make the target flinch gain a 10% chance to make the target flinch. Evolves Poliwhirl into Politoed and Slowpoke into Slowking when traded.",
-		shortDesc: "Holder's attacks without a chance to flinch gain a 10% chance to flinch.",
+		shortDesc:
+			"Holder's attacks without a chance to flinch gain a 10% chance to flinch.",
 	},
 	kommoniumz: {
 		name: "Kommonium Z",
@@ -933,7 +943,8 @@ export const ItemsText: {[k: string]: ItemText} = {
 		name: "Leppa Berry",
 		desc: "Restores 10 PP to the first of the holder's moves to reach 0 PP. Single use.",
 
-		activate: "  [POKEMON] restored PP to its move [MOVE] using its Leppa Berry!",
+		activate:
+			"  [POKEMON] restored PP to its move [MOVE] using its Leppa Berry!",
 	},
 	levelball: {
 		name: "Level Ball",
@@ -1159,7 +1170,8 @@ export const ItemsText: {[k: string]: ItemText} = {
 		name: "Mirror Herb",
 		desc: "When an opposing Pokemon raises a stat stage, the holder copies it. Single use.",
 
-		activate: "  [POKEMON] used its Mirror Herb to mirror its opponent's stat changes!",
+		activate:
+			"  [POKEMON] used its Mirror Herb to mirror its opponent's stat changes!",
 	},
 	mistyseed: {
 		name: "Misty Seed",
@@ -1415,7 +1427,8 @@ export const ItemsText: {[k: string]: ItemText} = {
 			desc: "Each turn, holder has a ~23.4% chance to move first in its priority bracket.",
 		},
 
-		activate: "  [POKEMON] can act faster than normal, thanks to its Quick Claw!",
+		activate:
+			"  [POKEMON] can act faster than normal, thanks to its Quick Claw!",
 	},
 	quickpowder: {
 		name: "Quick Powder",
@@ -1441,7 +1454,8 @@ export const ItemsText: {[k: string]: ItemText} = {
 	razorfang: {
 		name: "Razor Fang",
 		desc: "Holder's attacks without a chance to make the target flinch gain a 10% chance to make the target flinch. Evolves Gligar into Gliscor when held and leveled up during the night.",
-		shortDesc: "Holder's attacks without a chance to flinch gain a 10% chance to flinch.",
+		shortDesc:
+			"Holder's attacks without a chance to flinch gain a 10% chance to flinch.",
 	},
 	razzberry: {
 		name: "Razz Berry",
@@ -2322,7 +2336,7 @@ export const ItemsText: {[k: string]: ItemText} = {
 		desc: "The accuracy of attacks by the holder is 1.2x if it moves after its target.",
 	},
 
-	//ER Items 
+	//ER Items
 	milotite: {
 		name: "Milotite",
 		desc: "If held by a Milotic, this item allows it to Mega Evolve in battle.",
@@ -2351,8 +2365,6 @@ export const ItemsText: {[k: string]: ItemText} = {
 		name: "Laprasite",
 		desc: "If held by a Kingdra, this item allows it to Mega Evolve in battle.",
 	},
-
-
 
 	// Gen 2 items
 
@@ -2392,7 +2404,8 @@ export const ItemsText: {[k: string]: ItemText} = {
 		name: "Mystery Berry",
 		desc: "(Gen 2) Restores 5 PP to the first of the holder's moves to reach 0 PP. Single use.",
 
-		activate: "  [POKEMON] restored PP to its [MOVE] move using Mystery Berry!",
+		activate:
+			"  [POKEMON] restored PP to its [MOVE] move using Mystery Berry!",
 	},
 	pinkbow: {
 		name: "Pink Bow",

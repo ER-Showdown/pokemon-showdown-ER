@@ -27,7 +27,10 @@ export const Conditions: { [k: string]: ConditionData } = {
 		name: "frostbite",
 		effectType: "Status",
 		onStart(target, source, sourceEffect) {
-			if (sourceEffect && sourceEffect.effectType == "Ability") {
+			if (sourceEffect && sourceEffect.id === "frostorb") {
+				this.add("-status", target, "brn", "[from] item: Frost Orb");
+			}
+			else if (sourceEffect && sourceEffect.effectType == "Ability") {
 				this.add(
 					"-status",
 					target,

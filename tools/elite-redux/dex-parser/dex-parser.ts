@@ -194,10 +194,10 @@ export class DexParser {
 
 			this.pokedex[id] = {
 				name: pokemon.name.replace(" ", "-"),
+				num: pokemon.id,
 				types: pokemon.stats.types.map(
 					(index) => this.gameData!.typeT[index]
 				),
-				num: pokemon.id,
 				abilities: this.getAbilityData(pokemon),
 				baseStats: this.getBaseStats(pokemon),
 				eggGroups: this.getEggGroups(pokemon),
@@ -485,16 +485,42 @@ export class DexParser {
 			.filter((ability) => ability.name != "-------")
 			.map(this.getAbilityId);
 		return {
-			0: dexAbilities[0],
-			1: dexAbilities.length >= 2 ? dexAbilities[1] : undefined,
-			H: dexAbilities.length >= 3 ? dexAbilities[2] : undefined,
-			S: dexAbilities.length >= 4 ? dexAbilities[3] : undefined,
-			I1: dexInnates.length >= 1 ? dexInnates[0] : undefined,
-			I2: dexInnates.length >= 2 ? dexInnates[1] : undefined,
-			I3: dexInnates.length >= 3 ? dexInnates[2] : undefined,
+			0: this.formatAbility(dexAbilities[0]),
+			1:
+				dexAbilities.length >= 2
+					? this.formatAbility(dexAbilities[1])
+					: undefined,
+			H:
+				dexAbilities.length >= 3
+					? this.formatAbility(dexAbilities[2])
+					: undefined,
+			S:
+				dexAbilities.length >= 4
+					? this.formatAbility(dexAbilities[3])
+					: undefined,
+			I1:
+				dexInnates.length >= 1
+					? this.formatAbility(dexInnates[0])
+					: undefined,
+			I2:
+				dexInnates.length >= 2
+					? this.formatAbility(dexInnates[1])
+					: undefined,
+			I3:
+				dexInnates.length >= 3
+					? this.formatAbility(dexInnates[2])
+					: undefined,
 		};
 	}
 
+	private formatAbility(ability: string): string {
+		return ability
+			.split(" ")
+			.map(
+				(word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+			)
+			.join(" ");
+	}
 	/**
 	 * Get the showdown base stats from an online dex pokemon.
 	 * @param pokemon The dex pokemon.

@@ -5128,13 +5128,24 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 		onModifyMovePriority: 1,
 		onModifyMove(move, attacker, defender) {
 			if (
-				attacker.species.baseSpecies !== "Aegislash" ||
+				(attacker.species.baseSpecies !== "Aegislash" && attacker.species.baseSpecies !== "Aegislash-Redux") ||
 				attacker.transformed
 			)
 				return;
 			if (move.category === "Status" && move.id !== "kingsshield") return;
-			const targetForme =
+			let targetForme =
 				move.id === "kingsshield" ? "Aegislash" : "Aegislash-Blade";
+
+			if (attacker.species.baseSpecies === "Aegislash-Redux") {
+				if(move.category === "Special") {
+					targetForme = "Aegislash-Redux";
+				} else {
+					if(move.category === "Status"){
+						return;
+					}
+					targetForme = "Aegislash-Blade-Redux";
+				}
+			}
 			if (attacker.species.name !== targetForme)
 				attacker.formeChange(targetForme);
 		},
