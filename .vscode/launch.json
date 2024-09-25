@@ -20,9 +20,8 @@
     {
       "name": "[TOOLS] Generate ER Pokedex",
       "request": "launch",
-      "program": "${workspaceFolder}/tools/elite-redux/dex-parser/generate-pokedex.ts",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/tsx",
-      "skipFiles": ["<node_internals>/**"],
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "generate-er-pokedex"],
       "type": "node",
       "presentation": {
         "hidden": false,
