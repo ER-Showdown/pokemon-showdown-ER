@@ -5054,18 +5054,23 @@ export const FormatsData: { [k: string]: ModdedSpeciesFormatsData } = {
 	},
 	abraredux: {
 		tier: "OU",
+		doublesTier: "DOU",
 	},
 	kadabraredux: {
 		tier: "OU",
+		doublesTier: "DOU",
 	},
 	alakazamredux: {
 		tier: "OU",
+		doublesTier: "DOU",
 	},
 	alakazammegaredux: {
 		tier: "OU",
+		doublesTier: "DOU",
 	},
 	ribombeemega: {
 		tier: "OU",
+		doublesTier: "DOU",
 	},
 	kecleong: {
 		tier: "AG",
