@@ -5,6 +5,18 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["mocha", "-g", "Sharing is Caring"],
+      "type": "node",
+      "request": "launch",
+      "name": "[SERVER] ER Unit tests",
+      "presentation": {
+        "hidden": false,
+        "group": "",
+        "order": 3
+      }
+    },
+    {
       "name": "[TOOLS] Generate ER Learnsets",
       "request": "launch",
       "runtimeExecutable": "npm",

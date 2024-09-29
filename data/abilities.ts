@@ -12871,15 +12871,26 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	sharingiscaring: {
 		name: "Sharing is Caring",
 		shortDesc: "Stat changes are shared between all battlers.",
-		onAfterBoost(boost, target, source, effect) {
-			for (const pokemon of source.side.active) {
-				if (pokemon !== source) {
-					this.boost(boost, pokemon, source, effect, false, true);
+		onAnyAfterBoost(boost, target, source, effect) {
+			const sharingiscaring = this.dex.abilities.get("sharingiscaring");
+
+			if (effect.id === sharingiscaring.id) return;
+
+			if (target !== this.effectState.target) {
+				console.debug("boosting", this.effectState.target.name, "due to", target.name, "sharing is caring from", `${source.name}'s`, effect.name);
+				this.boost(boost, this.effectState.target, this.effectState.target, sharingiscaring, false, true);
+			}
+			
+			for (const pokemon of target.foes()) {
+				if (pokemon !== target && pokemon !== this.effectState.target) {
+					console.debug("boosting", pokemon.name, "due to", target.name, "sharing is caring from", `${source.name}'s`, effect.name);
+					this.boost(boost, pokemon, this.effectState.target, sharingiscaring, false, true);
 				}
 			}
-			for (const pokemon of target.side.active) {
-				if (pokemon !== source) {
-					this.boost(boost, pokemon, source, effect, false, true);
+			for (const pokemon of target.allies()) {
+				if (pokemon !== target && pokemon !== this.effectState.target) {
+					console.debug("boosting", pokemon.name, "due to", target.name, "sharing is caring from", `${source.name}'s`, effect.name);
+					this.boost(boost, pokemon, this.effectState.target, sharingiscaring, false, true);
 				}
 			}
 		},

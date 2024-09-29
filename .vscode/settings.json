@@ -1,6 +1,6 @@
 {
   "editor.insertSpaces": false,
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "typescript.tsdk": "node_modules/typescript/lib",
   "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
