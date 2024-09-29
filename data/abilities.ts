@@ -12876,21 +12876,26 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 
 			if (effect.id === sharingiscaring.id) return;
 
+			if (target === source && source.ability === effect.id) {
+				console.debug("self-inflicted ability stat boost", source.name, effect.id);
+			}
+
 			if (target !== this.effectState.target) {
-				console.debug("boosting", this.effectState.target.name, "due to", target.name, "sharing is caring from", `${source.name}'s`, effect.name);
-				this.boost(boost, this.effectState.target, this.effectState.target, sharingiscaring, false, true);
+				console.debug("sharing is caring boosting", this.effectState.target.name, boost, "due to", `${source.name}'s`, effect.name);
+				this.effectState.target.boostBy(boost);
 			}
 			
-			for (const pokemon of target.foes()) {
-				if (pokemon !== target && pokemon !== this.effectState.target) {
-					console.debug("boosting", pokemon.name, "due to", target.name, "sharing is caring from", `${source.name}'s`, effect.name);
-					this.boost(boost, pokemon, this.effectState.target, sharingiscaring, false, true);
+			for (const pokemon of this.effectState.target.foes()) {
+				if (pokemon !== target) {
+					console.debug("sharing is caring boosting", pokemon.name, boost, "due to", `${source.name}'s`, effect.name);
+					pokemon.boostBy(boost);
 				}
 			}
-			for (const pokemon of target.allies()) {
-				if (pokemon !== target && pokemon !== this.effectState.target) {
-					console.debug("boosting", pokemon.name, "due to", target.name, "sharing is caring from", `${source.name}'s`, effect.name);
-					this.boost(boost, pokemon, this.effectState.target, sharingiscaring, false, true);
+
+			for (const pokemon of this.effectState.target.allies()) {
+				if (pokemon !== target) {
+					console.debug("sharing is caring boosting", pokemon.name, boost, "due to", `${source.name}'s`, effect.name);
+					pokemon.boostBy(boost);
 				}
 			}
 		},

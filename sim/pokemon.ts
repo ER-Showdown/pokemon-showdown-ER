@@ -1388,6 +1388,39 @@ export class Pokemon {
 		return delta;
 	}
 
+	boostWithImmunities(boosts: SparseBoostsTable) {
+		const immuneAbilities = [
+			"clearbody",
+			"whitesmoke",
+			"flowerveil",
+			"fullmetalbody",
+			"mirrorarmor",
+		];
+		const typeSpecificStatProtectors = [
+			["junglesguard", "grass"],
+			["flowerveil", "grass"],
+		];
+		const hasGrassStatProtection: boolean = typeSpecificStatProtectors.find((data) => {
+			const ability = data[0];
+			const type = data[1];
+			if (!this.types.includes(type)) return false;
+			return this.alliesAndSelf().find((pokemon) => pokemon.hasAbility(ability));
+		}) != null;
+
+		if (immuneAbilities.includes(this.ability) || hasGrassStatProtection) {
+			let id: BoostID;
+			for (id in boosts) {
+				if (boosts[id]! < 0) delete boosts[id];
+			}
+		}
+
+		if (this.hasAbility("contrary")) {
+
+		}
+
+		this.boostBy(boosts);
+	}
+
 	clearBoosts() {
 		let boostName: BoostID;
 		for (boostName in this.boosts) {

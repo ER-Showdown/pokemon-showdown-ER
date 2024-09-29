@@ -62,6 +62,83 @@ describe("Sharing is Caring", function () {
 		assert.statStage(gholdengo, "atk", 0);
 		assert.statStage(mew, "atk", 0);
 		assert.statStage(miltank, "atk", 0);
-	
+	});
+
+	it(`fort knox is shared with all pokemon`, function () {
+		battle = er.createBattle({ formatid: "elitereduxdoublesou@@@!teampreview", gameType: "doubles"}, [
+			[
+				{
+					species: "Gholdengo",
+					ability: "sharingiscaring",
+					moves: ["sleeptalk"],
+				},
+				{
+					species: "Incineroar",
+					ability: "intimidate",
+					moves: ["sleeptalk"],
+				}
+			],
+			[
+				{
+					species: "Sudowoodo",
+					ability: "fortknox",
+					moves: ["sleeptalk"],
+				},
+				{
+					species: "Miltank",
+					moves: ["sleeptalk"]
+				},
+			],
+		]);
+
+		const gholdengo = battle.p1.active[0];
+		const incineroar = battle.p1.active[1];
+		const sudowoodo = battle.p2.active[0];
+		const miltank = battle.p2.active[1];
+		const all = [gholdengo, incineroar, sudowoodo, miltank];
+
+		for (const pokemon of all) {
+			assert.statStage(pokemon, "atk", -2);
+			assert.statStage(pokemon, "def", 3);
+		}
+	});
+
+	it(`fort knox is shared with all pokemon`, function () {
+		battle = er.createBattle({ formatid: "elitereduxdoublesou@@@!teampreview", gameType: "doubles"}, [
+			[
+				{
+					species: "Gholdengo",
+					ability: "sharingiscaring",
+					moves: ["sleeptalk"],
+				},
+				{
+					species: "Incineroar",
+					ability: "intimidate",
+					moves: ["sleeptalk"],
+				}
+			],
+			[
+				{
+					species: "Sudowoodo",
+					ability: "fortknox",
+					moves: ["sleeptalk"],
+				},
+				{
+					species: "Miltank",
+					moves: ["sleeptalk"]
+				},
+			],
+		]);
+
+		const gholdengo = battle.p1.active[0];
+		const incineroar = battle.p1.active[1];
+		const sudowoodo = battle.p2.active[0];
+		const miltank = battle.p2.active[1];
+		const all = [gholdengo, incineroar, sudowoodo, miltank];
+
+		for (const pokemon of all) {
+			assert.statStage(pokemon, "atk", -2);
+			assert.statStage(pokemon, "def", 3);
+		}
 	});
 });
