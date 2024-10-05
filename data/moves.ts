@@ -17697,7 +17697,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 				return;
 			}
 			this.add('-prepare', attacker, move.name);
-			if (['sunnyday', 'desolateland'].includes(attacker.effectiveWeather()) || (attacker.hasAbility('chloroplast') || attacker.hasAbility('bigleaves'))) {
+			if (['sunnyday', 'desolateland'].includes(attacker.effectiveWeather()) || (attacker.hasAbility('chloroplast') || attacker.hasAbility('bigleaves') || attacker.hasAbility('solarflare'))) {
 				this.attrLastMove('[still]');
 				this.addMove('-anim', attacker, move.name, defender);
 				return;
@@ -17734,7 +17734,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 				return;
 			}
 			this.add('-prepare', attacker, move.name);
-			if (['sunnyday', 'desolateland'].includes(attacker.effectiveWeather()) || (attacker.hasAbility('chloroplast') || attacker.hasAbility('bigleaves'))) {
+			if (['sunnyday', 'desolateland'].includes(attacker.effectiveWeather()) || (attacker.hasAbility('chloroplast') || attacker.hasAbility('bigleaves') || attacker.hasAbility('solarflare'))) {
 				this.attrLastMove('[still]');
 				this.addMove('-anim', attacker, move.name, defender);
 				return;
@@ -21201,7 +21201,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {bullet: 1, protect: 1, mirror: 1, weather: 1},
 		onModifyType(move, pokemon) {
-			if (pokemon.hasAbility('chloroplast')) {
+			if (pokemon.hasAbility('chloroplast') || attacker.hasAbility('bigleaves') || attacker.hasAbility('solarflare')) {
 				move.type = 'Fire';
 				return;
 			}
@@ -21224,7 +21224,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 			}
 		},
 		onModifyMove(move, pokemon) {
-			if (pokemon.hasAbility('chloroplast')) {
+			if (pokemon.hasAbility('chloroplast') || attacker.hasAbility('bigleaves') || attacker.hasAbility('solarflare')) {
 				move.basePower *= 2;
 				return;
 			}
