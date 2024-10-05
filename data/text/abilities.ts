@@ -2998,7 +2998,7 @@ export const AbilitiesText: { [k: string]: AbilityText } = {
 	},
 	solarflare: {
 		name: "Solar Flare",
-		shortDesc: "Fire type moves gain STAB; Uses moves as if under sun.",
+		shortDesc: "Fire type moves gain STAB. Normal-type moves become Fire-type and have 1.2x power. Uses moves as if under sun.",
 	},
 	lunareclipse: {
 		name: "Lunar Eclipse",
