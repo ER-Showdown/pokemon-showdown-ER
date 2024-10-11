@@ -12122,6 +12122,12 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	parroting: {
 		name: "Parroting",
 		shortDesc: "Copies sound moves used by others. Immune to sound.",
+		onTryHit(target, source, move) {
+			if (move.flags['sound']) {
+				this.add('-immune', target, '[from] ability: Parroting');
+				return null;
+			}
+		},
 		onAnyAfterMove(source, target, move) {
 			/// Don't activate on ourself.
 			if (source === this.effectState.target) return;
