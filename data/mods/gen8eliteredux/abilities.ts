@@ -95,16 +95,17 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 
 	colorchange: {
 		onFoePrepareHit(source, target, move) {
+			if (!target.hasAbility("colorchange")) return;
+
 			let bestType;
 			let bestTypeMod = 0;
-			let typeMod;
 			for (const type of this.dex.types.all()) {
 				if (!this.dex.getImmunity(move.type, type.id)) {
 					//breaks, as immunity is strongest resistance possible
 					bestType = type.name;
 					break;
 				}
-				typeMod = this.dex.getEffectiveness(move.type, type.name);
+				const typeMod = this.dex.getEffectiveness(move.type, type.name);
 				if (typeMod < bestTypeMod) {
 					bestType = type.name;
 					bestTypeMod = typeMod
