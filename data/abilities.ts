@@ -5116,8 +5116,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 		onModifyMovePriority: 1,
 		onModifyMove(move, attacker, defender) {
 			if (
-				(attacker.species.baseSpecies !== "Aegislash" &&
-					attacker.species.baseSpecies !== "Aegislash-Redux") ||
+				(attacker.species.baseSpecies !== "Aegislash" && attacker.species.baseSpecies !== "Aegislash-Redux") ||
 				attacker.transformed
 			)
 				return;
@@ -5126,10 +5125,10 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 				move.id === "kingsshield" ? "Aegislash" : "Aegislash-Blade";
 
 			if (attacker.species.baseSpecies === "Aegislash-Redux") {
-				if (move.category === "Special") {
+				if(move.category === "Special") {
 					targetForme = "Aegislash-Redux";
 				} else {
-					if (move.category === "Status") {
+					if(move.category === "Status"){
 						return;
 					}
 					targetForme = "Aegislash-Blade-Redux";
@@ -8597,7 +8596,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 		gen: 8,
 	},
 	lowblow: {
-		onStart(pokemon) {
+		onSwitchIn(pokemon) {
 			let nextMove = Dex.moves.get("feintattack");
 			let targetLoc = 4;
 			let target = pokemon.side.foes().forEach((a) => {
@@ -9497,7 +9496,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 		gen: 8,
 	},
 	cheaptactics: {
-		onStart(pokemon) {
+		onSwitchIn(pokemon) {
 			let nextMove = Dex.moves.get("scratch");
 			let targetLoc = 4;
 			let target = pokemon.side.foes().forEach((a) => {
@@ -9522,6 +9521,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 		gen: 8,
 	},
 	coward: {
+		onSwitchInPriority: 4,
 		onStart(pokemon) {
 			this.actions.useMove(Dex.moves.get("protect"), pokemon);
 		},
@@ -10031,7 +10031,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 		rating: 3,
 		num: 460,
 		gen: 8,
-		onStart(pokemon) {
+		onSwitchIn(pokemon) {
 			this.debug("Monkey switches in");
 			let nextMove = Dex.moves.get("tickle");
 			let targetLoc = 4;
@@ -10901,16 +10901,6 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	phantomthief: {
 		name: "Phantom Thief",
 		shortDesc: "Uses 40BP Spectral Thief on switch-in.",
-		onStart(pokemon) {
-			const move: Move = {
-				...Dex.moves.get("spectralthief"),
-				basePower: 40,
-			};
-
-			const target = pokemon.foes()[0];
-			this.actions.useMove(move, pokemon, target);
-			pokemon.activeMoveActions = 0;
-		}
 	},
 	devourer: {
 		name: "Devourer",
@@ -11056,7 +11046,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	webspinner: {
 		name: "Web Spinner",
 		shortDesc: "Uses String Shot on switch-in.",
-		onStart(pokemon) {
+		onSwitchIn(pokemon) {
 			let nextMove = Dex.moves.get("stringshot");
 			let targetLoc = 4;
 			let target = pokemon.side.foes().forEach((a) => {
@@ -11108,7 +11098,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	monstermash: {
 		name: "Monster Mash",
 		shortDesc: "Casts Trick-or-Treat on entry.",
-		onStart(pokemon) {
+		onSwitchIn(pokemon) {
 			let nextMove = Dex.moves.get("trickortreat");
 			let targetLoc = 4;
 			let target = pokemon.side.foes().forEach((a) => {
@@ -11131,7 +11121,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	powderburst: {
 		name: "Powder Burst",
 		shortDesc: "Casts Powder on entry.",
-		onStart(pokemon) {
+		onSwitchIn(pokemon) {
 			let nextMove = Dex.moves.get("powder");
 			let targetLoc = 4;
 			let target = pokemon.side.foes().forEach((a) => {
@@ -11179,7 +11169,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	telekinetic: {
 		name: "Telekinetic",
 		shortDesc: "Casts Telekinesis on entry.",
-		onStart(pokemon) {
+		onSwitchIn(pokemon) {
 			let nextMove = Dex.moves.get("telekinesis");
 			let targetLoc = 4;
 			let target = pokemon.side.foes().forEach((a) => {
@@ -11271,7 +11261,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	changeofheart: {
 		name: "Change of Heart",
 		shortDesc: "Uses Heart Swap on switch-in.",
-		onStart(pokemon) {
+		onSwitchIn(pokemon) {
 			let nextMove = Dex.moves.get("heartswap");
 			let targetLoc = 4;
 			let target = pokemon.side.foes().forEach((a) => {
@@ -11415,7 +11405,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	suppress: {
 		name: "Suppress",
 		shortDesc: "Casts Torment on entry",
-		onStart(pokemon) {
+		onSwitchIn(pokemon) {
 			let nextMove = Dex.moves.get("torment");
 			let targetLoc = 4;
 			let target = pokemon.side.foes().forEach((a) => {
@@ -11467,7 +11457,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	doombringer: {
 		name: "Doombringer",
 		shortDesc: "Uses Doom Desire on switch-in.",
-		onStart(pokemon) {
+		onSwitchIn(pokemon) {
 			let nextMove = Dex.moves.get("doomdesire");
 			let targetLoc = 4;
 			let target = pokemon.side.foes().forEach((a) => {
@@ -11763,7 +11753,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	trickster: {
 		name: "Trickster",
 		shortDesc: "Uses Disable on switch-in.",
-		onStart(pokemon) {
+		onSwitchIn(pokemon) {
 			let nextMove = Dex.moves.get("disable");
 			let targetLoc = 4;
 			let target = pokemon.side.foes().forEach((a) => {
@@ -11842,7 +11832,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	dustcloud: {
 		name: "Dust Cloud",
 		shortDesc: "Attacks with Sand Attack on switch-in.",
-		onStart(pokemon) {
+		onSwitchIn(pokemon) {
 			let nextMove = Dex.moves.get("sandattack");
 			let targetLoc = 4;
 			let target = pokemon.side.foes().forEach((a) => {
@@ -12080,7 +12070,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	rejection: {
 		name: "Rejection",
 		shortDesc: "Applies Quash on switch-in.",
-		onStart(pokemon) {
+		onSwitchIn(pokemon) {
 			let nextMove = Dex.moves.get("quash");
 			let targetLoc = 4;
 			let target = pokemon.side.foes().forEach((a) => {
@@ -12683,23 +12673,5 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 				move.overrideOffensiveStat = "spe";
 			}
 		},
-	},
-	wishmaker: {
-		name: "Wishmaker",
-		shortDesc: "Uses Wish on switch-in, three uses per battle",
-		onSwitchIn(pokemon) {
-			if (this.effectState.wishCount === 0) return;
-			if (!this.effectState.wishCount) {
-				this.effectState.wishCount = 3
-			} else {
-				this.effectState.wishCount--;
-			}
-		},
-		onStart(pokemon) {
-			if (!this.effectState.wishCount) return;
-			const target = pokemon.foes()[0];
-			this.actions.useMove(Dex.moves.get("wish"), pokemon);
-			pokemon.activeMoveActions = 0;
-		}
 	},
 };
