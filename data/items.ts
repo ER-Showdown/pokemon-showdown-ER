@@ -3443,7 +3443,7 @@ export const Items: { [itemid: string]: ItemData } = {
 		},
 		onModifyAtkPriority: 1,
 		onModifyAtk(atk, pokemon) {
-			if (pokemon.baseSpecies.baseSpecies === "Pikachu") {
+			if (["Pikachu", "Raichu"].includes(pokemon.baseSpecies.baseSpecies)) {
 				return this.chainModify(2);
 			}
 		},

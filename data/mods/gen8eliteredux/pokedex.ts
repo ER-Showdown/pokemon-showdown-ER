@@ -14059,7 +14059,7 @@ export const Pokedex: { [k: string]: ModdedSpeciesData } = {
 		heightm: 1.2,
 		color: "Brown",
 		evoLevel: 0,
-		requiredItem: "Infernapeite",
+		requiredItem: "Infernapite",
 	},
 	piplup: {
 		name: "Piplup",

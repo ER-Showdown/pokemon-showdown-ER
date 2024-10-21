@@ -1521,10 +1521,10 @@ export const MovesText: {[k: string]: MoveText} = {
 	},
 	dragonrush: {
 		name: "Dragon Rush",
-		desc: "Has a 20% chance to make the target flinch. Damage doubles and no accuracy check is done if the target has used Minimize while active.",
-		shortDesc: "20% chance to make the target flinch.",
+		desc: "Has a 20% chance to make the target flinch. If the target lost HP, the user takes recoil damage equal to 33% the HP lost by the target, rounded half up, but not less than 1 HP. Damage doubles and no accuracy check is done if the target has used Minimize while active.",
+		shortDesc: "20% chance to make the target flinch. ",
 		gen5: {
-			desc: "Has a 20% chance to make the target flinch.",
+			desc: "Has a 33% recoil.",
 		},
 	},
 	dragontail: {
@@ -1534,8 +1534,8 @@ export const MovesText: {[k: string]: MoveText} = {
 	},
 	drainingkiss: {
 		name: "Draining Kiss",
-		desc: "The user recovers 3/4 the HP lost by the target, rounded half up. If Big Root is held by the user, the HP recovered is 1.3x normal, rounded half down.",
-		shortDesc: "User recovers 75% of the damage dealt.",
+		desc: "The user recovers 3/10 the HP lost by the target, rounded half up. If Big Root is held by the user, the HP recovered is 1.3x normal, rounded half down.",
+		shortDesc: "User recovers 30% of the damage dealt.",
 	},
 	drainpunch: {
 		name: "Drain Punch",
@@ -3290,8 +3290,8 @@ export const MovesText: {[k: string]: MoveText} = {
 	},
 	irontail: {
 		name: "Iron Tail",
-		desc: "Has a 30% chance to lower the target's Defense by 1 stage.",
-		shortDesc: "30% chance to lower the target's Defense by 1.",
+		desc: "Has a 20% chance to lower the target's Defense by 1 stage.",
+		shortDesc: "20% chance to lower the target's Defense by 1.",
 	},
 	jawlock: {
 		name: "Jaw Lock",
@@ -5167,8 +5167,8 @@ export const MovesText: {[k: string]: MoveText} = {
 	},
 	rocksmash: {
 		name: "Rock Smash",
-		desc: "Has a 50% chance to lower the target's Defense by 1 stage.",
-		shortDesc: "50% chance to lower the target's Defense by 1.",
+		desc: "Has a 100% chance to lower the target's Defense by 1 stage.",
+		shortDesc: "Lowers the target's Defense by 1.",
 	},
 	rockthrow: {
 		name: "Rock Throw",
@@ -5506,8 +5506,8 @@ export const MovesText: {[k: string]: MoveText} = {
 	},
 	sheercold: {
 		name: "Sheer Cold",
-		desc: "Has a 30% chance to freeze the target and a 20% chance to deal super effective damage against Water.",
-		shortDesc: "30% chance to freeze. 20% chance to deal super effective damage on water.",
+		desc: "Has a 30% chance to freeze the target and always deals super effective damage against Water.",
+		shortDesc: "30% chance to freeze. Always super effective on water.",
 		gen6: {
 			desc: "Deals damage to the target equal to the target's maximum HP. Ignores accuracy and evasiveness modifiers. This attack's accuracy is equal to (user's level - target's level + 30)%, and fails if the target is at a higher level. Pokemon with the Sturdy Ability are immune.",
 			shortDesc: "OHKOs the target. Fails if user is a lower level.",
@@ -7206,8 +7206,8 @@ export const MovesText: {[k: string]: MoveText} = {
 	},
 	wildcharge: {
 		name: "Wild Charge",
-		desc: "If the target lost HP, the user takes recoil damage equal to 1/4 the HP lost by the target, rounded half up, but not less than 1 HP.",
-		shortDesc: "Has 1/4 recoil.",
+		desc: "Has a 10% chance to paralyze the target.",
+		shortDesc: "10% chance to paralyze the foe(s).",
 	},
 	willowisp: {
 		name: "Will-O-Wisp",

@@ -192,7 +192,7 @@ export const Scripts: ModdedBattleScriptsData = {
 			if (move.ohko) return target.maxhp;
 			if (move.damageCallback) return move.damageCallback.call(this.battle, source, target);
 			if (move.damage === 'level') {
-				return source.level;
+				return (move.multihitType === 'minion' && move.hit > 1) ? source.level * 0.1 : source.level;
 			} else if (move.damage) {
 				return move.damage;
 			}

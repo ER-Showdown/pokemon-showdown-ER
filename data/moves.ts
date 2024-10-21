@@ -509,7 +509,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		name: "Armor Cannon",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: {protect: 1, mirror: 1, pulse: 1},
 		self: {
 			boosts: {
 				def: -1,
@@ -523,10 +523,10 @@ export const Moves: {[moveid: string]: MoveData} = {
 	armthrust: {
 		num: 292,
 		accuracy: 100,
-		basePower: 20,
+		basePower: 25,
 		category: "Physical",
 		name: "Arm Thrust",
-		pp: 20,
+		pp: 15,
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
 		multihit: [2, 5],
@@ -620,7 +620,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	assurance: {
 		num: 372,
 		accuracy: 100,
-		basePower: 60,
+		basePower: 75,
 		basePowerCallback(pokemon, target, move) {
 			if (target.hurtThisTurn) {
 				this.debug('BP doubled on damaged target');
@@ -807,7 +807,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1, pulse: 1},
 		secondary: {
-			chance: 10,
+			chance: 100,
 			boosts: {
 				atk: -1,
 			},
@@ -1848,7 +1848,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	brickbreak: {
 		num: 280,
 		accuracy: 100,
-		basePower: 80,
+		basePower: 85,
 		category: "Physical",
 		name: "Brick Break",
 		pp: 15,
@@ -2315,7 +2315,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1, pulse: 1},
 		secondary: {
-			chance: 70,
+			chance: 100,
 			self: {
 				boosts: {
 					spa: 1,
@@ -2435,7 +2435,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	},
 	circlethrow: {
 		num: 509,
-		accuracy: 90,
+		accuracy: 100,
 		basePower: 60,
 		category: "Physical",
 		name: "Circle Throw",
@@ -3742,7 +3742,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	disarmingvoice: {
 		num: 574,
 		accuracy: true,
-		basePower: 40,
+		basePower: 60,
 		category: "Special",
 		name: "Disarming Voice",
 		pp: 15,
@@ -4227,12 +4227,13 @@ export const Moves: {[moveid: string]: MoveData} = {
 	},
 	dragonrush: {
 		num: 407,
-		accuracy: 90,
-		basePower: 95,
+		accuracy: 95,
+		basePower: 120,
 		category: "Physical",
 		name: "Dragon Rush",
 		pp: 10,
 		priority: 0,
+		recoil: [33, 100],
 		flags: {contact: 1, protect: 1, mirror: 1},
 		secondary: {
 			chance: 20,
@@ -5008,12 +5009,13 @@ export const Moves: {[moveid: string]: MoveData} = {
 	},
 	extrasensory: {
 		num: 326,
-		accuracy: 100,
+		accuracy: true,
 		basePower: 90,
 		category: "Special",
 		name: "Extrasensory",
 		pp: 20,
 		priority: 0,
+		critRatio: 2,
 		flags: {protect: 1, mirror: 1},
 		secondary: {
 			chance: 10,
@@ -5361,7 +5363,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	firefang: {
 		num: 424,
 		accuracy: 100,
-		basePower: 70,
+		basePower: 75,
 		category: "Physical",
 		name: "Fire Fang",
 		pp: 15,
@@ -5514,7 +5516,10 @@ export const Moves: {[moveid: string]: MoveData} = {
 				return false;
 			}
 		},
-		secondary: null,
+		secondary: {
+			chance: 100,
+			volatileStatus: 'flinch'
+		},
 		target: "normal",
 		type: "Bug",
 		contestType: "Cute",
@@ -8232,7 +8237,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	},
 	hammerarm: {
 		num: 359,
-		accuracy: 90,
+		accuracy: 100,
 		basePower: 100,
 		category: "Physical",
 		name: "Hammer Arm",
@@ -9524,7 +9529,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	icefang: {
 		num: 423,
 		accuracy: 100,
-		basePower: 70,
+		basePower: 75,
 		category: "Physical",
 		name: "Ice Fang",
 		pp: 15,
@@ -9749,7 +9754,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		name: "Inferno",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: {protect: 1, mirror: 1, pulse: 1},
 		secondary: {
 			chance: 100,
 			status: 'brn',
@@ -9925,7 +9930,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	},
 	irontail: {
 		num: 231,
-		accuracy: 90,
+		accuracy: 100,
 		basePower: 90,
 		category: "Physical",
 		name: "Iron Tail",
@@ -9933,7 +9938,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
 		secondary: {
-			chance: 30,
+			chance: 20,
 			boosts: {
 				def: -1,
 			},
@@ -10676,7 +10681,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	lowsweep: {
 		num: 490,
 		accuracy: 100,
-		basePower: 65,
+		basePower: 60,
 		category: "Physical",
 		name: "Low Sweep",
 		pp: 20,
@@ -12088,6 +12093,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		flags: {protect: 1, mirror: 1},
 		mindBlownRecoil: true,
 		onAfterMove(pokemon, target, move) {
+			if(pokemon.hasAbility(['steelbarrel', 'rockhead'])) return;
 			if (move.mindBlownRecoil && !move.multihit) {
 				const hpBeforeRecoil = pokemon.hp;
 				this.damage(Math.round(pokemon.maxhp / 2), pokemon, pokemon, this.dex.conditions.get('Mind Blown'), true);
@@ -12580,7 +12586,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		num: 866,
 		accuracy: 100,
 		basePower: 30,
-		category: "Physical",
+		category: "Special",
 		name: "Mortal Spin",
 		pp: 15,
 		priority: 0,
@@ -15556,7 +15562,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		name: "Rock Blast",
 		pp: 10,
 		priority: 0,
-		flags: {bullet: 1, protect: 1, mirror: 1},
+		flags: {bullet: 1, protect: 1, mirror: 1, pulse: 1},
 		multihit: [2, 5],
 		secondary: null,
 		target: "normal",
@@ -15603,7 +15609,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	},
 	rockslide: {
 		num: 157,
-		accuracy: 90,
+		accuracy: 100,
 		basePower: 75,
 		category: "Physical",
 		name: "Rock Slide",
@@ -15628,7 +15634,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
 		secondary: {
-			chance: 50,
+			chance: 100,
 			boosts: {
 				def: -1,
 			},
@@ -15640,7 +15646,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	rockthrow: {
 		num: 88,
 		accuracy: 100,
-		basePower: 50,
+		basePower: 90,
 		category: "Physical",
 		name: "Rock Throw",
 		pp: 15,
@@ -15726,18 +15732,13 @@ export const Moves: {[moveid: string]: MoveData} = {
 	},
 	rollingkick: {
 		num: 27,
-		accuracy: 85,
-		basePower: 60,
+		accuracy: 100,
+		basePower: 40,
 		category: "Physical",
-
 		name: "Rolling Kick",
-		pp: 15,
-		priority: 0,
+		pp: 20,
+		priority: 1,
 		flags: {contact: 1, protect: 1, mirror: 1, kick: 1},
-		secondary: {
-			chance: 30,
-			volatileStatus: 'flinch',
-		},
 		target: "normal",
 		type: "Fighting",
 		contestType: "Cool",
@@ -17089,8 +17090,8 @@ export const Moves: {[moveid: string]: MoveData} = {
 			this.singleEvent('End', targetAbility, target.abilityState, target);
 			source.ability = targetAbility.id;
 			target.ability = sourceAbility.id;
-			source.abilityState = {id: this.toID(source.ability), target: source};
-			target.abilityState = {id: this.toID(target.ability), target: target};
+			source.abilityState = {id: this.toID(source.ability), target: source, startedThisTurn: true};
+			target.abilityState = {id: this.toID(target.ability), target: target, startedThisTurn: true};
 			if (!target.isAlly(source)) target.volatileStaleness = 'external';
 			this.singleEvent('Start', targetAbility, source.abilityState, source);
 			this.singleEvent('Start', sourceAbility, target.abilityState, target);
@@ -17565,6 +17566,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		type: "Poison",
 		contestType: "Tough",
 	},
+	//This does not work :(
 	smokescreen: {
 		num: 108,
 		accuracy: 100,
@@ -17573,12 +17575,30 @@ export const Moves: {[moveid: string]: MoveData} = {
 		name: "Smokescreen",
 		pp: 20,
 		priority: 0,
-		flags: {protect: 1, reflectable: 1, mirror: 1},
-		boosts: {
-			accuracy: -1,
+		flags: {snatch: 1},
+		sideCondition: "smokescreen",
+		condition: {
+			duration: 5,
+			//Couldn't figure out how to increase own evasion so here's what we're doing instead
+			//This is technically wrong because it still applies to ignoreEvasion moves like sacred sword
+			//What we could also do is have an onStart +1 evasion boost and an onSideEnd -1 boost 
+			//but that's finnicky for its own reasons so here we are
+			onModifyAccuracyPriority: -1,
+			onModifyAccuracy(accuracy, target) {
+				if(typeof accuracy !== "number") return;
+				return accuracy * .66;
+			},
+			onSideStart(side) {
+				this.add('-sidestart', side, 'Smokescreen');
+			},
+			onSideResidualOrder: 26,
+			onSideResidualSubOrder: 1,
+			onSideEnd(side) {
+				this.add('-sideend', side, 'Smokescreen');
+			},
 		},
 		secondary: null,
-		target: "normal",
+		target: "allySide",
 		type: "Normal",
 		zMove: {boost: {evasion: 1}},
 		contestType: "Clever",
@@ -17601,7 +17621,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	snarl: {
 		num: 555,
 		accuracy: 100,
-		basePower: 55,
+		basePower: 60,
 		category: "Special",
 		name: "Snarl",
 		pp: 15,
@@ -17670,7 +17690,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	snore: {
 		num: 173,
 		accuracy: 100,
-		basePower: 50,
+		basePower: 85,
 		category: "Special",
 		name: "Snore",
 		pp: 15,
@@ -17756,7 +17776,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 				return;
 			}
 			this.add('-prepare', attacker, move.name);
-			if (['sunnyday', 'desolateland'].includes(attacker.effectiveWeather()) || (attacker.hasAbility('chloroplast') || attacker.hasAbility('bigleaves'))) {
+			if (['sunnyday', 'desolateland'].includes(attacker.effectiveWeather()) || attacker.hasAbility(['chloroplast', 'bigleaves', 'solarflare'])) {
 				this.attrLastMove('[still]');
 				this.addMove('-anim', attacker, move.name, defender);
 				return;
@@ -17793,7 +17813,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 				return;
 			}
 			this.add('-prepare', attacker, move.name);
-			if (['sunnyday', 'desolateland'].includes(attacker.effectiveWeather()) || (attacker.hasAbility('chloroplast') || attacker.hasAbility('bigleaves'))) {
+			if (['sunnyday', 'desolateland'].includes(attacker.effectiveWeather()) || attacker.hasAbility(['chloroplast', 'bigleaves', 'solarflare'])) {
 				this.attrLastMove('[still]');
 				this.addMove('-anim', attacker, move.name, defender);
 				return;
@@ -18432,15 +18452,16 @@ export const Moves: {[moveid: string]: MoveData} = {
 	},
 	steelbeam: {
 		num: 796,
-		accuracy: 95,
+		accuracy: 100,
 		basePower: 140,
 		category: "Special",
 		name: "Steel Beam",
 		pp: 5,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
+		flags: {protect: 1, mirror: 1, pulse: 1, bullet: 1},
 		mindBlownRecoil: true,
 		onAfterMove(pokemon, target, move) {
+			if(pokemon.hasAbility(['steelbarrel', 'rockhead'])) return;
 			if (move.mindBlownRecoil && !move.multihit) {
 				const hpBeforeRecoil = pokemon.hp;
 				this.damage(Math.round(pokemon.maxhp / 2), pokemon, pokemon, this.dex.conditions.get('Steel Beam'), true);
@@ -20038,7 +20059,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	thunderfang: {
 		num: 422,
 		accuracy: 100,
-		basePower: 70,
+		basePower: 75,
 		category: "Physical",
 		name: "Thunder Fang",
 		pp: 15,
@@ -21267,7 +21288,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		priority: 0,
 		flags: {bullet: 1, protect: 1, mirror: 1, weather: 1},
 		onModifyType(move, pokemon) {
-			if (pokemon.hasAbility('chloroplast')) {
+			if (pokemon.hasAbility(['chloroplast', 'bigleaves', 'solarflare'])) {
 				move.type = 'Fire';
 				return;
 			}
@@ -21290,7 +21311,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 			}
 		},
 		onModifyMove(move, pokemon) {
-			if (pokemon.hasAbility('chloroplast')) {
+			if (pokemon.hasAbility(['chloroplast', 'bigleaves', 'solarflare'])) {
 				move.basePower *= 2;
 				return;
 			}
@@ -21781,7 +21802,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	},
 	zenheadbutt: {
 		num: 428,
-		accuracy: 90,
+		accuracy: 100,
 		basePower: 80,
 		category: "Physical",
 		name: "Zen Headbutt",
@@ -22016,7 +22037,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 	shadowfangs: {
 		num: 909,
 		accuracy: 100,
-		basePower: 60,
+		basePower: 70,
 		category: "Physical",
 		name: "Shadow Fangs",
 		pp: 15,
@@ -22635,7 +22656,7 @@ export const Moves: {[moveid: string]: MoveData} = {
 		},
 	},
 	pixiebeam: {
-		accuracy: 100,
+		accuracy: 85,
 		basePower: 110,
 		category: "Special",
 		name: "Pixie Beam",
@@ -23264,10 +23285,9 @@ export const Moves: {[moveid: string]: MoveData} = {
 		accuracy: 100,
 		basePower: 25,
 		category: "Physical",
-
 		name: "Toxic Needles",
 		pp: 15,
-		priority: 1,
+		priority: 0,
 		flags: {contact: 1, protect: 1, mirror: 1},
 		multihit: [2, 5],
 		secondary: {

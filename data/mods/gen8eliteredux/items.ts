@@ -60,6 +60,10 @@ export const Items: {[k: string]: ModdedItemData} = {
 		inherit: true,
 		isNonstandard: "Unobtainable",
 	},
+	berserkgene: {
+		inherit: true,
+		isNonstandard: "Unobtainable",
+	},
 	blastoisinite: {
 		inherit: true,
 		isNonstandard: null,
