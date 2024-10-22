@@ -133,6 +133,8 @@ export class Pokemon {
 	illusion: Pokemon | null;
 	transformed: boolean;
 
+	permanentAbilityState: {[ability: string]: any} = {};
+
 	maxhp: number;
 	/** This is the max HP before Dynamaxing; it's updated for Power Construct etc */
 	baseMaxhp: number;

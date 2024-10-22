@@ -1,5 +1,40 @@
 import {Dex, toID} from "../../../sim/dex";
 
+function calculateParentalBond(move: ActiveMove, baseDamage: number, battle: Battle): number {
+	if (move.multihitType === "parentalbond" && move.hit > 1) {
+		// Parental Bond modifier
+		const bondModifier = battle.gen > 6 ? 0.25 : 0.5;
+		battle.debug(`Parental Bond modifier: ${bondModifier}`);
+		return battle.modify(baseDamage, bondModifier);
+	} else if ((move.multihitType === 'boxer' || move.multihitType === 'maw') && move.hit > 1) {
+		// Boxer & Primal Maw modifier
+		const bondModifier = 0.5;
+		battle.debug(`Raging Boxer / Primal Maw modifier: ${bondModifier}`);
+		return battle.modify(baseDamage, bondModifier);
+	} else if (move.multihitType === "minion" && move.hit > 1) {
+		// Minion modifier
+		const minionModifier = 0.1;
+		battle.debug(`Minion modifier: ${minionModifier}`);
+		return battle.modify(baseDamage, minionModifier);
+	} else if (move.multihitType === 'headed') {
+		let bondModifier;
+		if (move.hit === 2) bondModifier = 0.2;
+		if (move.hit >= 3) bondModifier = 0.15;
+		if (bondModifier) {
+			battle.debug(`Multi-Headed modifier: ${bondModifier}`);
+			return battle.modify(baseDamage, bondModifier);
+		}
+	} else if (move.multihitType === 'dual') {
+		const bondModifier = 0.75;
+		return battle.modify(baseDamage, bondModifier);
+	} else if (move.multihitType === "ragingmoth") {
+		const bondModifier = 0.75;
+		return battle.modify(baseDamage, bondModifier);
+	}
+
+	return baseDamage;
+}
+
 export const Scripts: ModdedBattleScriptsData = {
 	gen: 8,
 	init(this: ModdedDex) {},
@@ -59,35 +94,8 @@ export const Scripts: ModdedBattleScriptsData = {
 					(this.battle.gameType === "freeforall" ? 0.5 : 0.75);
 				this.battle.debug("Spread modifier: " + spreadModifier);
 				baseDamage = this.battle.modify(baseDamage, spreadModifier);
-			} else if (move.multihitType === "parentalbond" && move.hit > 1) {
-				// Parental Bond modifier
-				const bondModifier = this.battle.gen > 6 ? 0.25 : 0.5;
-				this.battle.debug(`Parental Bond modifier: ${bondModifier}`);
-				baseDamage = this.battle.modify(baseDamage, bondModifier);
-			} else if ((move.multihitType === 'boxer' || move.multihitType === 'maw') && move.hit > 1) {
-				// Boxer & Primal Maw modifier
-				const bondModifier = 0.5;
-				this.battle.debug(`Raging Boxer / Primal Maw modifier: ${bondModifier}`);
-				baseDamage = this.battle.modify(baseDamage, bondModifier);
-			} else if (move.multihitType === "minion" && move.hit > 1) {
-				// Minion modifier
-				const minionModifier = 0.1;
-				this.battle.debug(`Minion modifier: ${minionModifier}`);
-				baseDamage = this.battle.modify(baseDamage, minionModifier);
-			} else if (move.multihitType === 'headed') {
-				let bondModifier;
-				if (move.hit === 2) bondModifier = 0.2;
-				if (move.hit >= 3) bondModifier = 0.15;
-				if (bondModifier) {
-					this.battle.debug(`Multi-Headed modifier: ${bondModifier}`);
-					baseDamage = this.battle.modify(baseDamage, bondModifier);
-				}
-			} else if (move.multihitType === 'dual') {
-				const bondModifier = 0.75;
-				baseDamage = this.battle.modify(baseDamage, bondModifier);
-			} else if (move.multihitType === "ragingmoth") {
-				const bondModifier = 0.75;
-				baseDamage = this.battle.modify(baseDamage, bondModifier);
+			} else {
+				baseDamage = calculateParentalBond(move, baseDamage, this.battle);
 			}
 
 			// weather modifier
@@ -190,11 +198,15 @@ export const Scripts: ModdedBattleScriptsData = {
 			}
 
 			if (move.ohko) return target.maxhp;
-			if (move.damageCallback) return move.damageCallback.call(this.battle, source, target);
+			if (move.damageCallback) {
+				const damage = move.damageCallback.call(this.battle, source, target);
+				if (damage === false) return damage;
+				else return calculateParentalBond(move, damage, this.battle);
+			}
 			if (move.damage === 'level') {
-				return (move.multihitType === 'minion' && move.hit > 1) ? source.level * 0.1 : source.level;
+				return calculateParentalBond(move, source.level, this.battle);
 			} else if (move.damage) {
-				return move.damage;
+				return calculateParentalBond(move, move.damage, this.battle);
 			}
 
 			const category = this.battle.getCategory(move);

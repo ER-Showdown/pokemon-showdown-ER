@@ -1442,6 +1442,10 @@ export class TeamValidator {
 			return `${tierSpecies.name} cannot Gigantamax but is flagged as being able to.`;
 		}
 
+		//Remove illegal mons
+		if(tierSpecies.tier == 'Illegal') return `${tierSpecies.name} is illegal.`
+		if(species.tier == 'Illegal') return `${species.name} is illegal.`
+
 		let banReason = ruleTable.check('pokemon:' + species.id);
 		if (banReason) {
 			return `${species.name} is ${banReason}.`;

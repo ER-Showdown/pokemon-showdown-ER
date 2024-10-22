@@ -90,7 +90,9 @@ Main's SSL deploy script from Let's Encrypt looks like:
  *   know what you are doing
  * @type {false | string[]}.
  */
-exports.proxyip = false;
+exports.proxyip = [
+	"169.254.169.126"
+];
 
 /**
  * Various debug options
@@ -267,12 +269,12 @@ exports.monitorminpunishments = 3;
 /**
  * Turns off all time-based throttles - rename, challenges, laddering, etc.
  */
-exports.nothrottle = true;
+exports.nothrottle = false;
 
 /**
  * Removes all ip-based alt checking.
  */
-exports.noipchecks = true;
+exports.noipchecks = false;
 
 /**
  * controls the behavior of the /battlesearch command

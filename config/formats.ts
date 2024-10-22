@@ -24,6 +24,7 @@ export const Formats: FormatList = [
 	{
 		section: "Elite Redux Singles",
 	},
+
 	{
 		name: "Elite Redux OU",
 		desc: `OU for Elite Redux`,
@@ -34,6 +35,8 @@ export const Formats: FormatList = [
 			"AG",
 			"Watch Your Step",
 			"Fearmonger",
+			"Shadow Tag",
+			"Arena Trap"
 		],
 		debug: true,
 
@@ -467,6 +470,8 @@ export const Formats: FormatList = [
 			"UU",
 			"Fearmonger",
 			"Watch Your Step",
+			"Shadow Tag",
+			"Arena Trap"
 		],
 		debug: true,
 

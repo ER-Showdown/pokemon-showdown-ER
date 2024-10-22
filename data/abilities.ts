@@ -7649,7 +7649,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 			];
 			if (twoHeaded.includes(source.species.id)) {
 				move.multihit = 2;
-				move.multihitType = "headed";
+				move.multihitType = "parentalbond";
 			}
 			if (threeHeaded.includes(source.species.id)) {
 				move.multihit = 3;
@@ -9445,8 +9445,8 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	},
 	coward: {
 		onStart(pokemon) {
-			if (this.effectState.wasCoward) return;
-			this.effectState.wasCoward = true;
+			if (pokemon.permanentAbilityState['coward']) return;
+			pokemon.permanentAbilityState['coward'] = true;
 			this.actions.useMove(Dex.moves.get("protect"), pokemon);
 		},
 		name: "Coward",
@@ -10471,6 +10471,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 		name: "Tactical Retreat",
 		shortDesc: "Flees when stats are lowered.",
 		onAfterEachBoost(boost, target, source, effect) {
+			if (target.permanentAbilityState['tacticalretreat']) return;
 			let statsLowered = false;
 			let i: BoostID;
 			for (i in boost) {
@@ -10489,6 +10490,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 						active.switchFlag = false;
 					}
 				}
+				target.permanentAbilityState['tacticalretreat'] = true;
 				target.switchFlag = true;
 				this.add("-activate", target, "ability: Tactical Retreat");
 			}
@@ -10530,9 +10532,7 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 			duration: 1,
 			countFullRounds: true,
 			onModifyAtk(atk, source, target, move) {
-				if (source.activeMoveActions === 0) {
-					return this.chainModify(2.0);
-				}
+				return this.chainModify(2.0);
 			},
 		},
 	},
@@ -10946,19 +10946,13 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 			duration: 1,
 			countFullRounds: true,
 			onModifyMove(move, attacker, defender) {
-				if (attacker.activeMoveActions === 0) {
-					move.willCrit = true;
-				}
+				move.willCrit = true;
 			},
 			onModifyAtk(atk, source, target, move) {
-				if (source.activeMoveActions === 0) {
-					return this.chainModify(1.2);
-				}
+				return this.chainModify(1.2);
 			},
 			onModifySpe(spe, source) {
-				if (source.activeMoveActions === 0) {
-					return this.chainModify(1.5);
-				}
+				return this.chainModify(1.5);
 			},
 		},
 	},
@@ -12549,14 +12543,10 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 			duration: 1,
 			countFullRounds: true,
 			onModifySpA(atk, source, target, move) {
-				if (source.activeMoveActions === 0) {
-					return this.chainModify(1.2);
-				}
+				return this.chainModify(1.2);
 			},
 			onModifySpe(spe, source) {
-				if (source.activeMoveActions === 0) {
-					return this.chainModify(1.5);
-				}
+				return this.chainModify(1.5);
 			},
 		},
 	},
@@ -12616,16 +12606,11 @@ export const Abilities: { [abilityid: string]: AbilityData } = {
 	wishmaker: {
 		name: "Wishmaker",
 		shortDesc: "Uses Wish on switch-in, three uses per battle",
-		onSwitchIn(pokemon) {
-			if (this.effectState.wishCount === 0) return;
-			if (!this.effectState.wishCount) {
-				this.effectState.wishCount = 3;
-			} else {
-				this.effectState.wishCount--;
-			}
-		},
 		onStart(pokemon) {
-			if (!this.effectState.wishCount) return;
+			const counter = (pokemon.permanentAbilityState['wishmaker'] as number || 0) + 1;
+			if (counter >= 3) return;
+			pokemon.permanentAbilityState['wishmaker'] = counter;
+
 			this.actions.useMove(Dex.moves.get("wish"), pokemon);
 			pokemon.activeMoveActions = 0;
 		},
